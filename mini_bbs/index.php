@@ -98,7 +98,7 @@ if (isset($_GET['res'])) {
                 <?php echo $msg ?>
                 [<a href="index.php?res=<?php echo $id ?>">Re</a>]
             </p>
-            <p class="day"><?php echo $time ?></p>
+            <p class="day"><a href="view.php?id=<?php echo $id ?>"><?php echo $time ?></a></p>
         </div>
     <?php endforeach ?>    
   </div>
