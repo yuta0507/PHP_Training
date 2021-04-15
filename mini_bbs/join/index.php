@@ -40,8 +40,6 @@ if (!empty($_POST)) {
         //画像をアップロードする
         $image = date('YmdHis') . $_FILES['image']['name'];
         move_uploaded_file($_FILES['image']['tmp_name'], "../member_picture/$image");
-        //アップロードされた画像ファイルに権限を与える
-        chmod("/var/www/html/mini_bbs/member_picture/$image", 0777);
 
         $_SESSION['join'] = $_POST;
         $_SESSION['join']['image'] = $image;
@@ -101,7 +99,7 @@ if ($_GET['action'] == 'rewrite') {
                 <input type="password" name="password" size="10" maxlength="20" 
                 value="<?php echo htmlspecialchars($_POST['password'], ENT_QUOTES) ?>" />
                 <?php if ($error['password'] == 'blank'): ?>
-                <p class="error">*パスワードを入力してください</p>
+                    <p class="error">*パスワードを入力してください</p>
                 <?php endif ?>
                 <?php if ($error['password'] == 'length'): ?>
                 <p class="error">*パスワードは4文字以上で設定してください</p>
