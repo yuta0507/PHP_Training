@@ -98,19 +98,19 @@ function makeLink($value) {
     <h1>ひとこと掲示板</h1>
   </div>
   <div id="content">
-    <div style="text-align: right;"><a href="logout.php">ログアウト</a></div>
+    <div style="text-align: right;"><a id="logout" href="logout.php">ログアウト</a></div>
     <form action="" method="POST">
         <dl>
             <dt>
                 <?php echo h($member['name']) ?>さん、メッセージをどうぞ
             </dt>
             <dd>
-                <textarea name="message" cols="50" rows="5"><?php echo h($message) ?></textarea>
+                <textarea id="message" name="message" cols="50" rows="5"><?php echo h($message) ?></textarea>
                 <input type="hidden" name="reply_post_id" value="<?php echo h($_GET['res']) ?>">
             </dd>
         </dl>
         <div>
-            <input type="submit" value="投稿する">
+            <input id="post" type="submit" value="投稿する">
         </div>
     </form>
 
