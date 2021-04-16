@@ -70,7 +70,7 @@ function h($value) {
             <dl>
                 <dt>メールアドレス</dt>
                 <dd>
-                    <input type="text" name="email" size="35" maxlength="255" 
+                    <input id="email" type="text" name="email" size="35" maxlength="255" 
                     value="<?php echo h($_POST['email']) ?>"/>
                     <?php if ($error['login'] == 'blank'): ?>
                         <p class="error">*メールアドレスとパスワードをご記入ください</p>
@@ -81,7 +81,7 @@ function h($value) {
                 </dd>
                 <dt>パスワード</dt>
                 <dd>
-                    <input type="password" name="password" size="35" maxlength="255" 
+                    <input id="password" type="password" name="password" size="35" maxlength="255" 
                     value="<?php echo h($_POST['password']) ?>"/>
                 </dd>
                 <dt>ログイン情報の記録</dt>
@@ -90,7 +90,7 @@ function h($value) {
                     <label for="save">次回からは自動的にログインする</label>
                 </dd>
             </dl>
-            <div><input type="submit" value="ログインする"></div>
+            <div><input id="login" type="submit" value="ログインする"></div>
         </form>
     </div>
 
