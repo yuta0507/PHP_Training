@@ -93,6 +93,7 @@ function makeLink($value) {
 </head>
 
 <body>
+<script type="text/javascript" src="confirm.js"></script>
 <div id="wrap">
   <div id="head">
     <h1>ひとこと掲示板</h1>
@@ -128,7 +129,8 @@ function makeLink($value) {
                     <a href="view.php?id=<?php echo h($post['reply_post_id']) ?>">返信元のメッセージ</a>
                 <?php endif ?>
                 <?php if ($_SESSION['id'] == $post['member_id']): ?>
-                    [<a href="delete.php?id=<?php echo h($post['id']) ?>" style="color: #F33;" >削除</a>]
+                    [<a href="#" onclick="Confirm();" style="color: #F33;" >削除</a>]
+                    <a id="delete" href="delete.php?id=<?php echo h($post['id'])?>"></a>
                 <?php endif ?>
             </p>
         </div>
