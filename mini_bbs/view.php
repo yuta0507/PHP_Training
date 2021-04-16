@@ -12,6 +12,11 @@ $posts = $db->prepare(
     WHERE m.id=p.member_id AND p.id=? ORDER BY p.created DESC'
 );
 $posts->execute(array($_GET['id']));
+
+//htmlspecialchars()のfunction
+function h($value) {
+  return htmlspecialchars($value, ENT_QUOTES);
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -32,22 +37,17 @@ $posts->execute(array($_GET['id']));
   <div id="content">
     <p>&laquo;<a href="index.php">一覧に戻る</a></p>
     <?php if ($post = $posts->fetch()): ?>
-    <div class="msg">
-        <?php
-            $pic_name = htmlspecialchars($post['picture'], ENT_QUOTES);
-            $msg = htmlspecialchars($post['message'], ENT_QUOTES);
-            $post_name = htmlspecialchars($post['name'], ENT_QUOTES);
-            $time = htmlspecialchars($post['created'], ENT_QUOTES);
-            $id = htmlspecialchars($post['id'], ENT_QUOTES);
-        ?>
-        <img src="member_picture/<?php echo $pic_name ?>" alt="<?php echo $name ?>" width="48" height="48" />
+      <div class="msg">
+        <img src="member_picture/<?php echo h($post['picture']) ?>" alt="<?php echo h($post['name']) ?>" width="48" height="48" />
         <p>
-            <span class="name"><?php echo $post_name ?>:</span>
-            <?php echo $msg ?>
-            [<a href="index.php?res=<?php echo $id ?>">Re</a>]
+          <span class="name"><?php echo h($post['name']) ?>:</span>
+          <?php echo h($post['message']) ?>
+          [<a href="index.php?res=<?php echo h($post['id']) ?>">Re</a>]
         </p>
-        <p class="day"><?php echo $time ?></p>
-    </div>
+        <p class="day">
+          <a href="view.php?id=<?php echo h($post['id']) ?>"><?php echo h($post['created']) ?></a>
+        </p>
+      </div>
     <?php else: ?>
         <p>その投稿は削除されたか、URLが間違っています</p>
     <?php endif ?>
