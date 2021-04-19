@@ -16,7 +16,6 @@ if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
 }
 
 //投稿を記録する
-
 if (!empty($_POST)) {
     if ($_POST['message'] != '') {
         if ($_POST['reply_post_id'] == '') {
@@ -99,7 +98,10 @@ function makeLink($value) {
     <h1>ひとこと掲示板</h1>
   </div>
   <div id="content">
-    <div style="text-align: right;"><a id="logout" href="logout.php">ログアウト</a></div>
+    <div style="text-align: right;">
+        <a href="edit_profile.php" id="edit">プロフィール編集</a>
+        <a id="logout" href="logout.php">ログアウト</a>
+    </div>
     <form action="" method="POST">
         <dl>
             <dt>
