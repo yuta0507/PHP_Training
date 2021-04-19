@@ -36,7 +36,7 @@ if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
     </div>
     <div id="content">
         <dl>
-            <dt>プロフィール画像</dt>
+            <dt>プロフィール画像<a href="edit/edit_picture.php" class="editing">【編集】</a></dt>
             <dd><img src="member_picture/<?php echo htmlspecialchars($member['picture'], ENT_QUOTES) ?>"  width="100" height="100" /></dd>
             <dt>ニックネーム<a class="editing" href="edit/edit_name.php">【編集】</a></dt>
             <dd><?php echo htmlspecialchars($member['name'], ENT_QUOTES) ?></dd>

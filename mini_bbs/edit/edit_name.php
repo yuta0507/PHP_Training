@@ -10,7 +10,7 @@ if (!empty($_POST)) {
 
 if (empty($error) && !empty($_POST['name'])) {
     $statement = $db->prepare(
-        'UPDATE members SET name=? WHERE id=?'
+        'UPDATE members SET name=?, modified=NOW() WHERE id=?'
     );
     $statement->execute(array($_POST['name'], $_SESSION['id']));
     
