@@ -20,7 +20,7 @@ if (!empty($_POST)) {
 
 if (empty($error) && !empty($_POST)) {
     $statement = $db->prepare(
-        'UPDATE members SET password=? WHERE id=?'
+        'UPDATE members SET password=?, modified=NOW() WHERE id=?'
     );
     $statement->execute(array(sha1($_POST['password']), $_SESSION['id']));
 
