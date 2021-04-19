@@ -42,7 +42,7 @@ if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
             <dd><?php echo htmlspecialchars($member['name'], ENT_QUOTES) ?></dd>
             <dt>メールアドレス<a href="edit/edit_email.php" class="editing">【編集】</a></dt>
             <dd><?php echo htmlspecialchars($member['email'], ENT_QUOTES) ?></dd>
-            <dt>パスワード</dt>
+            <dt>パスワード<a href="edit/edit_password.php" class="editing">【編集】</a></dt>
             <dd>【表示できません】</dd>
         </dl>
         <p><a href="index.php">戻る</a></p>

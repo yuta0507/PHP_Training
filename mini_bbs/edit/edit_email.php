@@ -10,21 +10,29 @@ if (!empty($_POST)) {
     if ($_POST['re_email'] == '') {
         $error = 'blank';
     }
+    if ($_POST['email'] != $_POST['re_email']) {
+        $error = 'mismatch';
+    }
+    //重複アカウントのチェック
+    $member = $db->prepare(
+        'SELECT COUNT(*) AS cnt FROM members WHERE email=?'
+    );
+    $member->execute(array($_POST['email']));
+    $record = $member->fetch();
+    if ($record['cnt'] > 0) {
+        $error = 'duplicate';
+    }
 }
 
-//入力メールアドレス2つが一致する場合のみ更新
-if (!empty($_POST['email']) && !empty($_POST['re_email'])) {
-    if ($_POST['email'] == $_POST['re_email']) {
-        $statement = $db->prepare(
-            'UPDATE members SET email=? WHERE id=?'
-        );
-        $statement->execute(array($_POST['email'], $_SESSION['id']));
-        
-        header('Location: ../edit_profile.php');
-        exit();
-    } else {
-        $error = 'failed';
-    }
+
+if (empty($error) && !empty($_POST)) {
+    $statement = $db->prepare(
+        'UPDATE members SET email=? WHERE id=?'
+    );
+    $statement->execute(array($_POST['email'], $_SESSION['id']));
+    
+    header('Location: ../edit_profile.php');
+    exit();
 }
 ?>
 
@@ -57,6 +65,9 @@ if (!empty($_POST['email']) && !empty($_POST['re_email'])) {
                         <input type="text" name="re_email", size="35", maxlength="255",
                         value="<?php echo htmlspecialchars($_POST['re_email'], ENT_QUOTES) ?>" />
                     </dd>
+                    <?php if ($error == 'duplicate'): ?>
+                        <p class="error">*重複のため、そのメールアドレスは使用できません</p>
+                    <?php endif ?>    
                     <?php if (!empty($error)): ?>
                         <p class="error">*再度入力してください</p>
                     <?php endif ?>

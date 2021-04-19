@@ -8,7 +8,7 @@ if (!empty($_POST)) {
     }
 }
 
-if (!empty($_POST['name'])) {
+if (empty($error) && !empty($_POST['name'])) {
     $statement = $db->prepare(
         'UPDATE members SET name=? WHERE id=?'
     );
