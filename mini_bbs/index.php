@@ -92,7 +92,7 @@ function makeLink($value) {
 </head>
 
 <body>
-<script type="text/javascript" src="confirm.js"></script>
+<script type="text/javascript" src="scripts/confirm.js"></script>
 <div id="wrap">
   <div id="head">
     <h1>ひとこと掲示板</h1>
