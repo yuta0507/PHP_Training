@@ -2,8 +2,8 @@
 require_once('../dbconnect.php');
 session_start();
 
+//エラー項目の確認
 if (!empty($_POST)) {
-    //エラー項目の確認
     if ($_POST['password'] != $_POST['re_password']) {
         $error = 'mismatch';
     }

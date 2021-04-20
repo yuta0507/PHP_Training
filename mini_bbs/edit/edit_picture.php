@@ -2,7 +2,7 @@
 require_once('../dbconnect.php');
 session_start();
 
-//エラーチャック
+//エラー項目の確認
 if (!empty($_FILES)) {
     $fileName = $_FILES['image']['name'];
     if (!empty($fileName)) {
