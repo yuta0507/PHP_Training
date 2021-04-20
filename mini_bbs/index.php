@@ -34,7 +34,7 @@ if (!empty($_POST)) {
     }
 }
 
-//投稿を取得する
+//ページを取得する
 $page = $_GET['page'];
 if ($page == '') {
     $page = 1;
@@ -49,6 +49,7 @@ $page = min($page, $maxPage);
 
 $start = ($page - 1) * 5;
 
+//投稿を取得する
 $posts = $db->prepare(
     'SELECT m.name, m.picture, p.* FROM members m, posts p WHERE m.id=p.member_id ORDER BY p.created DESC LIMIT ?, 5'
 );
