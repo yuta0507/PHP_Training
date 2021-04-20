@@ -16,6 +16,10 @@ if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
     exit();
 }
 
+function h($value) {
+    return htmlspecialchars($value, ENT_QUOTES);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -36,13 +40,13 @@ if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
     </div>
     <div id="content">
         <dl>
-            <dt>プロフィール画像<a href="edit/edit_picture.php" class="editing">【編集】</a></dt>
-            <dd><img src="member_picture/<?php echo htmlspecialchars($member['picture'], ENT_QUOTES) ?>"  width="100" height="100" /></dd>
-            <dt>ニックネーム<a class="editing" href="edit/edit_name.php">【編集】</a></dt>
-            <dd><?php echo htmlspecialchars($member['name'], ENT_QUOTES) ?></dd>
-            <dt>メールアドレス<a href="edit/edit_email.php" class="editing">【編集】</a></dt>
-            <dd><?php echo htmlspecialchars($member['email'], ENT_QUOTES) ?></dd>
-            <dt>パスワード<a href="edit/edit_password.php" class="editing">【編集】</a></dt>
+            <dt>プロフィール画像【<a href="edit/edit_picture.php" class="editing">編集</a>】</dt>
+            <dd><img src="member_picture/<?php echo h($member['picture']) ?>"  width="100" height="100" /></dd>
+            <dt>ニックネーム【<a class="editing" href="edit/edit_name.php">編集</a>】</dt>
+            <dd><?php echo h($member['name']) ?></dd>
+            <dt>メールアドレス【<a href="edit/edit_email.php" class="editing">編集</a>】</dt>
+            <dd><?php echo h($member['email']) ?></dd>
+            <dt>パスワード【<a href="edit/edit_password.php" class="editing">編集</a>】</dt>
             <dd>【表示できません】</dd>
         </dl>
         <p><a href="index.php">戻る</a></p>
