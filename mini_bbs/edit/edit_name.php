@@ -2,6 +2,7 @@
 require_once('../dbconnect.php');
 session_start();
 
+//エラー項目の確認
 if (!empty($_POST)) {
     if ($_POST['name'] == '') {
         $error = 'blank';
