@@ -1,0 +1,64 @@
+/* ↓ 共通のstyle ↓*/
+table {
+    border-collapse: collapse;
+}
+table th, table td {
+    border: solid 1.5px black;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+table th input {
+    width: 120px;
+}
+
+.button {
+    display       : inline-block;
+    border-radius : 10px;         
+    font-size     : 12px;        
+    text-align    : center;
+    text-decoration: none;      
+    cursor        : pointer;     
+    padding       : 12px 24px;
+    margin: 20px 0;   
+    background    : #a9ccee;     
+    color         : #000000;        
+    border        : 2px solid #a9ccee;  
+}
+
+table a {
+    text-decoration: none;
+    color: deepskyblue;
+}
+
+/* ↓ index.phpのstyle ↓ */
+.index-table th {
+    width: 100px;
+    height: 40px;
+}
+
+/* ↓ signup.phpのstyle ↓*/
+.signup-table th {
+    height: 30px;
+}
+
+.signup-table .left {
+    width: 120px;
+}
+
+.signup-table .right {
+    width: 250px;
+}
+
+/* ↓ signup.phpのstyle ↓ */
+.edit-table th {
+    height: 30px;
+}
+
+.edit-table .left {
+    width: 120px;
+}
+
+.edit-table .right {
+    width: 250px;
+}
