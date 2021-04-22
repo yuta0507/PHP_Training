@@ -16,20 +16,34 @@ require_once'../required_files/functions.php';
 
 $company_id = $_GET['company_id'];
 
+//company_idがない場合は会社一覧に戻る
 if (empty($company_id)) {
     header('Location: ../index.php');
     exit();
 }
 
-$employees = $db->prepare(
-    'SELECT * from employees WHERE company_id=?'
-);
-$employees->execute(array($company_id));
+if ($_GET['order']) {
+    $employees = $db->prepare(
+        'SELECT * from employees WHERE company_id=? ORDER BY id DESC'
+    );
+    $employees->execute(array($company_id));
+
+    $href = "index.php?company_id=".$company_id;
+} else {
+    $employees = $db->prepare(
+        'SELECT * from employees WHERE company_id=? ORDER BY id ASC'
+    );
+    $employees->execute(array($company_id));
+
+    $href = "index.php?company_id=".$company_id."&order=desc";
+}
+
+
 
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="jp">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -43,7 +57,9 @@ $employees->execute(array($company_id));
     <div class="index-table" >
         <table border="1">
             <tr>
-                <th>ID</th>
+                <th>
+                    <a href=<?php echo $href ?>>ID</a>
+                </th>
                 <th>社員名</th>
                 <th>部署</th>
                 <th>Tel</th>

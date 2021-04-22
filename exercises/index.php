@@ -15,31 +15,25 @@ require_once'required_files/dbconnect.php';
 require_once'required_files/functions.php';
 
 //IDによる昇順降順の並び替えbySQL
-if (!empty($_GET['order'])) {
+if ($_GET['order'] === 'desc') {
     $companies = $db->query(
-        'SELECT * from companies ORDER BY id DESC'
-    );
-    $companies->execute();    
-} else {
-    $companies = $db->query(
-        'SELECT * from companies ORDER BY id ASC'
+        'SELECT * from companies WHERE deleted IS NULL ORDER BY id DESC'
     );
     $companies->execute();
-}
-
-//削除された会社のIDを登録
-$deleted_companies = $db->query(
-    'SELECT id from companies WHERE deleted IS NOT NULL'
-);
-$deleted_companies->execute();
-
-foreach ($deleted_companies as $deleted_company) {
-    $deleted_id[] = h($deleted_company['id']);
+    
+    $href = "index.php";
+} else {
+    $companies = $db->query(
+        'SELECT * from companies WHERE deleted IS NULL ORDER BY id ASC'
+    );
+    $companies->execute();
+    
+    $href = "index.php?order=desc";
 }
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -53,13 +47,7 @@ foreach ($deleted_companies as $deleted_company) {
     <div class="index-table" >
         <table border="1">
             <tr>
-                <?php $URI = $_SERVER['REQUEST_URI'] ?>
-                <?php if ($URI == '/exercises/index.php' ) : ?>
-                    <th><a href="index.php?order=desc">ID</a></th>
-                <?php endif ?>
-                <?php if ($URI == '/exercises/index.php?order=desc' ) : ?>
-                    <th><a href="index.php">ID</a></th>
-                <?php endif ?>
+                <th><a href=<?php echo $href ?>>ID</a></th>
                 <th>会社名</th>
                 <th>代表</th>
                 <th>Tel</th>
@@ -70,23 +58,21 @@ foreach ($deleted_companies as $deleted_company) {
                 <th>削除</th>
             </tr>
             <?php foreach ($companies as $company): ?>
-                <?php if (!array_search(h($company['id']), $deleted_id)) : ?>    
-                    <tr>
-                        <th><?php echo h($company['id']) ?></th>
-                        <th>
-                            <a href="employee/index.php?company_id=<?php echo h($company['id']) ?>">
-                                <?php echo h($company['company_name']) ?>
-                            </a>
-                        </th>
-                        <th><?php echo h($company['representative_name']) ?></th>
-                        <th><?php echo h($company['phone_number']) ?></th>
-                        <th><?php echo h($company['address']) ?></th>
-                        <th><?php echo h($company['mail_address']) ?></th>
-                        <th></th>
-                        <th><a href="edit.php?id=<?php echo h($company['id']) ?>">編集</a></th>
-                        <th><a href="delete.php?id=<?php echo h($company['id']) ?>">削除</a></th>
-                    </tr>
-                <?php endif ?>    
+                <tr>
+                    <th><?php echo h($company['id']) ?></th>
+                    <th>
+                        <a href="employee/index.php?company_id=<?php echo h($company['id']) ?>">
+                            <?php echo h($company['company_name']) ?>
+                        </a>
+                    </th>
+                    <th><?php echo h($company['representative_name']) ?></th>
+                    <th><?php echo h($company['phone_number']) ?></th>
+                    <th><?php echo h($company['address']) ?></th>
+                    <th><?php echo h($company['mail_address']) ?></th>
+                    <th></th>
+                    <th><a href="edit.php?id=<?php echo h($company['id']) ?>">編集</a></th>
+                    <th><a href="delete.php?id=<?php echo h($company['id']) ?>">削除</a></th>
+                </tr>
             <?php endforeach ?>    
         </table>
     </div>
