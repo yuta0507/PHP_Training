@@ -14,7 +14,7 @@
 require_once'required_files/dbconnect.php';
 require_once'required_files/functions.php';
 
-//IDによる昇順降順の並び替え
+//IDによる昇順降順の並び替えbySQL
 if (!empty($_GET['order'])) {
     $companies = $db->query(
         'SELECT * from companies ORDER BY id DESC'
@@ -73,7 +73,11 @@ foreach ($deleted_companies as $deleted_company) {
                 <?php if (!array_search(h($company['id']), $deleted_id)) : ?>    
                     <tr>
                         <th><?php echo h($company['id']) ?></th>
-                        <th><?php echo h($company['company_name']) ?></th>
+                        <th>
+                            <a href="employee/index.php?company_id=<?php echo h($company['id']) ?>">
+                                <?php echo h($company['company_name']) ?>
+                            </a>
+                        </th>
                         <th><?php echo h($company['representative_name']) ?></th>
                         <th><?php echo h($company['phone_number']) ?></th>
                         <th><?php echo h($company['address']) ?></th>
