@@ -87,7 +87,7 @@ if (empty($error) && !empty($_POST)) {
 </head>
 <body>
     <form action="edit.php?id=<?php echo h($_GET['id']) ?>" method="POST">
-        <div class="edit-table">
+        <div class="table">
             <table border="1">
                 <tr>
                     <th class="left">会社名</th>
@@ -117,7 +117,9 @@ if (empty($error) && !empty($_POST)) {
                         <input type="text" name="postal_code" 
                         maxlength="7" value="Textbox" class="th-right" />
                         <br>
-                        <label for="prefectures_code" class="th-left">都道府県</label>    
+                        <label for="prefectures_code" class="th-left">
+                            都道府県
+                        </label>    
                         <select name="prefectures_code" class="th-right">
                             <option value="" selected>items</option>
                             <option value="1">北海道</option>

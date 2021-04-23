@@ -96,7 +96,7 @@ if (empty($error) && !empty($_POST)) {
 </head>
 <body>
     <form action="signup.php?company_id=<?php echo $company_id ?>" method="POST">
-        <div class="signup-table">
+        <div class="table">
             <table border="1">
                 <tr>
                     <th class="left">社員名</th>
