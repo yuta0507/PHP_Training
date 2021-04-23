@@ -15,7 +15,7 @@ require_once'../required_files/dbconnect.php';
 
 $company_id = $_GET['company_id'];
 
-//company_idがついてない場合は会社一覧に戻る
+//company_idがない場合は会社一覧に戻る
 if (empty($company_id)) {
     header('Location: ../index.php');
     exit();

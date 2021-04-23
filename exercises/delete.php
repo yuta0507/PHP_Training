@@ -12,13 +12,14 @@
  * */ 
 
 require_once'required_files/dbconnect.php';
+require_once'required_files/functions.php';
 
-$id = $_GET['id'];
+$id = h($_GET['id']);
 
 $statement = $db->prepare(
-    'UPDATE companies SET deleted=NOW() WHERE id=?'
+    'UPDATE companies SET modified=NOW(), deleted=NOW() WHERE id=?'
 );
-$statement->execute(array($id));
+$statement->execute([$id]);
 
 header('Location: index.php');
 exit();

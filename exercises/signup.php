@@ -73,7 +73,7 @@ if (empty($error) && !empty($_POST)) {
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="jp">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -109,12 +109,12 @@ if (empty($error) && !empty($_POST)) {
                 <tr>
                     <th class="left">住所</th>
                     <th class="right">
-                        郵便番号
+                        <label for="postal_code" class="th-left">郵便番号</label> 
                         <input type="text" name="postal_code" 
-                        maxlength="7" value="Textbox"/>
+                        maxlength="7" value="Textbox" class="th-right" />
                         <br>
-                        都道府県
-                        <select name="prefectures_code" >
+                        <label for="prefectures_code" class="th-left">都道府県</label>    
+                        <select name="prefectures_code" class="th-right">
                             <option value="" selected>items</option>
                             <option value="1">北海道</option>
                             <option value="2">青森県</option>
@@ -165,9 +165,9 @@ if (empty($error) && !empty($_POST)) {
                             <option value="47">沖縄県</option>
                         </select>
                         <br>
-                        住所
+                        <label for="address" class="th-left">住所</label> 
                         <input type="text" name="address" 
-                        maxlength="100" value="Textbox"/>
+                        maxlength="100" value="Textbox" class="th-right"/>
                     </th>
                 </tr>
                 <tr>

@@ -92,7 +92,7 @@ foreach ($deleted_companies as $deleted_company) {
                 <th>編集</th>
                 <th>削除</th>
             </tr>
-            <?php if ($_GET['order']) : ?>
+            <?php if ($_GET['order'] === 'desc') : ?>
                 <?php for ($j=$max_i-1; $j>=0; $j--): ?>
                     <?php if (!array_search($table[$j]['id'], $deleted_id)) : ?>    
                         <tr>
