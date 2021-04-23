@@ -1,8 +1,13 @@
 /* ↓ 共通のstyle ↓*/
+.error {
+    color: red;
+    font-size: 12px;
+}
+
 table {
     border-collapse: collapse;
 }
-table th, table td {
+table th {
     border: solid 1.5px black;
     font-size: 12px;
     font-weight: normal;
@@ -31,34 +36,50 @@ table a {
     color: deepskyblue;
 }
 
+
 /* ↓ index.phpのstyle ↓ */
 .index-table th {
     width: 100px;
     height: 40px;
 }
 
-/* ↓ signup.phpのstyle ↓*/
-.signup-table th {
+/* ↓ signup.php, edit.php のstyle ↓*/
+.table th {
     height: 30px;
 }
 
-.signup-table .left {
+.table .left {
     width: 120px;
 }
 
-.signup-table .right {
+.table .right {
     width: 250px;
 }
 
-/* ↓ edit.phpのstyle ↓ */
-.edit-table th {
-    height: 30px;
+.address {
+    height: 100px;
 }
 
-.edit-table .left {
-    width: 120px;
+.address-right {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 80%;
 }
 
-.edit-table .right {
-    width: 250px;
+.add-left {
+    text-align: left;
+}
+
+.add-left label {
+    display: inline-block;
+    margin: 2px 0 9px 0;
+}
+
+.add-right {
+    text-align: center;
+}
+
+.add-right select {
+    margin: 10px 0;
 }

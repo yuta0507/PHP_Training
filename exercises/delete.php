@@ -16,12 +16,19 @@ require_once'required_files/functions.php';
 
 $id = h($_GET['id']);
 
-$statement = $db->prepare(
-    'UPDATE companies SET modified=NOW(), deleted=NOW() WHERE id=?'
-);
-$statement->execute([$id]);
-
-header('Location: index.php');
-exit();
-
+if (empty($id)) {
+    header('Location: index.php');
+    exit();
+} else {
+    //削除記録がないときのみ実行
+    $statement = $db->prepare(
+        'UPDATE companies SET modified=NOW(), deleted=NOW() 
+        WHERE id=? AND deleted IS NULL'
+    );
+    $statement->bindParam(':deleted_id', $id, PDO::PARAM_INT);
+    $statement->execute([$id]);
+    
+    header('Location: index.php');
+    exit();
+}
 ?>
