@@ -47,6 +47,11 @@ if ($_GET['order'] === 'desc') {
     $href = "index.php?order=desc";
 }
 
+//リンクURL
+$employee_index = "employee/index.php?company_id=";
+$edit = "edit.php?id=";
+$delete = "delete.php?id=";
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -77,8 +82,7 @@ if ($_GET['order'] === 'desc') {
                 <tr>
                     <th><?php echo h($company['id']) ?></th>
                     <th>
-                        <a href="employee/index.php
-                        ?company_id=<?php echo h($company['id']) ?>">
+                        <a href=<?php echo $employee_index. h($company['id']) ?>>
                             <?php echo h($company['company_name']) ?>
                         </a>
                     </th>
@@ -88,10 +92,10 @@ if ($_GET['order'] === 'desc') {
                     <th><?php echo h($company['mail_address']) ?></th>
                     <th><?php echo h($company['cnt']) ?></th>
                     <th>
-                        <a href="edit.php?id=<?php echo h($company['id']) ?>">編集</a>
+                        <a href=<?php echo $edit. h($company['id']) ?>>編集</a>
                     </th>
-                    <th><
-                        a href="delete.php?id=<?php echo h($company['id']) ?>">削除</a>
+                    <th>
+                        <a href=<?php echo $delete. h($company['id']) ?>>削除</a>
                     </th>
                 </tr>
             <?php endforeach ?>    
