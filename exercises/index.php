@@ -17,7 +17,6 @@ require_once'required_files/functions.php';
 //IDによる昇順降順の並び替えbySQL
 if ($_GET['order'] === 'desc') {
     $companies = $db->query(
-        // 'SELECT * from companies WHERE deleted IS NULL ORDER BY id DESC'
         'SELECT c.*, COUNT(e.id) AS cnt
         FROM companies c  
         LEFT OUTER JOIN employees e 
@@ -32,7 +31,6 @@ if ($_GET['order'] === 'desc') {
     $href = "index.php";
 } else {
     $companies = $db->query(
-        // 'SELECT * from companies WHERE deleted IS NULL ORDER BY id ASC'
         'SELECT c.*, COUNT(e.id) AS cnt
         FROM companies c  
         LEFT OUTER JOIN employees e 
@@ -47,7 +45,8 @@ if ($_GET['order'] === 'desc') {
     $href = "index.php?order=desc";
 }
 
-//リンクURL
+//リンク
+$index = "index.php";
 $signup = "signup.php";
 $employee_index = "employee/index.php?company_id=";
 $edit = "edit.php?id=";
@@ -64,8 +63,11 @@ $delete = "delete.php?id=";
     <title>Exercise</title>
 </head>
 <body>
-    <h1>会社一覧</h1>
+    <h1><a href=<?php echo $index ?> class="heading">会社一覧</a></h1>
     <a href=<?php echo $signup ?> class="button">新規登録</a>
+    <?php if (h($_GET['delete'] === 'completed')) : ?>
+        <p class="delete">削除が完了しました</p>
+    <?php endif ?>
     <div class="index-table" >
         <table border="1">
             <tr>

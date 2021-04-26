@@ -28,7 +28,7 @@ if (empty($id)) {
     $statement->bindParam(':deleted_id', $id, PDO::PARAM_INT);
     $statement->execute([$id]);
     
-    header('Location: index.php');
+    header('Location: index.php?delete=completed');
     exit();
 }
 ?>

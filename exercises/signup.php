@@ -182,7 +182,7 @@ if (empty($error) && !empty($_POST)) {
                 </tr>
             </table>
         </div>
-        <input type="submit" class="button" value="登録">
+        <input type="submit" class="button-submit" value="登録">
     </form>
 </body>
 </html> 

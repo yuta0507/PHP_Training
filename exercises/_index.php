@@ -28,7 +28,9 @@ $companies = $db->query(
 $companies->execute();
 
 $i = 0;
-$column = ['id', 'company_name', 'representative_name', 'phone_number','address', 'mail_address', 'cnt'];
+$row = ['ID', '会社名', '代表', 'Tel', '住所', 'Mail', '社員数'];
+$column = ['id', 'company_name', 'representative_name', 'phone_number', 'address', 'mail_address', 'cnt'];
+$row_len = count($row);
 $column_len = count($column);
 
 foreach ($companies as $company) {
@@ -58,19 +60,14 @@ if ($_GET['order'] === 'desc') {
 </head>
 <body>
     <h1>会社一覧</h1>
-    <a href="signup.php" class="button">新規登録</a>
+    <a href="signup.php" class="button">新規登録</a><br>
+    <a href=<?php echo $href ?>>並び替え</a>
     <div class="index-table" >
         <table border="1">
             <tr>
-                <th><a href=<?php echo $href ?>>ID</a></th>
-                <th>会社名</th>
-                <th>代表</th>
-                <th>Tel</th>
-                <th>住所</th>
-                <th>Mail</th>
-                <th>社員数</th>
-                <th>編集</th>
-                <th>削除</th>
+                <?php for ($i = 0; $i < $row_len; $i++): ?>
+                    <th><?php echo $row[$i] ?></th>
+                <?php endfor ?>    
             </tr>
             <?php if ($_GET['order'] === 'desc') : ?>
                 <?php for ($i = 0; $i < $max_i; $i++): ?>
@@ -78,8 +75,6 @@ if ($_GET['order'] === 'desc') {
                         <?php for ($j = 0; $j < $column_len; $j++) : ?>
                             <th><?php echo $table[$i][$column[$j]] ?></th>
                         <?php endfor ?>
-                            <th><a href="edit.php?id=<?php echo $table[$i]['id'] ?>">編集</a></th>
-                            <th><a href="delete.php?id=<?php echo $table[$i]['id'] ?>">削除</a></th>
                     </tr>
                 <?php endfor ?>
             <?php else : ?>
@@ -88,8 +83,6 @@ if ($_GET['order'] === 'desc') {
                         <?php for ($j = 0; $j < $column_len; $j++) : ?>
                             <th><?php echo $table[$i][$column[$j]] ?></th>
                         <?php endfor ?>
-                        <th><a href="edit.php?id=<?php echo $table[$i]['id'] ?>">編集</a></th>
-                        <th><a href="delete.php?id=<?php echo $table[$i]['id'] ?>">削除</a></th>
                     </tr>
                 <?php endfor ?>
             <?php endif ?>        

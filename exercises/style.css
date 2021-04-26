@@ -1,5 +1,14 @@
 /* ↓ 共通のstyle ↓*/
-.error {
+h1 {
+    margin: 0;
+}
+
+.heading {
+    text-decoration: none;
+    color: black;
+}
+
+.error, .delete {
     color: red;
     font-size: 12px;
 }
@@ -7,6 +16,7 @@
 table {
     border-collapse: collapse;
 }
+
 table th {
     border: solid 1.5px black;
     font-size: 12px;
@@ -17,24 +27,40 @@ table th input {
     width: 120px;
 }
 
+table a {
+    text-decoration: none;
+    color: deepskyblue;
+}
+
 .button {
     display       : inline-block;
     border-radius : 10px;         
     font-size     : 12px;        
     text-align    : center;
     text-decoration: none;      
-    cursor        : pointer;     
-    padding       : 12px 24px;
+    cursor        : pointer;
+    padding: 10px 24px;
     margin: 20px 0;   
-    background    : #a9ccee;     
+    background    : #cbe1f6;     
     color         : #000000;        
-    border        : 2px solid #a9ccee;  
+    border        : 1.5px solid #a2c8ec;  
 }
 
-table a {
-    text-decoration: none;
-    color: deepskyblue;
+.button-submit {
+    display       : inline-block;
+    border-radius : 10px;         
+    font-size     : 12px;        
+    text-align    : center;
+    text-decoration: none;      
+    cursor        : pointer;
+    width: 99px;
+    height: 41px;
+    margin: 20px 0;   
+    background    : #cbe1f6;     
+    color         : #000000;        
+    border        : 1.5px solid #a2c8ec;
 }
+
 
 
 /* ↓ index.phpのstyle ↓ */
