@@ -39,11 +39,7 @@ if (!empty($_POST)) {
     }
 }
 
-if ($error) {
-    echo "error";
-}
-
-$id = intval($_GET['id']);
+$id = h($_GET['id']);
 
 if (empty($error) && !empty($_POST)) {
     $statement = $db->prepare(
@@ -83,10 +79,13 @@ if (empty($error) && !empty($_POST)) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>SignUp</title>
+    <title>Edit</title>
 </head>
 <body>
-    <form action="edit.php?id=<?php echo h($_GET['id']) ?>" method="POST">
+    <?php if ($error) : ?>
+        <p class="error">*入力されていない箇所があります。再度入力してください</p>
+    <?php endif ?> 
+    <form action="" method="POST">
         <div class="table">
             <table border="1">
                 <tr>
@@ -110,19 +109,19 @@ if (empty($error) && !empty($_POST)) {
                         maxlength="11" value="Textbox"/>
                     </th>
                 </tr>
-                <tr>
+                <tr class="address">
                     <th class="left">住所</th>
                     <th class="right">
                         <div class="address-right">
                             <div class="add-left">
                                 <label for="postal_code">郵便番号</label> 
-                                <label for="prefectures_code">都道府県</label>    
+                                <label for="prefectures_code">都道府県</label>   
                                 <label for="address">住所</label> 
                             </div>
                             <div class="add-right">
                                 <input type="text" name="postal_code" 
                                 maxlength="7" value="Textbox" />
-                                <select name="prefectures_code">
+                                <select name="prefectures_code" >
                                     <option value="" selected>items</option>
                                     <option value="1">北海道</option>
                                     <option value="2">青森県</option>

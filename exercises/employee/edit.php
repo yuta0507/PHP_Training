@@ -1,25 +1,35 @@
 <?php
 /** 
- * 会社登録 
+ * 社員情報編集 
  * 
  * PHP Version >= 7.2.24
  * 
  * @category Exercise
- * @package  SignUp
+ * @package  Edit
  * @author   Yuta Kikkawa <kikkawa@ye-p.co.jp>
  * @license  MIT License
- * @link     http://192.168.2.62/exercises/signup.php
- * */ 
+ * @link     http://192.168.2.62/exercises/employee/edit.php
+ * */
 
-require_once'required_files/dbconnect.php';
+require_once'../required_files/dbconnect.php';
+require_once'../required_files/functions.php';
 
-//エラー項目確認
+$id = h($_GET['id']);
+$company_id = h($_GET['company_id']);
+
+//company_idがない場合は会社一覧に戻る
+if (empty($id)) {
+    header('Location: ../index.php');
+    exit();
+}
+
+//エラーチェック
 if (!empty($_POST)) {
-    if ($_POST['company_name'] == '') {
-        $error['company_name'] = 'blank';
+    if ($_POST['employee_name'] == '') {
+        $error['employee_name'] = 'blank';
     }
-    if ($_POST['representative_name'] == '') {
-        $error['representative_name'] = 'blank';
+    if ($_POST['division_name'] == '') {
+        $error['division_name'] = 'blank';
     }
     if ($_POST['phone_number'] == '') {
         $error['phone_number'] = 'blank';
@@ -39,33 +49,37 @@ if (!empty($_POST)) {
 }
 
 if (empty($error) && !empty($_POST)) {
-    $statement = $db->prepare(
-        'INSERT INTO companies SET 
-        company_name=?, 
-        representative_name=?, 
-        phone_number=?, 
-        postal_code=?, 
-        prefectures_code=?, 
-        address=?, 
+    $employees = $db->prepare(
+        'UPDATE employees SET
+        employee_name=?,
+        division_name=?,
+        phone_number=?,
+        postal_code=?,
+        prefectures_code=?,
+        address=?,
         mail_address=?, 
-        created=NOW(), 
-        modified=NOW()'
+        modified=NOW()
+        WHERE id=?
+        '
     );
-    $statement->execute(
+    $employees->execute(
         [
-            $_POST['company_name'],
-            $_POST['representative_name'],
-            $_POST['phone_number'],
+            $_POST['employee_name'],
+            $_POST['division_name'],
+            $_POST['phone_number'], 
             $_POST['postal_code'],
             $_POST['prefectures_code'],
             $_POST['address'],
-            $_POST['mail_address']
+            $_POST['mail_address'],
+            $id
         ]
     );
-
-    header('Location: index.php');
+    
+    $url = "index.php?company_id=" .$company_id;
+    header('Location:' .$url);
     exit();
 }
+
 
 ?>
 <!DOCTYPE html>
@@ -74,27 +88,27 @@ if (empty($error) && !empty($_POST)) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>SignUp</title>
+    <link rel="stylesheet" href="../style.css">
+    <title>Document</title>
 </head>
 <body>
     <?php if ($error) : ?>
         <p class="error">*入力されていない箇所があります。再度入力してください</p>
     <?php endif ?> 
     <form action="" method="POST">
-        <div class="table">
+    <div class="table">
             <table border="1">
                 <tr>
-                    <th class="left">会社名</th>
+                    <th class="left">社員名</th>
                     <th>
-                        <input type="text" name="company_name" 
-                        maxlength="50" value="Textbox"/>
+                        <input type="text" name="employee_name" 
+                        maxlength="20" value="Textbox"/>
                     </th>
                 </tr>
                 <tr>
-                    <th class="left">代表</th>
+                    <th class="left">部署</th>
                     <th class="right">
-                        <input type="text" name="representative_name" 
+                        <input type="text" name="division_name" 
                         maxlength="20" value="Textbox"/>
                     </th>
                 </tr>
@@ -185,4 +199,4 @@ if (empty($error) && !empty($_POST)) {
         <input type="submit" class="button" value="登録">
     </form>
 </body>
-</html> 
+</html>
