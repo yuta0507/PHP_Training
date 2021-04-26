@@ -26,20 +26,21 @@ if ($_GET['order']) {
     $employees = $db->prepare(
         'SELECT * from employees WHERE company_id=? AND deleted IS NULL ORDER BY id DESC'
     );
-    $employees->execute(array($company_id));
+    $employees->execute([$company_id]);
 
     $href = "index.php?company_id=".$company_id;
 } else {
     $employees = $db->prepare(
         'SELECT * from employees WHERE company_id=? AND deleted IS NULL ORDER BY id ASC'
     );
-    $employees->execute(array($company_id));
+    $employees->execute([$company_id]);
 
     $href = "index.php?company_id=".$company_id."&order=desc";
 }
 
 
-//リンクURL
+//リンク
+$index = "index.php?company_id=".$company_id;
 $signup = "signup.php?company_id=".$company_id;
 $edit = "edit.php?company_id=".$company_id."&id=";
 $delete = "delete.php?company_id=".$company_id."&id=";
@@ -55,8 +56,11 @@ $delete = "delete.php?company_id=".$company_id."&id=";
     <title>Exercise</title>
 </head>
 <body>
-    <h1>社員一覧</h1>
+    <h1><a href=<?php echo $index ?> class="heading">社員一覧</a></h1>
     <a href=<?php echo $signup ?> class="button">新規登録</a>
+    <?php if (h($_GET['delete']) === 'completed') : ?>
+        <p class="delete">削除が完了しました</p>
+    <?php endif ?>
     <div class="index-table" >
         <table border="1">
             <tr>

@@ -28,7 +28,7 @@ if (empty($id)) {
     $statement->bindParam(':deleted_id', $id, PDO::PARAM_INT);
     $statement->execute([$id]);
 
-    $url = "index.php?company_id=".$company_id;
+    $url = "index.php?company_id=".$company_id."&delete=completed";
     header('Location:'.$url);
     exit();
 }
