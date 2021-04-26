@@ -99,7 +99,7 @@ if (empty($error) && !empty($_POST)) {
             <table border="1">
                 <tr>
                     <th class="left">社員名</th>
-                    <th>
+                    <th class="right">
                         <input type="text" name="employee_name" 
                         maxlength="20" value="Textbox"/>
                     </th>
