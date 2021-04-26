@@ -48,6 +48,7 @@ if ($_GET['order'] === 'desc') {
 }
 
 //リンクURL
+$signup = "signup.php";
 $employee_index = "employee/index.php?company_id=";
 $edit = "edit.php?id=";
 $delete = "delete.php?id=";
@@ -64,7 +65,7 @@ $delete = "delete.php?id=";
 </head>
 <body>
     <h1>会社一覧</h1>
-    <a href="signup.php" class="button">新規登録</a>
+    <a href=<?php echo $signup ?> class="button">新規登録</a>
     <div class="index-table" >
         <table border="1">
             <tr>

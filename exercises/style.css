@@ -64,7 +64,7 @@ table a {
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
-    width: 80%;
+    width: 90%;
 }
 
 .add-left {
@@ -82,4 +82,5 @@ table a {
 
 .add-right select {
     margin: 10px 0;
+    width: 90%;
 }

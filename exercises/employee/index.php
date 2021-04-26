@@ -14,7 +14,7 @@
 require_once'../required_files/dbconnect.php';
 require_once'../required_files/functions.php';
 
-$company_id = $_GET['company_id'];
+$company_id = h($_GET['company_id']);
 
 //company_idがない場合は会社一覧に戻る
 if (empty($company_id)) {
@@ -39,11 +39,14 @@ if ($_GET['order']) {
 }
 
 
-
+//リンクURL
+$signup = "signup.php?company_id=".$company_id;
+$edit = "edit.php?company_id=".$company_id."&id=";
+$delete = "delete.php?id=";
 
 ?>
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -53,7 +56,7 @@ if ($_GET['order']) {
 </head>
 <body>
     <h1>社員一覧</h1>
-    <a href="signup.php?company_id=<?php echo $company_id ?>" class="button">新規登録</a>
+    <a href=<?php echo $signup ?> class="button">新規登録</a>
     <div class="index-table" >
         <table border="1">
             <tr>
@@ -88,8 +91,8 @@ if ($_GET['order']) {
                     <th>
                         <?php echo h($employee['mail_address']) ?>
                     </th>
-                    <th><a href="#">編集</a></th>
-                    <th><a href="#">削除</a></th>
+                    <th><a href=<?php echo $edit. h($employee['id']) ?>>編集</a></th>
+                    <th><a href=<?php echo $delete. h($employee['id']) ?>>削除</a></th>
                 </tr>
             <?php endforeach ?>
         </table>
