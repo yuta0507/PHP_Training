@@ -24,14 +24,14 @@ if (empty($company_id)) {
 
 if ($_GET['order']) {
     $employees = $db->prepare(
-        'SELECT * from employees WHERE company_id=? ORDER BY id DESC'
+        'SELECT * from employees WHERE company_id=? AND deleted IS NULL ORDER BY id DESC'
     );
     $employees->execute(array($company_id));
 
     $href = "index.php?company_id=".$company_id;
 } else {
     $employees = $db->prepare(
-        'SELECT * from employees WHERE company_id=? ORDER BY id ASC'
+        'SELECT * from employees WHERE company_id=? AND deleted IS NULL ORDER BY id ASC'
     );
     $employees->execute(array($company_id));
 
@@ -42,7 +42,7 @@ if ($_GET['order']) {
 //リンクURL
 $signup = "signup.php?company_id=".$company_id;
 $edit = "edit.php?company_id=".$company_id."&id=";
-$delete = "delete.php?id=";
+$delete = "delete.php?company_id=".$company_id."&id=";
 
 ?>
 <!DOCTYPE html>
