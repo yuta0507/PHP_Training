@@ -1,6 +1,6 @@
 <?PHP
 /** 
- * 会社一覧 
+ * 会社削除
  * 
  * PHP Version >= 7.2.24
  * 
@@ -8,7 +8,7 @@
  * @package  Delete
  * @author   Yuta Kikkawa <kikkawa@ye-p.co.jp>
  * @license  MIT License
- * @link     http://192.168.2.62/exercises/index.php
+ * @link     http://192.168.2.62/exercises/delete.php
  * */ 
 
 require_once'required_files/dbconnect.php';
