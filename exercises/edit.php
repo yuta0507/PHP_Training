@@ -89,8 +89,12 @@ if (empty($error) && !empty($_POST)) {
         <div class="table">
             <table border="1">
                 <tr>
+                    <th class="left">ID</th>
+                    <th class="right"><?php echo $id ?></th>
+                </tr>
+                <tr>
                     <th class="left">会社名</th>
-                    <th>
+                    <th class="right">
                         <input type="text" name="company_name" 
                         maxlength="50" value="Textbox"/>
                     </th>
