@@ -109,8 +109,9 @@ if (empty($error) && !empty($_POST)) {
                 <tr>
                     <th class="left">Tel</th>
                     <th class="right">
-                        <input type="text" name="phone_number" 
-                        maxlength="11" placeholder="Textbox"/>
+                        <input type="tel" name="phone_number" 
+                        maxlength="11" placeholder="Textbox"
+                        oninput="value = value.replace(/[^0-9]+/i,'');"/>
                     </th>
                 </tr>
                 <tr class="address">
@@ -124,7 +125,8 @@ if (empty($error) && !empty($_POST)) {
                             </div>
                             <div class="add-right">
                                 <input type="text" name="postal_code" 
-                                maxlength="7" placeholder="Textbox" />
+                                maxlength="7" placeholder="Textbox" 
+                                oninput="value = value.replace(/[^0-9]+/i,'');"/>
                                 <select name="prefectures_code" >
                                     <option value="" selected>items</option>
                                     <option value="1">北海道</option>
