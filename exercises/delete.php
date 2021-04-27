@@ -14,7 +14,7 @@
 require_once'required_files/dbconnect.php';
 require_once'required_files/functions.php';
 
-$id = h($_GET['id']);
+$id = h($_POST['id']);
 
 if (empty($id)) {
     header('Location: index.php');

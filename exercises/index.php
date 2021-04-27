@@ -63,6 +63,7 @@ $delete = "delete.php?id=";
     <title>Exercise</title>
 </head>
 <body>
+    <script type="text/javascript" src="scripts/main.js"></script>
     <h1>
         <a href=<?php echo $index ?> class="heading">会社一覧</a>
     </h1>
@@ -112,7 +113,10 @@ $delete = "delete.php?id=";
                         <a href=<?php echo $edit. h($company['id']) ?>>編集</a>
                     </th>
                     <th>
-                        <a href=<?php echo $delete. h($company['id']) ?>>削除</a>
+                        <form name="delete_form" action="delete.php" method="POST">
+                            <input type="hidden" name="id" value="<?php echo h($company['id']) ?>">
+                            <input type="submit" value="削除">
+                        </form>
                     </th>
                 </tr>
             <?php endforeach ?>    

@@ -45,7 +45,7 @@ if ($_GET['order']) {
 $index = "index.php?company_id=".$company_id;
 $signup = "signup.php?company_id=".$company_id;
 $edit = "edit.php?company_id=".$company_id."&id=";
-$delete = "delete.php?company_id=".$company_id."&id=";
+$delete = "delete.php?company_id=".$company_id;
 
 ?>
 <!DOCTYPE html>
@@ -97,8 +97,15 @@ $delete = "delete.php?company_id=".$company_id."&id=";
                     <th>
                         <?php echo h($employee['mail_address']) ?>
                     </th>
-                    <th><a href=<?php echo $edit. h($employee['id']) ?>>編集</a></th>
-                    <th><a href=<?php echo $delete. h($employee['id']) ?>>削除</a></th>
+                    <th>
+                        <a href=<?php echo $edit. h($employee['id']) ?>>編集</a>
+                    </th>
+                    <th>
+                        <form name="delete_form" action="<?php echo $delete ?>" method="POST">
+                            <input type="hidden" name="id" value="<?php echo h($employee['id']) ?>">
+                            <input type="submit" value="削除">
+                        </form>
+                    </th>
                 </tr>
             <?php endforeach ?>
         </table>
