@@ -30,7 +30,6 @@ $companies->execute();
 $i = 0;
 $row = ['ID', '会社名', '代表', 'Tel', '住所', 'Mail', '社員数'];
 $column = ['id', 'company_name', 'representative_name', 'phone_number', 'address', 'mail_address', 'cnt'];
-$row_len = count($row);
 $column_len = count($column);
 
 foreach ($companies as $company) {
@@ -65,9 +64,9 @@ if ($_GET['order'] === 'desc') {
     <div class="index-table" >
         <table border="1">
             <tr>
-                <?php for ($i = 0; $i < $row_len; $i++): ?>
-                    <th><?php echo $row[$i] ?></th>
-                <?php endfor ?>    
+                <?php foreach ($row as $value): ?>
+                    <th><?php echo $value ?></th>
+                <?php endforeach ?>    
             </tr>
             <?php if ($_GET['order'] === 'desc') : ?>
                 <?php for ($i = 0; $i < $max_i; $i++): ?>

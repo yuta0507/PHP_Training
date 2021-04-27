@@ -101,21 +101,21 @@ if (empty($error) && !empty($_POST)) {
                     <th class="left">社員名</th>
                     <th class="right">
                         <input type="text" name="employee_name" 
-                        maxlength="20" value="Textbox"/>
+                        maxlength="20" placeholder="Textbox"/>
                     </th>
                 </tr>
                 <tr>
                     <th class="left">部署</th>
                     <th class="right">
                         <input type="text" name="division_name" 
-                        maxlength="20" value="Textbox"/>
+                        maxlength="20" placeholder="Textbox"/>
                     </th>
                 </tr>
                 <tr>
                     <th class="left">Tel</th>
                     <th class="right">
                         <input type="text" name="phone_number" 
-                        maxlength="11" value="Textbox"/>
+                        maxlength="11" placeholder="Textbox"/>
                     </th>
                 </tr>
                 <tr class="address">
@@ -129,7 +129,7 @@ if (empty($error) && !empty($_POST)) {
                             </div>
                             <div class="add-right">
                                 <input type="text" name="postal_code" 
-                                maxlength="7" value="Textbox" />
+                                maxlength="7" placeholder="Textbox" />
                                 <select name="prefectures_code" >
                                     <option value="" selected>items</option>
                                     <option value="1">北海道</option>
@@ -181,7 +181,7 @@ if (empty($error) && !empty($_POST)) {
                                     <option value="47">沖縄県</option>
                                 </select>
                                 <input type="text" name="address" 
-                                maxlength="100" value="Textbox"/>
+                                maxlength="100" placeholder="Textbox"/>
                             </div>
                         </div>
                     </th>
@@ -190,7 +190,7 @@ if (empty($error) && !empty($_POST)) {
                     <th class="left">Mail</th>
                     <th class="right">
                         <input type="text" name="mail_address" 
-                        maxlength="100" value="Textbox"/>
+                        maxlength="100" placeholder="Textbox"/>
                     </th>
                 </tr>
             </table>

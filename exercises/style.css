@@ -8,7 +8,7 @@ h1 {
     color: black;
 }
 
-.error, .delete {
+.error, .success {
     color: red;
     font-size: 12px;
 }
@@ -70,6 +70,10 @@ table a {
 }
 
 /* ↓ signup.php, edit.php のstyle ↓*/
+input::placeholder {
+    color: black;
+}
+
 .table th {
     height: 30px;
 }

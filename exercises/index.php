@@ -63,10 +63,12 @@ $delete = "delete.php?id=";
     <title>Exercise</title>
 </head>
 <body>
-    <h1><a href=<?php echo $index ?> class="heading">会社一覧</a></h1>
+    <h1>
+        <a href=<?php echo $index ?> class="heading">会社一覧</a>
+    </h1>
     <a href=<?php echo $signup ?> class="button">新規登録</a>
     <?php if (h($_GET['delete'] === 'completed')) : ?>
-        <p class="delete">削除が完了しました</p>
+        <p class="success">削除が完了しました</p>
     <?php endif ?>
     <div class="index-table" >
         <table border="1">
@@ -83,17 +85,29 @@ $delete = "delete.php?id=";
             </tr>
             <?php foreach ($companies as $company): ?>
                 <tr>
-                    <th><?php echo h($company['id']) ?></th>
+                    <th>
+                        <?php echo h($company['id']) ?>
+                    </th>
                     <th>
                         <a href=<?php echo $employee_index. h($company['id']) ?>>
                             <?php echo h($company['company_name']) ?>
                         </a>
                     </th>
-                    <th><?php echo h($company['representative_name']) ?></th>
-                    <th><?php echo h($company['phone_number']) ?></th>
-                    <th><?php echo h($company['address']) ?></th>
-                    <th><?php echo h($company['mail_address']) ?></th>
-                    <th><?php echo h($company['cnt']) ?></th>
+                    <th>
+                        <?php echo h($company['representative_name']) ?>
+                    </th>
+                    <th>
+                        <?php echo h($company['phone_number']) ?>
+                    </th>
+                    <th>
+                        <?php echo h($company['address']) ?>
+                    </th>
+                    <th>
+                        <?php echo h($company['mail_address']) ?>
+                    </th>
+                    <th>
+                        <?php echo h($company['cnt']) ?>
+                    </th>
                     <th>
                         <a href=<?php echo $edit. h($company['id']) ?>>編集</a>
                     </th>
