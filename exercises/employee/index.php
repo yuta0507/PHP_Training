@@ -24,14 +24,16 @@ if (empty($company_id)) {
 
 if ($_GET['order']) {
     $employees = $db->prepare(
-        'SELECT * from employees WHERE company_id=? AND deleted IS NULL ORDER BY id DESC'
+        'SELECT * from employees 
+        WHERE company_id=? AND deleted IS NULL ORDER BY id DESC'
     );
     $employees->execute([$company_id]);
 
     $href = "index.php?company_id=".$company_id;
 } else {
     $employees = $db->prepare(
-        'SELECT * from employees WHERE company_id=? AND deleted IS NULL ORDER BY id ASC'
+        'SELECT * from employees 
+        WHERE company_id=? AND deleted IS NULL ORDER BY id ASC'
     );
     $employees->execute([$company_id]);
 
@@ -59,7 +61,7 @@ $delete = "delete.php?company_id=".$company_id."&id=";
     <h1><a href=<?php echo $index ?> class="heading">社員一覧</a></h1>
     <a href=<?php echo $signup ?> class="button">新規登録</a>
     <?php if (h($_GET['delete']) === 'completed') : ?>
-        <p class="delete">削除が完了しました</p>
+        <p class="success">削除が完了しました</p>
     <?php endif ?>
     <div class="index-table" >
         <table border="1">
