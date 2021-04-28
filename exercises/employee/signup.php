@@ -13,6 +13,7 @@
 
 require_once'../required_files/dbconnect.php';
 require_once'../required_files/functions.php';
+session_start();
 
 $company_id = h($_GET['company_id']);
 
@@ -47,7 +48,7 @@ if (!empty($_POST)) {
     }
 }
 
-//DBに登録
+//データベースに登録
 if (empty($error) && !empty($_POST)) {
     $employees = $db->prepare(
         'INSERT INTO employees SET
@@ -75,6 +76,7 @@ if (empty($error) && !empty($_POST)) {
         ]
     );
 
+    $_SESSION['signup']['employee'] = 'completed';
     $url = "index.php?company_id=" .$company_id;
     header('Location:' .$url);
     exit();
@@ -87,7 +89,7 @@ if (empty($error) && !empty($_POST)) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../styles/style.css">
     <title>SignUp</title>
 </head>
 <body>
@@ -101,14 +103,16 @@ if (empty($error) && !empty($_POST)) {
                     <th class="left">社員名</th>
                     <th class="right">
                         <input type="text" name="employee_name" 
-                        maxlength="20" placeholder="Textbox"/>
+                        maxlength="20" placeholder="Textbox"
+                        value="<?php echo h($_POST['employee_name']) ?>"/>
                     </th>
                 </tr>
                 <tr>
                     <th class="left">部署</th>
                     <th class="right">
                         <input type="text" name="division_name" 
-                        maxlength="20" placeholder="Textbox"/>
+                        maxlength="20" placeholder="Textbox"
+                        value="<?php echo h($_POST['division_name']) ?>"/>
                     </th>
                 </tr>
                 <tr>
@@ -116,7 +120,8 @@ if (empty($error) && !empty($_POST)) {
                     <th class="right">
                         <input type="tel" name="phone_number" 
                         maxlength="11" placeholder="Textbox"
-                        oninput="value = value.replace(/[^0-9]+/i,'');"/>
+                        oninput="value = value.replace(/[^0-9]+/i,'');"
+                        value="<?php echo h($_POST['phone_number']) ?>"/>
                     </th>
                 </tr>
                 <tr class="address">
@@ -131,7 +136,8 @@ if (empty($error) && !empty($_POST)) {
                             <div class="add-right">
                                 <input type="text" name="postal_code" 
                                 maxlength="7" placeholder="Textbox" 
-                                oninput="value = value.replace(/[^0-9]+/i,'');"/>
+                                oninput="value = value.replace(/[^0-9]+/i,'');"
+                                value="<?php echo h($_POST['postal_code']) ?>"/>
                                 <select name="prefectures_code" >
                                     <option value="" selected>items</option>
                                     <option value="1">北海道</option>
@@ -183,7 +189,8 @@ if (empty($error) && !empty($_POST)) {
                                     <option value="47">沖縄県</option>
                                 </select>
                                 <input type="text" name="address" 
-                                maxlength="100" placeholder="Textbox"/>
+                                maxlength="100" placeholder="Textbox"
+                                value="<?php echo h($_POST['address']) ?>"/>
                             </div>
                         </div>
                     </th>
@@ -192,7 +199,8 @@ if (empty($error) && !empty($_POST)) {
                     <th class="left">Mail</th>
                     <th class="right">
                         <input type="text" name="mail_address" 
-                        maxlength="100" placeholder="Textbox"/>
+                        maxlength="100" placeholder="Textbox"
+                        value="<?php echo h($_POST['mail_address']) ?>"/>
                     </th>
                 </tr>
             </table>

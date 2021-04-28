@@ -13,6 +13,7 @@
 
 require_once'../required_files/dbconnect.php';
 require_once'../required_files/functions.php';
+session_start();
 
 $company_id = h($_GET['company_id']);
 
@@ -22,6 +23,7 @@ if (empty($company_id)) {
     exit();
 }
 
+//データベース参照
 if ($_GET['order']) {
     $employees = $db->prepare(
         'SELECT * from employees 
@@ -54,14 +56,23 @@ $delete = "delete.php?company_id=".$company_id;
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../styles/style.css">
     <title>Exercise</title>
 </head>
 <body>
     <h1><a href=<?php echo $index ?> class="heading">社員一覧</a></h1>
     <a href=<?php echo $signup ?> class="button">新規登録</a>
-    <?php if (h($_GET['delete']) === 'completed') : ?>
+    <?php if ($_SESSION['signup']['employee'] === 'completed') : ?>
+        <p class="success">新規登録が完了しました</p>
+        <?php unset($_SESSION['signup']['employee']) ?>
+    <?php endif ?>
+    <?php if ($_SESSION['edit']['employee'] === 'completed') : ?>
+        <p class="success">編集が完了しました</p>
+        <?php unset($_SESSION['edit']['employee']) ?>
+    <?php endif ?>
+    <?php if ($_SESSION['delete']['employee'] === 'completed') : ?>
         <p class="success">削除が完了しました</p>
+        <?php unset($_SESSION['delete']['employee']) ?>
     <?php endif ?>
     <div class="index-table" >
         <table border="1">
@@ -101,9 +112,12 @@ $delete = "delete.php?company_id=".$company_id;
                         <a href=<?php echo $edit. h($employee['id']) ?>>編集</a>
                     </th>
                     <th>
-                        <form name="delete_form" action="<?php echo $delete ?>" method="POST">
-                            <input type="hidden" name="id" value="<?php echo h($employee['id']) ?>">
-                            <input type="submit" onclick="return confirm('本当に削除しますか？')" value="削除">
+                        <form name="delete_form" 
+                        action="<?php echo $delete ?>" method="POST">
+                            <input type="hidden" name="id" 
+                            value="<?php echo h($employee['id']) ?>">
+                            <input type="submit" 
+                            onclick="return confirm('本当に削除しますか？')" value="削除">
                         </form>
                     </th>
                 </tr>

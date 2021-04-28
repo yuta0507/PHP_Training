@@ -13,8 +13,9 @@
 
 require_once'required_files/dbconnect.php';
 require_once'required_files/functions.php';
+session_start();
 
-//IDによる昇順降順の並び替えbySQL
+//データベース参照
 if ($_GET['order'] === 'desc') {
     $companies = $db->query(
         'SELECT c.*, COUNT(e.id) AS cnt
@@ -59,17 +60,25 @@ $delete = "delete.php?id=";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/style.css">
     <title>Exercise</title>
 </head>
 <body>
-    <script type="text/javascript" src="scripts/main.js"></script>
     <h1>
         <a href=<?php echo $index ?> class="heading">会社一覧</a>
     </h1>
     <a href=<?php echo $signup ?> class="button">新規登録</a>
-    <?php if (h($_GET['delete'] === 'completed')) : ?>
+    <?php if ($_SESSION['signup']['company'] === 'completed') : ?>
+        <p class="success">新規登録が完了しました</p>
+        <?php unset($_SESSION['signup']['company']) ?>
+    <?php endif ?>
+    <?php if ($_SESSION['edit']['company'] === 'completed') : ?>
+        <p class="success">編集が完了しました</p>
+        <?php unset($_SESSION['edit']['company']) ?>
+    <?php endif ?>
+    <?php if ($_SESSION['delete']['company'] === 'completed') : ?>
         <p class="success">削除が完了しました</p>
+        <?php unset($_SESSION['delete']['company']) ?>
     <?php endif ?>
     <div class="index-table" >
         <table border="1">
@@ -114,8 +123,10 @@ $delete = "delete.php?id=";
                     </th>
                     <th>
                         <form name="delete_form" action="delete.php" method="POST">
-                            <input type="hidden" name="id" value="<?php echo h($company['id']) ?>">
-                            <input type="submit" onclick="return confirm('本当に削除しますか？')" value="削除">
+                            <input type="hidden" name="id" 
+                            value="<?php echo h($company['id']) ?>">
+                            <input type="submit" 
+                            onclick="return confirm('本当に削除しますか？')" value="削除">
                         </form>
                     </th>
                 </tr>

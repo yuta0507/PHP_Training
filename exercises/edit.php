@@ -13,6 +13,7 @@
 
 require_once'required_files/dbconnect.php';
 require_once'required_files/functions.php';
+session_start();
 
 //エラー項目確認
 if (!empty($_POST)) {
@@ -39,6 +40,7 @@ if (!empty($_POST)) {
     }
 }
 
+//データベースに登録
 $id = h($_GET['id']);
 
 if (empty($error) && !empty($_POST)) {
@@ -67,6 +69,7 @@ if (empty($error) && !empty($_POST)) {
         ]
     );
 
+    $_SESSION['edit']['company'] = 'completed';
     header('Location: index.php');
     exit();
 }
@@ -78,7 +81,7 @@ if (empty($error) && !empty($_POST)) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/style.css">
     <title>Edit</title>
 </head>
 <body>
@@ -96,14 +99,16 @@ if (empty($error) && !empty($_POST)) {
                     <th class="left">会社名</th>
                     <th class="right">
                         <input type="text" name="company_name" 
-                        maxlength="50" placeholder="Textbox"/>
+                        maxlength="50" placeholder="Textbox"
+                        value="<?php echo h($_POST['company_name']) ?>"/>
                     </th>
                 </tr>
                 <tr>
                     <th class="left">代表</th>
                     <th class="right">
                         <input type="text" name="representative_name" 
-                        maxlength="20" placeholder="Textbox"/>
+                        maxlength="20" placeholder="Textbox"
+                        value="<?php echo h($_POST['representative_name']) ?>"/>
                     </th>
                 </tr>
                 <tr>
@@ -111,7 +116,8 @@ if (empty($error) && !empty($_POST)) {
                     <th class="right">
                         <input type="tel" name="phone_number" 
                         maxlength="11" placeholder="Textbox"
-                        oninput="value = value.replace(/[^0-9]+/i,'');"/>
+                        oninput="value = value.replace(/[^0-9]+/i,'');"
+                        value="<?php echo h($_POST['phone_number']) ?>"/>
                     </th>
                 </tr>
                 <tr class="address">
@@ -126,7 +132,8 @@ if (empty($error) && !empty($_POST)) {
                             <div class="add-right">
                                 <input type="text" name="postal_code" 
                                 maxlength="7" placeholder="Textbox" 
-                                oninput="value = value.replace(/[^0-9]+/i,'');"/>
+                                oninput="value = value.replace(/[^0-9]+/i,'');"
+                                value="<?php echo h($_POST['postal_code']) ?>"/>
                                 <select name="prefectures_code" >
                                     <option value="" selected>items</option>
                                     <option value="1">北海道</option>
@@ -178,7 +185,8 @@ if (empty($error) && !empty($_POST)) {
                                     <option value="47">沖縄県</option>
                                 </select>
                                 <input type="text" name="address" 
-                                maxlength="100" placeholder="Textbox"/>
+                                maxlength="100" placeholder="Textbox"
+                                value="<?php echo h($_POST['address']) ?>"/>
                             </div>
                         </div>
                     </th>
@@ -187,7 +195,8 @@ if (empty($error) && !empty($_POST)) {
                     <th class="left">Mail</th>
                     <th class="right">
                         <input type="text" name="mail_address" 
-                        maxlength="100" placeholder="Textbox"/>
+                        maxlength="100" placeholder="Textbox"
+                        value="<?php echo h($_POST['mail_address']) ?>"/>
                     </th>
                 </tr>
             </table>
