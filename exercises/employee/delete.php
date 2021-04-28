@@ -1,6 +1,6 @@
 <?php
 /** 
- * 会社削除
+ * 社員削除
  * 
  * PHP Version >= 7.2.24
  * 
@@ -13,6 +13,7 @@
 
 require_once'../required_files/dbconnect.php';
 require_once'../required_files/functions.php';
+session_start();
 
 $company_id = h($_GET['company_id']);
 $id = h($_POST['id']);
@@ -28,7 +29,8 @@ if (empty($id)) {
     $statement->bindParam(':deleted_id', $id, PDO::PARAM_INT);
     $statement->execute([$id]);
 
-    $url = "index.php?company_id=".$company_id."&delete=completed";
+    $_SESSION['delete']['employee'] = 'completed';
+    $url = "index.php?company_id=".$company_id;
     header('Location:'.$url);
     exit();
 }
