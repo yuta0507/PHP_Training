@@ -24,28 +24,30 @@ if (empty($id)) {
     exit();
 }
 
+$column = [
+    'employee_name', 'division_name', 'phone_number',
+    'postal_code', 'prefectures_code', 'address', 'mail_address'
+];
+
 //エラーチェック
 if (!empty($_POST)) {
-    if ($_POST['employee_name'] == '') {
-        $error['employee_name'] = 'blank';
+    //未入力 チェック   
+    foreach ($column as $value) {
+        if ($_POST[$value] == '') {
+            $error['blank'] = true;
+        }
     }
-    if ($_POST['division_name'] == '') {
-        $error['division_name'] = 'blank';
+
+    //電話番号半角数字チェック
+    $phone_number = $_POST['phone_number'];
+    if (!empty($phone_number) && !is_numeric($phone_number)) {
+        $error['phone_number'] = 'str';
     }
-    if ($_POST['phone_number'] == '') {
-        $error['phone_number'] = 'blank';
-    }
-    if ($_POST['postal_code'] == '') {
-        $error['postal_code'] = 'blank';
-    }
-    if ($_POST['prefectures_code'] == '') {
-        $error['prefectures_code'] = 'blank';
-    }
-    if ($_POST['address'] == '') {
-        $error['address'] = 'blank';
-    }
-    if ($_POST['mail_address'] == '') {
-        $error['mail_address'] = 'blank';
+
+    //郵便番号半角数字チェック
+    $postal_code = $_POST['postal_code'];
+    if (!empty($postal_code) && !is_numeric($postal_code)) {
+        $error['postal_code'] = 'str';
     }
 }
 
@@ -83,7 +85,61 @@ if (empty($error) && !empty($_POST)) {
     exit();
 }
 
+$employees = $db->prepare(
+    'SELECT * FROM employees WHERE id=? AND deleted IS NULL '
+);
+$employees->execute([$id]);
+$employee = $employees->fetch();
 
+$prefectures = [
+    "北海道",
+    "青森県",
+    "岩手県",
+    "宮城県",
+    "秋田県",
+    "山形県",
+    "福島県",
+    "茨城県",
+    "栃木県",
+    "群馬県",
+    "埼玉県",
+    "千葉県",
+    "東京都",
+    "神奈川県",
+    "新潟県",
+    "富山県",
+    "石川県",
+    "福井県",
+    "山梨県",
+    "長野県",
+    "岐阜県",
+    "静岡県",
+    "愛知県",
+    "三重県",
+    "滋賀県",
+    "京都府",
+    "大阪府",
+    "兵庫県",
+    "奈良県",
+    "和歌山県",
+    "鳥取県",
+    "島根県",
+    "岡山県",
+    "広島県",
+    "山口県",
+    "徳島県",
+    "香川県",
+    "愛媛県",
+    "高知県",
+    "福岡県",
+    "佐賀県",
+    "長崎県",
+    "熊本県",
+    "大分県",
+    "宮崎県",
+    "鹿児島県",
+    "沖縄県"
+];
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -95,9 +151,18 @@ if (empty($error) && !empty($_POST)) {
     <title>Document</title>
 </head>
 <body>
-    <?php if ($error) : ?>
+    <!-- エラー表示 -->
+    <?php if ($error['blank'] === true) : ?>
         <p class="error">*入力されていない箇所があります。再度入力してください</p>
     <?php endif ?> 
+    <?php if ($error['phone_number'] === 'str') : ?>
+        <p class="error">*電話番号は半角数字のみで入力してください</p>
+    <?php endif ?>
+    <?php if ($error['postal_code'] === 'str') : ?>
+        <p class="error">*郵便番号は半角数字のみで入力してください</p>
+    <?php endif ?>  
+
+    <!-- ここからテーブル -->
     <form action="" method="POST">
     <div class="table">
             <table border="1">
@@ -109,25 +174,30 @@ if (empty($error) && !empty($_POST)) {
                     <th class="left">社員名</th>
                     <th class="right">
                         <input type="text" name="employee_name" 
-                        maxlength="20" placeholder="Textbox"
-                        value="<?php echo h($_POST['employee_name']) ?>"/>
+                        maxlength="20" 
+                        value="<?php
+                        echo chooseValue($employee['employee_name'], h($_POST['employee_name']));
+                        ?>"/>
                     </th>
                 </tr>
                 <tr>
                     <th class="left">部署</th>
                     <th class="right">
                         <input type="text" name="division_name" 
-                        maxlength="20" placeholder="Textbox"
-                        value="<?php echo h($_POST['division_name']) ?>"/>
+                        maxlength="20" 
+                        value="<?php 
+                        echo chooseValue($employee['division_name'], h($_POST['division_name']));
+                        ?>"/>
                     </th>
                 </tr>
                 <tr>
                     <th class="left">Tel</th>
                     <th class="right">
                         <input type="tel" name="phone_number" 
-                        maxlength="11" placeholder="Textbox"
-                        oninput="value = value.replace(/[^0-9]+/i,'');"
-                        value="<?php echo h($_POST['phone_number']) ?>"/>
+                        maxlength="11" 
+                        value="<?php 
+                        echo chooseValue($employee['phone_number'], h($_POST['phone_number']));
+                        ?>"/>
                     </th>
                 </tr>
                 <tr class="address">
@@ -141,11 +211,19 @@ if (empty($error) && !empty($_POST)) {
                             </div>
                             <div class="add-right">
                                 <input type="text" name="postal_code" 
-                                maxlength="7" placeholder="Textbox" 
-                                oninput="value = value.replace(/[^0-9]+/i,'');"
-                                value="<?php echo h($_POST['postal_code']) ?>"/>
+                                maxlength="7" 
+                                value="<?php
+                                echo chooseValue($employee['postal_code'], h($_POST['postal_code']));
+                                ?>"/>
                                 <select name="prefectures_code" >
-                                    <option value="" selected>items</option>
+                                    <option value="<?php
+                                    $prefecture_code = chooseValue(
+                                        $employee['prefectures_code'], h($_POST['prefectures_code'])
+                                    );
+                                    echo $prefecture_code;
+                                    ?>" selected>
+                                        <?php echo $prefectures[$prefecture_code-1] ?>
+                                    </option>
                                     <option value="1">北海道</option>
                                     <option value="2">青森県</option>
                                     <option value="3">岩手県</option>
@@ -195,7 +273,10 @@ if (empty($error) && !empty($_POST)) {
                                     <option value="47">沖縄県</option>
                                 </select>
                                 <input type="text" name="address" 
-                                maxlength="100" placeholder="Textbox"/>
+                                maxlength="100" 
+                                value="<?php
+                                echo chooseValue($employee['address'], h($_POST['address']));
+                                ?>"/>
                             </div>
                         </div>
                     </th>
@@ -204,8 +285,10 @@ if (empty($error) && !empty($_POST)) {
                     <th class="left">Mail</th>
                     <th class="right">
                         <input type="text" name="mail_address" 
-                        maxlength="100" placeholder="Textbox"
-                        value="<?php echo h($_POST['mail_address']) ?>"/>
+                        maxlength="100" 
+                        value="<?php 
+                        echo chooseValue($employee['mail_address'], h($_POST['mail_address']));
+                        ?>"/>
                     </th>
                 </tr>
             </table>
