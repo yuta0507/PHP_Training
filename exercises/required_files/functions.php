@@ -23,6 +23,23 @@ function h($value)
     return htmlspecialchars($value, ENT_QUOTES);
 }
 
+/**
+ * Function chooseValue.
+ * 
+ * @param string $value1 文字列
+ * @param string $value2 文字列
+ * 
+ * @return string
+ * */
+function chooseValue($value1, $value2) 
+{
+    if (empty($_POST)) {
+        return $value1; 
+    } else {
+        return $value2;
+    }
+}
+
 // function bubble_sort_asc($numbers) 
 // {
 //     $len_numbers = count($numbers);

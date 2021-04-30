@@ -15,28 +15,30 @@ require_once'required_files/dbconnect.php';
 require_once'required_files/functions.php';
 session_start();
 
-//エラー項目確認
+$column = [
+    'company_name', 'representative_name', 'phone_number',
+    'postal_code', 'prefectures_code', 'address', 'mail_address'
+];
+
+//エラーチェック
 if (!empty($_POST)) {
-    if ($_POST['company_name'] == '') {
-        $error['company_name'] = 'blank';
+    //未入力 チェック   
+    foreach ($column as $value) {
+        if ($_POST[$value] == '') {
+            $error['blank'] = true;
+        }
     }
-    if ($_POST['representative_name'] == '') {
-        $error['representative_name'] = 'blank';
+
+    //電話番号半角数字チェック
+    $phone_number = $_POST['phone_number'];
+    if (!empty($phone_number) && !is_numeric($phone_number)) {
+        $error['phone_number'] = 'str';
     }
-    if ($_POST['phone_number'] == '') {
-        $error['phone_number'] = 'blank';
-    }
-    if ($_POST['postal_code'] == '') {
-        $error['postal_code'] = 'blank';
-    }
-    if ($_POST['prefectures_code'] == '') {
-        $error['prefectures_code'] = 'blank';
-    }
-    if ($_POST['address'] == '') {
-        $error['address'] = 'blank';
-    }
-    if ($_POST['mail_address'] == '') {
-        $error['mail_address'] = 'blank';
+
+    //郵便番号半角数字チェック
+    $postal_code = $_POST['postal_code'];
+    if (!empty($postal_code) && !is_numeric($postal_code)) {
+        $error['postal_code'] = 'str';
     }
 }
 
@@ -71,9 +73,6 @@ if (empty($error) && !empty($_POST)) {
     header('Location: index.php');
     exit();
 }
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -85,9 +84,18 @@ if (empty($error) && !empty($_POST)) {
     <title>SignUp</title>
 </head>
 <body>
-    <?php if ($error) : ?>
+    <!-- エラー表示 -->
+    <?php if ($error['blank'] === true) : ?>
         <p class="error">*入力されていない箇所があります。再度入力してください</p>
     <?php endif ?> 
+    <?php if ($error['phone_number'] === 'str') : ?>
+        <p class="error">*電話番号は半角数字のみで入力してください</p>
+    <?php endif ?>
+    <?php if ($error['postal_code'] === 'str') : ?>
+        <p class="error">*郵便番号は半角数字のみで入力してください</p>
+    <?php endif ?>
+
+    <!-- ここからテーブル -->
     <form action="" method="POST">
         <div class="table">
             <table border="1">
@@ -95,7 +103,7 @@ if (empty($error) && !empty($_POST)) {
                     <th class="left">会社名</th>
                     <th class="right">
                         <input type="text" name="company_name" 
-                        maxlength="50" placeholder="Textbox" 
+                        maxlength="50" placeholder="〇〇株式会社" 
                         value="<?php echo h($_POST['company_name']) ?>"/>
                     </th>
                 </tr>
@@ -103,7 +111,7 @@ if (empty($error) && !empty($_POST)) {
                     <th class="left">代表</th>
                     <th class="right">
                         <input type="text" name="representative_name" 
-                        maxlength="20" placeholder="Textbox"
+                        maxlength="20" placeholder="実習太郎"
                         value="<?php echo h($_POST['representative_name']) ?>"/>
                     </th>
                 </tr>
@@ -111,8 +119,7 @@ if (empty($error) && !empty($_POST)) {
                     <th class="left">Tel</th>
                     <th class="right">
                         <input type="tel" name="phone_number" 
-                        maxlength="11" placeholder="Textbox"
-                        oninput="value = value.replace(/[^0-9]+/i,'');"
+                        maxlength="11" placeholder="00000000000"
                         value="<?php echo h($_POST['phone_number']) ?>"/>
                     </th>
                 </tr>
@@ -127,11 +134,10 @@ if (empty($error) && !empty($_POST)) {
                             </div>
                             <div class="add-right">
                                 <input type="text" name="postal_code" 
-                                maxlength="7" placeholder="Textbox" 
-                                oninput="value = value.replace(/[^0-9]+/i,'');"
+                                maxlength="7" placeholder="0000000" 
                                 value="<?php echo h($_POST['postal_code']) ?>"/>
-                                <select name="prefectures_code" >
-                                    <option value="" selected>items</option>
+                                <select name="prefectures_code">
+                                    <option value="" selected></option>
                                     <option value="1">北海道</option>
                                     <option value="2">青森県</option>
                                     <option value="3">岩手県</option>
@@ -181,7 +187,7 @@ if (empty($error) && !empty($_POST)) {
                                     <option value="47">沖縄県</option>
                                 </select>
                                 <input type="text" name="address" 
-                                maxlength="100" placeholder="Textbox"
+                                maxlength="100" placeholder="〇〇市〇〇町xxx-xxx"
                                 value="<?php echo h($_POST['address']) ?>"/>
                             </div>
                         </div>
@@ -191,7 +197,7 @@ if (empty($error) && !empty($_POST)) {
                     <th class="left">Mail</th>
                     <th class="right">
                         <input type="text" name="mail_address" 
-                        maxlength="100" placeholder="Textbox"
+                        maxlength="100" placeholder="mail@example.jp"
                         value="<?php echo h($_POST['mail_address']) ?>"/>
                     </th>
                 </tr>

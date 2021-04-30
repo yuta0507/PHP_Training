@@ -60,6 +60,7 @@ $delete = "delete.php?company_id=".$company_id;
     <title>Exercise</title>
 </head>
 <body>
+    <script src="../scripts/main.js"></script>
     <h1><a href=<?php echo $index ?> class="heading">社員一覧</a></h1>
     <a href=<?php echo $signup ?> class="button">新規登録</a>
     <?php if ($_SESSION['signup']['employee'] === 'completed') : ?>
@@ -117,7 +118,7 @@ $delete = "delete.php?company_id=".$company_id;
                             <input type="hidden" name="id" 
                             value="<?php echo h($employee['id']) ?>">
                             <input type="submit" 
-                            onclick="return confirm('本当に削除しますか？')" value="削除">
+                            onclick="return confirmDeletion()" value="削除">
                         </form>
                     </th>
                 </tr>
