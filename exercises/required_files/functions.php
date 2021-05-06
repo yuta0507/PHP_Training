@@ -33,11 +33,10 @@ function h($value)
  * */
 function setValue($value1, $value2) 
 {
-    if (empty($_POST)) {
-        return $value1; 
-    } else {
+    if (!empty($value2)) {
         return $value2;
-    }
+    } 
+    return $value1;
 }
 
 /**

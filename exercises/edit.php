@@ -167,7 +167,10 @@ $prefectures = [
                         <input type="text" name="company_name" 
                         maxlength="50" 
                         value="<?php 
-                        echo setValue($company['company_name'], h($_POST['company_name']));
+                        echo setValue(
+                            $company['company_name'], 
+                            h($_POST['company_name'])
+                        );
                         ?>"/>
                     </th>
                 </tr>
@@ -178,7 +181,8 @@ $prefectures = [
                         maxlength="20" 
                         value="<?php
                         echo setValue(
-                            $company['representative_name'], h($_POST['representative_name'])
+                            $company['representative_name'], 
+                            h($_POST['representative_name'])
                         );
                         ?>"/>
                     </th>
@@ -189,7 +193,10 @@ $prefectures = [
                         <input type="tel" name="phone_number" 
                         maxlength="13" 
                         value="<?php
-                        echo setValue($company['phone_number'], h($_POST['phone_number'])); 
+                        echo setValue(
+                            $company['phone_number'], 
+                            h($_POST['phone_number'])
+                        ); 
                         ?>"/>
                     </th>
                 </tr>
@@ -206,12 +213,16 @@ $prefectures = [
                                 <input type="text" name="postal_code" 
                                 maxlength="8"  
                                 value="<?php 
-                                echo setValue($company['postal_code'], h($_POST['postal_code']));
+                                echo setValue(
+                                    $company['postal_code'], 
+                                    h($_POST['postal_code'])
+                                );
                                 ?>"/>
                                 <select name="prefectures_code" >
                                     <option value="<?php
                                     $prefecture_code = setValue(
-                                        $company['prefectures_code'], h($_POST['prefectures_code'])
+                                        $company['prefectures_code'], 
+                                        h($_POST['prefectures_code'])
                                     );
                                     echo $prefecture_code;
                                     ?>" selected>
@@ -268,7 +279,10 @@ $prefectures = [
                                 <input type="text" name="address" 
                                 maxlength="100" 
                                 value="<?php
-                                echo setValue($company['address'], h($_POST['address']));
+                                echo setValue(
+                                    $company['address'], 
+                                    h($_POST['address'])
+                                );
                                 ?>"/>
                             </div>
                         </div>
@@ -280,7 +294,10 @@ $prefectures = [
                         <input type="text" name="mail_address" 
                         maxlength="100" 
                         value="<?php 
-                        echo setValue($company['mail_address'], h($_POST['mail_address']));
+                        echo setValue(
+                            $company['mail_address'], 
+                            h($_POST['mail_address'])
+                        );
                         ?>"/>
                     </th>
                 </tr>

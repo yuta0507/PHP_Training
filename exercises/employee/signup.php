@@ -84,6 +84,7 @@ if (empty($error) && !empty($_POST)) {
     exit();
 }
 
+$prf_code = h($_POST['prefectures_code']);
 $prefectures = [
     "北海道",
     "青森県",
@@ -197,8 +198,8 @@ $prefectures = [
                                 maxlength="8" placeholder="000-0000" 
                                 value="<?php echo h($_POST['postal_code']) ?>"/>
                                 <select name="prefectures_code" >
-                                    <option value="<?php echo h($_POST['prefectures_code']) ?>" selected>
-                                        <?php echo h($prefectures[h($_POST['prefectures_code'])-1]) ?>
+                                    <option value="<?php echo $prf_code ?>" selected>
+                                        <?php echo $prefectures[$prf_code-1] ?>
                                     </option>
                                     <option value="1">北海道</option>
                                     <option value="2">青森県</option>

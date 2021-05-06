@@ -176,7 +176,10 @@ $prefectures = [
                         <input type="text" name="employee_name" 
                         maxlength="20" 
                         value="<?php
-                        echo setValue($employee['employee_name'], h($_POST['employee_name']));
+                        echo setValue(
+                            $employee['employee_name'], 
+                            h($_POST['employee_name'])
+                        );
                         ?>"/>
                     </th>
                 </tr>
@@ -186,7 +189,10 @@ $prefectures = [
                         <input type="text" name="division_name" 
                         maxlength="20" 
                         value="<?php 
-                        echo setValue($employee['division_name'], h($_POST['division_name']));
+                        echo setValue(
+                            $employee['division_name'], 
+                            h($_POST['division_name'])
+                        );
                         ?>"/>
                     </th>
                 </tr>
@@ -196,7 +202,10 @@ $prefectures = [
                         <input type="tel" name="phone_number" 
                         maxlength="13" 
                         value="<?php 
-                        echo setValue($employee['phone_number'], h($_POST['phone_number']));
+                        echo setValue(
+                            $employee['phone_number'], 
+                            h($_POST['phone_number'])
+                        );
                         ?>"/>
                     </th>
                 </tr>
@@ -213,16 +222,22 @@ $prefectures = [
                                 <input type="text" name="postal_code" 
                                 maxlength="8" 
                                 value="<?php
-                                echo setValue($employee['postal_code'], h($_POST['postal_code']));
+                                echo setValue(
+                                    $employee['postal_code'], 
+                                    h($_POST['postal_code'])
+                                );
                                 ?>"/>
                                 <select name="prefectures_code" >
                                     <option value="<?php
                                     $prefecture_code = setValue(
-                                        $employee['prefectures_code'], h($_POST['prefectures_code'])
+                                        $employee['prefectures_code'], 
+                                        h($_POST['prefectures_code'])
                                     );
                                     echo $prefecture_code;
                                     ?>" selected>
-                                        <?php echo $prefectures[$prefecture_code-1] ?>
+                                        <?php
+                                        echo $prefectures[$prefecture_code-1]
+                                        ?>
                                     </option>
                                     <option value="1">北海道</option>
                                     <option value="2">青森県</option>
@@ -275,7 +290,10 @@ $prefectures = [
                                 <input type="text" name="address" 
                                 maxlength="100" 
                                 value="<?php
-                                echo setValue($employee['address'], h($_POST['address']));
+                                echo setValue(
+                                    $employee['address'], 
+                                    h($_POST['address'])
+                                );
                                 ?>"/>
                             </div>
                         </div>
@@ -287,7 +305,10 @@ $prefectures = [
                         <input type="text" name="mail_address" 
                         maxlength="100" 
                         value="<?php 
-                        echo setValue($employee['mail_address'], h($_POST['mail_address']));
+                        echo setValue(
+                            $employee['mail_address'], 
+                            h($_POST['mail_address'])
+                        );
                         ?>"/>
                     </th>
                 </tr>
