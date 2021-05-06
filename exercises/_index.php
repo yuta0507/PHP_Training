@@ -23,7 +23,7 @@ $companies = $db->query(
     WHERE c.deleted IS NULL
     AND e.deleted IS NULL 
     GROUP BY c.id
-    ORDER BY c.id DESC'
+    ORDER BY c.id'
 );
 $companies->execute();
 
@@ -32,18 +32,21 @@ $row = ['ID', '会社名', '代表', 'Tel', '住所', 'Mail', '社員数'];
 $column = ['id', 'company_name', 'representative_name', 'phone_number', 'address', 'mail_address', 'cnt'];
 $column_len = count($column);
 
-foreach ($companies as $company) {
-    for ($k = 0; $k < $column_len; $k++) {
-        $table[$i][$column[$k]] = h($company[$column[$k]]);
+foreach ($companies as $company) {    
+    for ($j = 0; $j < $column_len; $j++) {
+        $table[$i][$column[$j]] = h($company[$column[$j]]);
     }
     $i++;
 }
 
+$ids = array_column($table, 'id');
 $max_i = $i;
 
 if ($_GET['order'] === 'desc') {
+    array_multisort($ids, SORT_DESC, $table);
     $href = "_index.php";
 } else {
+    array_multisort($ids, SORT_ASC, $table);
     $href = "_index.php?order=desc";
 }
 
@@ -68,23 +71,13 @@ if ($_GET['order'] === 'desc') {
                     <th><?php echo $value ?></th>
                 <?php endforeach ?>    
             </tr>
-            <?php if ($_GET['order'] === 'desc') : ?>
-                <?php for ($i = 0; $i < $max_i; $i++): ?>
-                    <tr>
-                        <?php for ($j = 0; $j < $column_len; $j++) : ?>
-                            <th><?php echo $table[$i][$column[$j]] ?></th>
-                        <?php endfor ?>
-                    </tr>
-                <?php endfor ?>
-            <?php else : ?>
-                <?php for ($i = $max_i-1; $i >= 0; $i--): ?>
-                    <tr>
-                        <?php for ($j = 0; $j < $column_len; $j++) : ?>
-                            <th><?php echo $table[$i][$column[$j]] ?></th>
-                        <?php endfor ?>
-                    </tr>
-                <?php endfor ?>
-            <?php endif ?>        
+            <?php for ($i = 0; $i < $max_i; $i++): ?>
+                <tr>
+                    <?php for ($j = 0; $j < $column_len; $j++) : ?>
+                        <th><?php echo $table[$i][$column[$j]] ?></th>
+                    <?php endfor ?>
+                </tr>
+            <?php endfor ?>
         </table>
     </div>
 </body>
