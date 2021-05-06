@@ -30,15 +30,15 @@ if (!empty($_POST)) {
     }
 
     //電話番号半角数字チェック
-    $phone_number = $_POST['phone_number'];
-    if (!empty($phone_number) && !is_numeric($phone_number)) {
-        $error['phone_number'] = 'str';
+    $phone_number = h($_POST['phone_number']);
+    if (!empty($phone_number) && checkPhoneNumber($phone_number) === false) {
+        $error['phone_number'] = 'wrong';
     }
 
     //郵便番号半角数字チェック
-    $postal_code = $_POST['postal_code'];
-    if (!empty($postal_code) && !is_numeric($postal_code)) {
-        $error['postal_code'] = 'str';
+    $postal_code = h($_POST['postal_code']);
+    if (!empty($postal_code) && checkPostalCode($postal_code) === false) {
+        $error['postal_code'] = 'wrong';
     }
 }
 
@@ -60,13 +60,13 @@ if (empty($error) && !empty($_POST)) {
     );
     $statement->execute(
         [
-            $_POST['company_name'],
-            $_POST['representative_name'],
-            $_POST['phone_number'],
-            $_POST['postal_code'],
-            $_POST['prefectures_code'],
-            $_POST['address'],
-            $_POST['mail_address'],
+            h($_POST['company_name']),
+            h($_POST['representative_name']),
+            h($_POST['phone_number']),
+            h($_POST['postal_code']),
+            h($_POST['prefectures_code']),
+            h($_POST['address']),
+            h($_POST['mail_address']),
             $id
         ]
     );
@@ -146,11 +146,11 @@ $prefectures = [
     <?php if ($error['blank'] === true) : ?>
         <p class="error">*入力されていない箇所があります。再度入力してください</p>
     <?php endif ?> 
-    <?php if ($error['phone_number'] === 'str') : ?>
-        <p class="error">*電話番号は半角数字のみで入力してください</p>
+    <?php if ($error['phone_number'] === 'wrong') : ?>
+        <p class="error">*電話番号はハイフン付きの半角数字で入力してください</p>
     <?php endif ?>
-    <?php if ($error['postal_code'] === 'str') : ?>
-        <p class="error">*郵便番号は半角数字のみで入力してください</p>
+    <?php if ($error['postal_code'] === 'wrong') : ?>
+        <p class="error">*郵便番号はハイフン付きの半角数字で入力してください</p>
     <?php endif ?>
 
     <!-- ここからテーブル -->
@@ -167,7 +167,7 @@ $prefectures = [
                         <input type="text" name="company_name" 
                         maxlength="50" 
                         value="<?php 
-                        echo chooseValue($company['company_name'], h($_POST['company_name']));
+                        echo setValue($company['company_name'], h($_POST['company_name']));
                         ?>"/>
                     </th>
                 </tr>
@@ -177,7 +177,7 @@ $prefectures = [
                         <input type="text" name="representative_name" 
                         maxlength="20" 
                         value="<?php
-                        echo chooseValue(
+                        echo setValue(
                             $company['representative_name'], h($_POST['representative_name'])
                         );
                         ?>"/>
@@ -187,9 +187,9 @@ $prefectures = [
                     <th class="left">Tel</th>
                     <th class="right">
                         <input type="tel" name="phone_number" 
-                        maxlength="11" 
+                        maxlength="13" 
                         value="<?php
-                        echo chooseValue($company['phone_number'], h($_POST['phone_number'])); 
+                        echo setValue($company['phone_number'], h($_POST['phone_number'])); 
                         ?>"/>
                     </th>
                 </tr>
@@ -204,13 +204,13 @@ $prefectures = [
                             </div>
                             <div class="add-right">
                                 <input type="text" name="postal_code" 
-                                maxlength="7"  
+                                maxlength="8"  
                                 value="<?php 
-                                echo chooseValue($company['postal_code'], h($_POST['postal_code']));
+                                echo setValue($company['postal_code'], h($_POST['postal_code']));
                                 ?>"/>
                                 <select name="prefectures_code" >
                                     <option value="<?php
-                                    $prefecture_code = chooseValue(
+                                    $prefecture_code = setValue(
                                         $company['prefectures_code'], h($_POST['prefectures_code'])
                                     );
                                     echo $prefecture_code;
@@ -268,7 +268,7 @@ $prefectures = [
                                 <input type="text" name="address" 
                                 maxlength="100" 
                                 value="<?php
-                                echo chooseValue($company['address'], h($_POST['address']));
+                                echo setValue($company['address'], h($_POST['address']));
                                 ?>"/>
                             </div>
                         </div>
@@ -280,7 +280,7 @@ $prefectures = [
                         <input type="text" name="mail_address" 
                         maxlength="100" 
                         value="<?php 
-                        echo chooseValue($company['mail_address'], h($_POST['mail_address']));
+                        echo setValue($company['mail_address'], h($_POST['mail_address']));
                         ?>"/>
                     </th>
                 </tr>

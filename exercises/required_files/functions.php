@@ -24,19 +24,62 @@ function h($value)
 }
 
 /**
- * Function chooseValue.
+ * Function setValue.
  * 
  * @param string $value1 文字列
  * @param string $value2 文字列
  * 
  * @return string
  * */
-function chooseValue($value1, $value2) 
+function setValue($value1, $value2) 
 {
     if (empty($_POST)) {
         return $value1; 
     } else {
         return $value2;
+    }
+}
+
+/**
+ * Function checkPhoneNumber.
+ * 
+ * @param string $value 文字列
+ * 
+ * @return string
+ * */
+function checkPhoneNumber($value)
+{
+    $i=0;
+    $patterns = [
+        "/^0(\d-\d{4}|\d{2}-\d{3}|\d{3}-\d{2}|\d{4}-\d)-\d{4}$/",
+        "/^0([7-9])0-\d{4}-\d{4}$/",
+        "/^0120-\d{3}-\d{3}$/"
+    ];
+
+    foreach ($patterns as $pattern) {
+        if (preg_match($pattern, $value)) {
+            $i++;
+        }
+    }
+
+    if ($i === 0) {
+        return false;
+    }
+        
+}
+
+/**
+ * Function checkPostalCode.
+ * 
+ * @param string $value 文字列
+ * 
+ * @return string
+ * */
+function checkPostalCode($value)
+{
+    $pattern = "/^\d{3}-\d{4}$/";
+    if (!preg_match($pattern, $value)) {
+        return false;
     }
 }
 

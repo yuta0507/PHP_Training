@@ -1,4 +1,4 @@
-function confirmDeletion() {   
+function confirmDelete() {   
     var res = confirm('本当に削除しますか');
     
     if (res === true) {

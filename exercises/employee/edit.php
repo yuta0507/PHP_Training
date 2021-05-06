@@ -39,15 +39,15 @@ if (!empty($_POST)) {
     }
 
     //電話番号半角数字チェック
-    $phone_number = $_POST['phone_number'];
-    if (!empty($phone_number) && !is_numeric($phone_number)) {
-        $error['phone_number'] = 'str';
+    $phone_number = h($_POST['phone_number']);
+    if (!empty($phone_number) && checkPhoneNumber($phone_number) === false) {
+        $error['phone_number'] = 'wrong';
     }
 
     //郵便番号半角数字チェック
-    $postal_code = $_POST['postal_code'];
-    if (!empty($postal_code) && !is_numeric($postal_code)) {
-        $error['postal_code'] = 'str';
+    $postal_code = h($_POST['postal_code']);
+    if (!empty($postal_code) && checkPostalCode($postal_code) === false) {
+        $error['postal_code'] = 'wrong';
     }
 }
 
@@ -155,11 +155,11 @@ $prefectures = [
     <?php if ($error['blank'] === true) : ?>
         <p class="error">*入力されていない箇所があります。再度入力してください</p>
     <?php endif ?> 
-    <?php if ($error['phone_number'] === 'str') : ?>
-        <p class="error">*電話番号は半角数字のみで入力してください</p>
+    <?php if ($error['phone_number'] === 'wrong') : ?>
+        <p class="error">*電話番号はハイフン付きの半角数字で入力してください</p>
     <?php endif ?>
-    <?php if ($error['postal_code'] === 'str') : ?>
-        <p class="error">*郵便番号は半角数字のみで入力してください</p>
+    <?php if ($error['postal_code'] === 'wrong') : ?>
+        <p class="error">*郵便番号はハイフン付きの半角数字で入力してください</p>
     <?php endif ?>  
 
     <!-- ここからテーブル -->
@@ -176,7 +176,7 @@ $prefectures = [
                         <input type="text" name="employee_name" 
                         maxlength="20" 
                         value="<?php
-                        echo chooseValue($employee['employee_name'], h($_POST['employee_name']));
+                        echo setValue($employee['employee_name'], h($_POST['employee_name']));
                         ?>"/>
                     </th>
                 </tr>
@@ -186,7 +186,7 @@ $prefectures = [
                         <input type="text" name="division_name" 
                         maxlength="20" 
                         value="<?php 
-                        echo chooseValue($employee['division_name'], h($_POST['division_name']));
+                        echo setValue($employee['division_name'], h($_POST['division_name']));
                         ?>"/>
                     </th>
                 </tr>
@@ -194,9 +194,9 @@ $prefectures = [
                     <th class="left">Tel</th>
                     <th class="right">
                         <input type="tel" name="phone_number" 
-                        maxlength="11" 
+                        maxlength="13" 
                         value="<?php 
-                        echo chooseValue($employee['phone_number'], h($_POST['phone_number']));
+                        echo setValue($employee['phone_number'], h($_POST['phone_number']));
                         ?>"/>
                     </th>
                 </tr>
@@ -211,13 +211,13 @@ $prefectures = [
                             </div>
                             <div class="add-right">
                                 <input type="text" name="postal_code" 
-                                maxlength="7" 
+                                maxlength="8" 
                                 value="<?php
-                                echo chooseValue($employee['postal_code'], h($_POST['postal_code']));
+                                echo setValue($employee['postal_code'], h($_POST['postal_code']));
                                 ?>"/>
                                 <select name="prefectures_code" >
                                     <option value="<?php
-                                    $prefecture_code = chooseValue(
+                                    $prefecture_code = setValue(
                                         $employee['prefectures_code'], h($_POST['prefectures_code'])
                                     );
                                     echo $prefecture_code;
@@ -275,7 +275,7 @@ $prefectures = [
                                 <input type="text" name="address" 
                                 maxlength="100" 
                                 value="<?php
-                                echo chooseValue($employee['address'], h($_POST['address']));
+                                echo setValue($employee['address'], h($_POST['address']));
                                 ?>"/>
                             </div>
                         </div>
@@ -287,7 +287,7 @@ $prefectures = [
                         <input type="text" name="mail_address" 
                         maxlength="100" 
                         value="<?php 
-                        echo chooseValue($employee['mail_address'], h($_POST['mail_address']));
+                        echo setValue($employee['mail_address'], h($_POST['mail_address']));
                         ?>"/>
                     </th>
                 </tr>
