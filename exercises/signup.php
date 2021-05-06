@@ -30,15 +30,15 @@ if (!empty($_POST)) {
     }
 
     //電話番号半角数字チェック
-    $phone_number = $_POST['phone_number'];
-    if (!empty($phone_number) && !is_numeric($phone_number)) {
-        $error['phone_number'] = 'str';
+    $phone_number = h($_POST['phone_number']);
+    if (!empty($phone_number) && checkPhoneNumber($phone_number) === false) {
+        $error['phone_number'] = 'wrong';
     }
 
     //郵便番号半角数字チェック
-    $postal_code = $_POST['postal_code'];
-    if (!empty($postal_code) && !is_numeric($postal_code)) {
-        $error['postal_code'] = 'str';
+    $postal_code = h($_POST['postal_code']);
+    if (!empty($postal_code) && checkPostalCode($postal_code) === false) {
+        $error['postal_code'] = 'wrong';
     }
 }
 
@@ -59,13 +59,13 @@ if (empty($error) && !empty($_POST)) {
     );
     $statement->execute(
         [
-            $_POST['company_name'],
-            $_POST['representative_name'],
-            $_POST['phone_number'],
-            $_POST['postal_code'],
-            $_POST['prefectures_code'],
-            $_POST['address'],
-            $_POST['mail_address']
+            h($_POST['company_name']),
+            h($_POST['representative_name']),
+            h($_POST['phone_number']),
+            h($_POST['postal_code']),
+            h($_POST['prefectures_code']),
+            h($_POST['address']),
+            h($_POST['mail_address'])
         ]
     );
 
@@ -73,6 +73,56 @@ if (empty($error) && !empty($_POST)) {
     header('Location: index.php');
     exit();
 }
+
+$prefectures = [
+    "北海道",
+    "青森県",
+    "岩手県",
+    "宮城県",
+    "秋田県",
+    "山形県",
+    "福島県",
+    "茨城県",
+    "栃木県",
+    "群馬県",
+    "埼玉県",
+    "千葉県",
+    "東京都",
+    "神奈川県",
+    "新潟県",
+    "富山県",
+    "石川県",
+    "福井県",
+    "山梨県",
+    "長野県",
+    "岐阜県",
+    "静岡県",
+    "愛知県",
+    "三重県",
+    "滋賀県",
+    "京都府",
+    "大阪府",
+    "兵庫県",
+    "奈良県",
+    "和歌山県",
+    "鳥取県",
+    "島根県",
+    "岡山県",
+    "広島県",
+    "山口県",
+    "徳島県",
+    "香川県",
+    "愛媛県",
+    "高知県",
+    "福岡県",
+    "佐賀県",
+    "長崎県",
+    "熊本県",
+    "大分県",
+    "宮崎県",
+    "鹿児島県",
+    "沖縄県"
+];
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -88,11 +138,11 @@ if (empty($error) && !empty($_POST)) {
     <?php if ($error['blank'] === true) : ?>
         <p class="error">*入力されていない箇所があります。再度入力してください</p>
     <?php endif ?> 
-    <?php if ($error['phone_number'] === 'str') : ?>
-        <p class="error">*電話番号は半角数字のみで入力してください</p>
+    <?php if ($error['phone_number'] === 'wrong') : ?>
+        <p class="error">*電話番号はハイフン付きの半角数字で入力してください</p>
     <?php endif ?>
-    <?php if ($error['postal_code'] === 'str') : ?>
-        <p class="error">*郵便番号は半角数字のみで入力してください</p>
+    <?php if ($error['postal_code'] === 'wrong') : ?>
+        <p class="error">*郵便番号はハイフン付きの半角数字で入力してください</p>
     <?php endif ?>
 
     <!-- ここからテーブル -->
@@ -119,7 +169,7 @@ if (empty($error) && !empty($_POST)) {
                     <th class="left">Tel</th>
                     <th class="right">
                         <input type="tel" name="phone_number" 
-                        maxlength="11" placeholder="00000000000"
+                        maxlength="13" placeholder="000-0000-0000"
                         value="<?php echo h($_POST['phone_number']) ?>"/>
                     </th>
                 </tr>
@@ -134,10 +184,12 @@ if (empty($error) && !empty($_POST)) {
                             </div>
                             <div class="add-right">
                                 <input type="text" name="postal_code" 
-                                maxlength="7" placeholder="0000000" 
+                                maxlength="8" placeholder="000-0000" 
                                 value="<?php echo h($_POST['postal_code']) ?>"/>
                                 <select name="prefectures_code">
-                                    <option value="" selected></option>
+                                    <option value="<?php echo h($_POST['prefectures_code']) ?>" selected>
+                                        <?php echo h($prefectures[h($_POST['prefectures_code'])-1]) ?>
+                                    </option>
                                     <option value="1">北海道</option>
                                     <option value="2">青森県</option>
                                     <option value="3">岩手県</option>

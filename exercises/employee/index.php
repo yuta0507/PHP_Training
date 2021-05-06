@@ -118,7 +118,7 @@ $delete = "delete.php?company_id=".$company_id;
                             <input type="hidden" name="id" 
                             value="<?php echo h($employee['id']) ?>">
                             <input type="submit" 
-                            onclick="return confirmDeletion()" value="削除">
+                            onclick="return confirmDelete()" value="削除">
                         </form>
                     </th>
                 </tr>
