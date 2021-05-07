@@ -64,7 +64,6 @@ function checkPhoneNumber($value)
     if ($i === 0) {
         return false;
     }
-        
 }
 
 /**
@@ -82,34 +81,29 @@ function checkPostalCode($value)
     }
 }
 
-// function bubble_sort_asc($numbers) 
-// {
-//     $len_numbers = count($numbers);
-//     for ($i = 0; $i < $len_numbers; $i++) {
-//         for ($j = 0; $j < $len_numbers - 1 - $i; $j++) {
-//             if ($numbers[$j] > $numbers[$j+1]) {
-//                 $tmp = $numbers[$j];
-//                 $numbers[$j] = $numbers[$j+1];
-//                 $numbers[$j+1] = $tmp;
-//             }
-//         }
-//     }
-//     return $numbers;
-// }
+/**
+ * Function checkPostalCode.
+ * 
+ * @param string $value 文字列
+ * 
+ * @return string
+ * */
+function setPrefecture($value)
+{
+    $prefectures = [
+        "北海道", "青森県", "岩手県", "宮城県", "秋田県", 
+        "山形県", "福島県", "茨城県", "栃木県", "群馬県", 
+        "埼玉県", "千葉県", "東京都", "神奈川県", "新潟県", 
+        "富山県", "石川県", "福井県", "山梨県", "長野県", 
+        "岐阜県", "静岡県", "愛知県", "三重県", "滋賀県", 
+        "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県",
+        "鳥取県", "島根県", "岡山県", "広島県", "山口県", 
+        "徳島県", "香川県", "愛媛県", "高知県", "福岡県", 
+        "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", 
+        "鹿児島県", "沖縄県"
+    ];
 
-// function bubble_sort_desc($numbers) 
-// {
-//     $len_numbers = count($numbers);
-//     for ($i = 0; $i < $len_numbers; $i++) {
-//         for ($j = 0; $j < $len_numbers - 1 - $i; $j++) {
-//             if ($numbers[$j] < $numbers[$j+1]) {
-//                 $tmp = $numbers[$j];
-//                 $numbers[$j] = $numbers[$j+1];
-//                 $numbers[$j+1] = $tmp;
-//             }
-//         }
-//     }
-//     return $numbers;
-// }
+    return $prefectures[$value-1];
+}
 
 ?>
