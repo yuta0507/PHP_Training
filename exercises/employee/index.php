@@ -68,7 +68,7 @@ $delete = "delete.php?company_id=".$company_id;
 
     <!-- 完了表示 -->
     <?php 
-    setCompleted($_SESSION);
+    outputCompleted($_SESSION);
     $_SESSION = [];
     session_destroy();
     ?>
