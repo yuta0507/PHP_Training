@@ -102,7 +102,7 @@ $employee = $employees->fetch();
 </head>
 <body>
     <!-- エラー表示 -->
-    <?php setError($error) ?>
+    <?php outputError($error) ?>
 
     <!-- ここからテーブル -->
     <form action="" method="POST">

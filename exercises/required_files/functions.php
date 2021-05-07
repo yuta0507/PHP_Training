@@ -82,13 +82,13 @@ function checkPostalCode($value)
 }
 
 /**
- * Function setError.
+ * Function outputError.
  * 
  * @param string $error 文字列
  * 
  * @return string
  * */
-function setError($error)
+function outputError($error)
 {
     if ($error['blank'] === true) {
         echo '<p class="error">*入力されていない箇所があります。再度入力してください</p>';
@@ -102,13 +102,13 @@ function setError($error)
 }
 
 /**
- * Function setCompleted.
+ * Function outputCompleted.
  * 
  * @param string $value 文字列
  * 
  * @return string
  * */
-function setCompleted($value)
+function outputCompleted($value)
 {
     //Company
     if ($value['signup']['company'] === 'completed') {

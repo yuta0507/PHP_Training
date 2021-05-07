@@ -72,7 +72,7 @@ $delete = "delete.php?id=";
 
     <!-- 完了表示 -->
     <?php 
-    setCompleted($_SESSION); 
+    outputCompleted($_SESSION); 
     $_SESSION = [];
     session_destroy();
     ?>

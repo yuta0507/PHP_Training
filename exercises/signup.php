@@ -88,7 +88,7 @@ $prf_code = h($_POST['prefectures_code']);
 </head>
 <body>
     <!-- エラー表示 -->
-    <?php setError($error) ?>
+    <?php outputError($error) ?>
 
     <!-- ここからテーブル -->
     <form action="" method="POST">
