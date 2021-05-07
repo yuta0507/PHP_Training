@@ -98,15 +98,7 @@ $prf_code = h($_POST['prefectures_code']);
 </head>
 <body>
     <!-- エラー表示 -->
-    <?php if ($error['blank'] === true) : ?>
-        <p class="error">*入力されていない箇所があります。再度入力してください</p>
-    <?php endif ?> 
-    <?php if ($error['phone_number'] === 'wrong') : ?>
-        <p class="error">*電話番号はハイフン付きの半角数字で入力してください</p>
-    <?php endif ?>
-    <?php if ($error['postal_code'] === 'wrong') : ?>
-        <p class="error">*郵便番号はハイフン付きの半角数字で入力してください</p>
-    <?php endif ?>
+    <?php setError($error) ?>
 
     <!-- ここからテーブル -->
     <form action="" method="POST">
