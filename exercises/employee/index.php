@@ -24,7 +24,7 @@ if (empty($company_id)) {
 }
 
 //データベース参照
-if ($_GET['order']) {
+if ($_GET['order'] === 'desc') {
     $employees = $db->prepare(
         'SELECT * from employees 
         WHERE company_id=? AND deleted IS NULL ORDER BY id DESC'
@@ -61,8 +61,12 @@ $delete = "delete.php?company_id=".$company_id;
 </head>
 <body>
     <script src="../scripts/main.js"></script>
-    <h1><a href=<?php echo $index ?> class="heading">社員一覧</a></h1>
+    <h1>
+        <a href=<?php echo $index ?> class="heading">社員一覧</a>
+    </h1>
     <a href=<?php echo $signup ?> class="button">新規登録</a>
+
+    <!-- エラー表示 -->
     <?php if ($_SESSION['signup']['employee'] === 'completed') : ?>
         <p class="success">新規登録が完了しました</p>
         <?php unset($_SESSION['signup']['employee']) ?>
@@ -75,6 +79,8 @@ $delete = "delete.php?company_id=".$company_id;
         <p class="success">削除が完了しました</p>
         <?php unset($_SESSION['delete']['employee']) ?>
     <?php endif ?>
+
+    <!-- ここからテーブル -->
     <div class="index-table" >
         <table border="1">
             <tr>

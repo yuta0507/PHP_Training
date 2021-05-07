@@ -69,6 +69,8 @@ $delete = "delete.php?id=";
         <a href=<?php echo $index ?> class="heading">会社一覧</a>
     </h1>
     <a href=<?php echo $signup ?> class="button">新規登録</a>
+
+    <!-- エラー表示 -->
     <?php if ($_SESSION['signup']['company'] === 'completed') : ?>
         <p class="success">新規登録が完了しました</p>
         <?php unset($_SESSION['signup']['company']) ?>
@@ -81,6 +83,8 @@ $delete = "delete.php?id=";
         <p class="success">削除が完了しました</p>
         <?php unset($_SESSION['delete']['company']) ?>
     <?php endif ?>
+
+    <!-- ここからテーブル -->
     <div class="index-table" >
         <table border="1">
             <tr>
