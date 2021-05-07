@@ -70,19 +70,12 @@ $delete = "delete.php?id=";
     </h1>
     <a href=<?php echo $signup ?> class="button">新規登録</a>
 
-    <!-- エラー表示 -->
-    <?php if ($_SESSION['signup']['company'] === 'completed') : ?>
-        <p class="success">新規登録が完了しました</p>
-        <?php unset($_SESSION['signup']['company']) ?>
-    <?php endif ?>
-    <?php if ($_SESSION['edit']['company'] === 'completed') : ?>
-        <p class="success">編集が完了しました</p>
-        <?php unset($_SESSION['edit']['company']) ?>
-    <?php endif ?>
-    <?php if ($_SESSION['delete']['company'] === 'completed') : ?>
-        <p class="success">削除が完了しました</p>
-        <?php unset($_SESSION['delete']['company']) ?>
-    <?php endif ?>
+    <!-- 完了表示 -->
+    <?php 
+    setCompleted($_SESSION); 
+    $_SESSION = [];
+    session_destroy();
+    ?>
 
     <!-- ここからテーブル -->
     <div class="index-table" >

@@ -82,6 +82,60 @@ function checkPostalCode($value)
 }
 
 /**
+ * Function setError.
+ * 
+ * @param string $error 文字列
+ * 
+ * @return string
+ * */
+function setError($error)
+{
+    if ($error['blank'] === true) {
+        echo '<p class="error">*入力されていない箇所があります。再度入力してください</p>';
+    }
+    if ($error['phone_number'] === 'wrong') {
+        echo '<p class="error">*電話番号はハイフン付きの半角数字で入力してください</p>';
+    }
+    if ($error['postal_code'] === 'wrong') {
+        echo '<p class="error">*郵便番号はハイフン付きの半角数字で入力してください</p>';
+    }
+}
+
+/**
+ * Function setCompleted.
+ * 
+ * @param string $value 文字列
+ * 
+ * @return string
+ * */
+function setCompleted($value)
+{
+    //Company
+    if ($value['signup']['company'] === 'completed') {
+        echo '<p class="success">新規登録が完了しました</p>';
+    }
+    if ($value['edit']['company'] === 'completed') {
+        echo '<p class="success">編集が完了しました</p>';
+    }
+    if ($value['delete']['company'] === 'completed') {
+        echo '<p class="success">削除が完了しました</p>';
+    }
+
+    //Employee
+    if ($value['signup']['employee'] === 'completed') {
+        echo '<p class="success">新規登録が完了しました</p>';
+    }
+    if ($value['edit']['employee'] === 'completed') {
+        echo '<p class="success">編集が完了しました</p>';
+    }
+    if ($value['delete']['employee'] === 'completed') {
+        echo '<p class="success">削除が完了しました</p>';
+    }
+}
+
+
+
+/**
  * Function checkPostalCode.
  * 
  * @param string $value 文字列
