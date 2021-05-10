@@ -22,7 +22,7 @@ $column = [
 
 //エラーチェック
 if (!empty($_POST)) {
-    $error = validateInput($_POST, $column);
+    $error = validateInputData($_POST, $column);
 }
 
 //データベースに登録
@@ -93,8 +93,7 @@ $company = $companies->fetch();
                         maxlength="50" 
                         value="<?php 
                         echo selectValue(
-                            $company['company_name'], 
-                            h($_POST['company_name'])
+                            $company, $_POST, 'company_name'
                         );
                         ?>"/>
                     </th>
@@ -106,8 +105,7 @@ $company = $companies->fetch();
                         maxlength="20" 
                         value="<?php
                         echo selectValue(
-                            $company['representative_name'], 
-                            h($_POST['representative_name'])
+                            $company, $_POST, 'representative_name'
                         );
                         ?>"/>
                     </th>
@@ -119,8 +117,7 @@ $company = $companies->fetch();
                         maxlength="13" 
                         value="<?php
                         echo selectValue(
-                            $company['phone_number'], 
-                            h($_POST['phone_number'])
+                            $company, $_POST, 'phone_number'
                         ); 
                         ?>"/>
                     </th>
@@ -139,15 +136,13 @@ $company = $companies->fetch();
                                 maxlength="8"  
                                 value="<?php 
                                 echo selectValue(
-                                    $company['postal_code'], 
-                                    h($_POST['postal_code'])
+                                    $company, $_POST, 'postal_code'
                                 );
                                 ?>"/>
                                 <select name="prefectures_code" >
                                     <option value="<?php
                                     $prefecture_code = selectValue(
-                                        $company['prefectures_code'], 
-                                        h($_POST['prefectures_code'])
+                                        $company, $_POST, 'prefectures_code'
                                     );
                                     echo $prefecture_code;
                                     ?>" selected>
@@ -207,8 +202,7 @@ $company = $companies->fetch();
                                 maxlength="100" 
                                 value="<?php
                                 echo selectValue(
-                                    $company['address'], 
-                                    h($_POST['address'])
+                                    $company, $_POST, 'address'
                                 );
                                 ?>"/>
                             </div>
@@ -222,8 +216,7 @@ $company = $companies->fetch();
                         maxlength="100" 
                         value="<?php 
                         echo selectValue(
-                            $company['mail_address'], 
-                            h($_POST['mail_address'])
+                            $company, $_POST, 'mail_address'
                         );
                         ?>"/>
                     </th>

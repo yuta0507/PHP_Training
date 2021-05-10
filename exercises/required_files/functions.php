@@ -24,19 +24,19 @@ function h($value)
 }
 
 /**
- * Function setValue.
+ * Function selectValue.
  * 
  * @param string $value1 文字列
  * @param string $value2 文字列
  * 
  * @return string
  * */
-function selectValue($value1, $value2) 
+function selectValue($db_table, $input_data, $column_name) 
 {
-    if (!empty($value2)) {
-        return $value2;
+    if (!empty($input_data)) {
+        return h($input_data[$column_name]);
     } 
-    return $value1;
+    return $db_table[$column_name];
 }
 
 /**
@@ -46,7 +46,7 @@ function selectValue($value1, $value2)
  * 
  * @return string
  * */
-function validateInput($table, $column)
+function validateInputData($table, $column)
 {
     //未入力 チェック   
     foreach ($column as $value) {
