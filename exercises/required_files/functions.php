@@ -40,7 +40,38 @@ function selectValue($value1, $value2)
 }
 
 /**
- * Function isValidPhoneNumber.
+ * Function isInputValid.
+ * 
+ * @param string $value 文字列
+ * 
+ * @return string
+ * */
+function validateInput($table, $column)
+{
+    //未入力 チェック   
+    foreach ($column as $value) {
+        if ($table[$value] == '') {
+            $error['blank'] = true;
+        }
+    }
+
+    //電話番号半角数字チェック
+    $phone_number = h($table['phone_number']);
+    if (!empty($phone_number) && isPhoneNumberValid($phone_number) === false) {
+        $error['phone_number'] = 'wrong';
+    }
+
+    //郵便番号半角数字チェック
+    $postal_code = h($table['postal_code']);
+    if (!empty($postal_code) && isPostalCodeValid($postal_code) === false) {
+        $error['postal_code'] = 'wrong';
+    }
+    
+    return $error;
+}
+
+/**
+ * Function isPhoneNumberValid.
  * 
  * @param string $value 文字列
  * 
@@ -69,7 +100,7 @@ function isPhoneNumberValid($value)
 }
 
 /**
- * Function isValidPostalCode.
+ * Function isPostalCodeValid.
  * 
  * @param string $value 文字列
  * 
@@ -136,8 +167,6 @@ function outputCompletionMessage($value)
         echo '<p class="success">削除が完了しました</p>';
     }
 }
-
-
 
 /**
  * Function setPrefecture.

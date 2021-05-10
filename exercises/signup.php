@@ -22,26 +22,8 @@ $column = [
 
 //エラーチェック
 if (!empty($_POST)) {
-    //未入力 チェック   
-    foreach ($column as $value) {
-        if ($_POST[$value] == '') {
-            $error['blank'] = true;
-        }
-    }
-
-    //電話番号半角数字チェック
-    $phone_number = h($_POST['phone_number']);
-    if (!empty($phone_number) && isPhoneNumberValid($phone_number) === false) {
-        $error['phone_number'] = 'wrong';
-    }
-
-    //郵便番号半角数字チェック
-    $postal_code = h($_POST['postal_code']);
-    if (!empty($postal_code) && isPostalCodeValid($postal_code) === false) {
-        $error['postal_code'] = 'wrong';
-    }
+    $error = validateInput($_POST, $column);
 }
-
 
 //データベースに登録
 if (empty($error) && !empty($_POST)) {
