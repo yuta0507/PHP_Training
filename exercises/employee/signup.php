@@ -30,7 +30,7 @@ $column = [
 
 //エラーチェック
 if (!empty($_POST)) {
-    $error = validateInput($_POST, $column);
+    $error = validateInputData($_POST, $column);
 }
 
 //データベースに登録
