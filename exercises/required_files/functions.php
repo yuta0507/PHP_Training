@@ -46,7 +46,7 @@ function setValue($value1, $value2)
  * 
  * @return boolean
  * */
-function isValidPhoneNumber($value)
+function isPhoneNumberValid($value)
 {
     $i=0;
     $patterns = [
@@ -64,6 +64,8 @@ function isValidPhoneNumber($value)
     if ($i === 0) {
         return false;
     }
+
+    return true;
 }
 
 /**
@@ -71,14 +73,16 @@ function isValidPhoneNumber($value)
  * 
  * @param string $value 文字列
  * 
- * @return string
+ * @return boolean
  * */
-function isValidPostalCode($value)
+function isPostalCodeValid($value)
 {
     $pattern = "/^\d{3}-\d{4}$/";
     if (!preg_match($pattern, $value)) {
         return false;
     }
+
+    return true;
 }
 
 /**
@@ -88,7 +92,7 @@ function isValidPostalCode($value)
  * 
  * @return string
  * */
-function outputError($error)
+function outputErrorMessage($error)
 {
     if ($error['blank'] === true) {
         echo '<p class="error">*入力されていない箇所があります。再度入力してください</p>';
@@ -108,7 +112,7 @@ function outputError($error)
  * 
  * @return string
  * */
-function outputCompleted($value)
+function outputCompletionMessage($value)
 {
     //Company
     if ($value['signup']['company'] === 'completed') {

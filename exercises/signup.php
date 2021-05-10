@@ -31,13 +31,13 @@ if (!empty($_POST)) {
 
     //電話番号半角数字チェック
     $phone_number = h($_POST['phone_number']);
-    if (!empty($phone_number) && isValidPhoneNumber($phone_number) === false) {
+    if (!empty($phone_number) && isPhoneNumberValid($phone_number) === false) {
         $error['phone_number'] = 'wrong';
     }
 
     //郵便番号半角数字チェック
     $postal_code = h($_POST['postal_code']);
-    if (!empty($postal_code) && isValidPostalCode($postal_code) === false) {
+    if (!empty($postal_code) && isPostalCodeValid($postal_code) === false) {
         $error['postal_code'] = 'wrong';
     }
 }
@@ -88,7 +88,7 @@ $prf_code = h($_POST['prefectures_code']);
 </head>
 <body>
     <!-- エラー表示 -->
-    <?php outputError($error) ?>
+    <?php outputErrorMessage($error) ?>
 
     <!-- ここからテーブル -->
     <form action="" method="POST">
