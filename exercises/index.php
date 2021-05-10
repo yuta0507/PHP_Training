@@ -70,9 +70,9 @@ $delete = "delete.php?id=";
     </h1>
     <a href=<?php echo $signup ?> class="button">新規登録</a>
 
-    <!-- 完了表示 -->
+    <!-- 新規登録・編集・削除の完了メッセージを表示 -->
     <?php 
-    outputCompleted($_SESSION); 
+    outputCompletionMessage($_SESSION); 
     $_SESSION = [];
     session_destroy();
     ?>
@@ -124,7 +124,7 @@ $delete = "delete.php?id=";
                             <input type="hidden" name="id" 
                             value="<?php echo h($company['id']) ?>">
                             <input type="submit"
-                            onclick="return outputDeletePopup()" value="削除">
+                            onclick="return outputConfirmationPopup()" value="削除">
                         </form>
                     </th>
                 </tr>
