@@ -31,7 +31,7 @@ function h($value)
  * 
  * @return string
  * */
-function setValue($value1, $value2) 
+function selectValue($value1, $value2) 
 {
     if (!empty($value2)) {
         return $value2;
@@ -146,7 +146,7 @@ function outputCompletionMessage($value)
  * 
  * @return string
  * */
-function setPrefecture($value)
+function outputPrefecture($value)
 {
     $prefectures = [
         "北海道", "青森県", "岩手県", "宮城県", "秋田県", 
@@ -161,7 +161,7 @@ function setPrefecture($value)
         "鹿児島県", "沖縄県"
     ];
 
-    return $prefectures[$value-1];
+    echo $prefectures[$value-1];
 }
 
 ?>

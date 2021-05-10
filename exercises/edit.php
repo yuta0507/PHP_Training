@@ -109,7 +109,7 @@ $company = $companies->fetch();
                         <input type="text" name="company_name" 
                         maxlength="50" 
                         value="<?php 
-                        echo setValue(
+                        echo selectValue(
                             $company['company_name'], 
                             h($_POST['company_name'])
                         );
@@ -122,7 +122,7 @@ $company = $companies->fetch();
                         <input type="text" name="representative_name" 
                         maxlength="20" 
                         value="<?php
-                        echo setValue(
+                        echo selectValue(
                             $company['representative_name'], 
                             h($_POST['representative_name'])
                         );
@@ -135,7 +135,7 @@ $company = $companies->fetch();
                         <input type="tel" name="phone_number" 
                         maxlength="13" 
                         value="<?php
-                        echo setValue(
+                        echo selectValue(
                             $company['phone_number'], 
                             h($_POST['phone_number'])
                         ); 
@@ -155,21 +155,21 @@ $company = $companies->fetch();
                                 <input type="text" name="postal_code" 
                                 maxlength="8"  
                                 value="<?php 
-                                echo setValue(
+                                echo selectValue(
                                     $company['postal_code'], 
                                     h($_POST['postal_code'])
                                 );
                                 ?>"/>
                                 <select name="prefectures_code" >
                                     <option value="<?php
-                                    $prefecture_code = setValue(
+                                    $prefecture_code = selectValue(
                                         $company['prefectures_code'], 
                                         h($_POST['prefectures_code'])
                                     );
                                     echo $prefecture_code;
                                     ?>" selected>
                                         <?php
-                                        echo setPrefecture($prefecture_code);
+                                        outputPrefecture($prefecture_code);
                                         ?>
                                     </option>
                                     <option value="1">北海道</option>
@@ -223,7 +223,7 @@ $company = $companies->fetch();
                                 <input type="text" name="address" 
                                 maxlength="100" 
                                 value="<?php
-                                echo setValue(
+                                echo selectValue(
                                     $company['address'], 
                                     h($_POST['address'])
                                 );
@@ -238,7 +238,7 @@ $company = $companies->fetch();
                         <input type="text" name="mail_address" 
                         maxlength="100" 
                         value="<?php 
-                        echo setValue(
+                        echo selectValue(
                             $company['mail_address'], 
                             h($_POST['mail_address'])
                         );

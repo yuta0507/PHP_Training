@@ -118,7 +118,7 @@ $employee = $employees->fetch();
                         <input type="text" name="employee_name" 
                         maxlength="20" 
                         value="<?php
-                        echo setValue(
+                        echo selectValue(
                             $employee['employee_name'], 
                             h($_POST['employee_name'])
                         );
@@ -131,7 +131,7 @@ $employee = $employees->fetch();
                         <input type="text" name="division_name" 
                         maxlength="20" 
                         value="<?php 
-                        echo setValue(
+                        echo selectValue(
                             $employee['division_name'], 
                             h($_POST['division_name'])
                         );
@@ -144,7 +144,7 @@ $employee = $employees->fetch();
                         <input type="tel" name="phone_number" 
                         maxlength="13" 
                         value="<?php 
-                        echo setValue(
+                        echo selectValue(
                             $employee['phone_number'], 
                             h($_POST['phone_number'])
                         );
@@ -164,21 +164,21 @@ $employee = $employees->fetch();
                                 <input type="text" name="postal_code" 
                                 maxlength="8" 
                                 value="<?php
-                                echo setValue(
+                                echo selectValue(
                                     $employee['postal_code'], 
                                     h($_POST['postal_code'])
                                 );
                                 ?>"/>
                                 <select name="prefectures_code" >
                                     <option value="<?php
-                                    $prefecture_code = setValue(
+                                    $prefecture_code = selectValue(
                                         $employee['prefectures_code'], 
                                         h($_POST['prefectures_code'])
                                     );
                                     echo $prefecture_code;
                                     ?>" selected>
                                         <?php
-                                        echo setPrefecture($prefecture_code);
+                                        outputPrefecture($prefecture_code);
                                         ?>
                                     </option>
                                     <option value="1">北海道</option>
@@ -232,7 +232,7 @@ $employee = $employees->fetch();
                                 <input type="text" name="address" 
                                 maxlength="100" 
                                 value="<?php
-                                echo setValue(
+                                echo selectValue(
                                     $employee['address'], 
                                     h($_POST['address'])
                                 );
@@ -247,7 +247,7 @@ $employee = $employees->fetch();
                         <input type="text" name="mail_address" 
                         maxlength="100" 
                         value="<?php 
-                        echo setValue(
+                        echo selectValue(
                             $employee['mail_address'], 
                             h($_POST['mail_address'])
                         );
