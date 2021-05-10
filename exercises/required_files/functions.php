@@ -40,13 +40,13 @@ function setValue($value1, $value2)
 }
 
 /**
- * Function checkPhoneNumber.
+ * Function isValidPhoneNumber.
  * 
  * @param string $value 文字列
  * 
- * @return string
+ * @return boolean
  * */
-function checkPhoneNumber($value)
+function isValidPhoneNumber($value)
 {
     $i=0;
     $patterns = [
@@ -67,13 +67,13 @@ function checkPhoneNumber($value)
 }
 
 /**
- * Function checkPostalCode.
+ * Function isValidPostalCode.
  * 
  * @param string $value 文字列
  * 
  * @return string
  * */
-function checkPostalCode($value)
+function isValidPostalCode($value)
 {
     $pattern = "/^\d{3}-\d{4}$/";
     if (!preg_match($pattern, $value)) {
@@ -136,7 +136,7 @@ function outputCompleted($value)
 
 
 /**
- * Function checkPostalCode.
+ * Function setPrefecture.
  * 
  * @param string $value 文字列
  * 
