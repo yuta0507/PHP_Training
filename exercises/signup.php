@@ -133,7 +133,7 @@ $prf_code = h($_POST['prefectures_code']);
                                 value="<?php echo h($_POST['postal_code']) ?>"/>
                                 <select name="prefectures_code">
                                     <option value="<?php echo $prf_code ?>" selected>
-                                        <?php echo setPrefecture($prf_code) ?>
+                                        <?php outputPrefecture($prf_code) ?>
                                     </option>
                                     <option value="1">北海道</option>
                                     <option value="2">青森県</option>
