@@ -59,6 +59,7 @@ if (empty($error) && !empty($_POST)) {
     exit();
 }
 
+//データベース参照
 $companies = $db->prepare(
     'SELECT * from companies WHERE id=? AND deleted IS NULL'
 );

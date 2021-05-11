@@ -68,6 +68,7 @@ if (empty($error) && !empty($_POST)) {
     exit();
 }
 
+//データベース参照
 $employees = $db->prepare(
     'SELECT * FROM employees WHERE id=? AND deleted IS NULL '
 );
