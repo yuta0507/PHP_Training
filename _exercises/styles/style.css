@@ -1,0 +1,134 @@
+/* ↓ 共通のstyle ↓*/
+h1 {
+    margin: 0;
+}
+
+.heading {
+    text-decoration: none;
+    color: black;
+}
+
+.error, .success {
+    color: red;
+    font-size: 12px;
+    margin: 0;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table th {
+    border: solid 1.5px black;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+
+table a {
+    text-decoration: none;
+    color: deepskyblue;
+}
+
+.button {
+    display: inline-block;
+    border-radius: 10px;         
+    font-size: 12px;        
+    text-align: center;
+    text-decoration: none;      
+    cursor: pointer;
+    padding: 10px 24px;
+    margin: 20px 0;   
+    background: linear-gradient(to top, #88a1dd 0%, #d5e9ff 100%);     
+    color: black;        
+    border: 1.5px solid #9dbaff;  
+}
+
+.button-submit {
+    display: inline-block;
+    border-radius: 10px;         
+    font-size: 12px;        
+    text-align: center;
+    text-decoration: none;      
+    cursor: pointer;
+    width: 99px;
+    height: 41px;
+    margin: 20px 0;   
+    background: linear-gradient(to top, #88a1dd 0%, #d5e9ff 100%);     
+    color: black;        
+    border: 1.5px solid #9dbaff;
+}
+
+
+
+/* ↓ index.phpのstyle ↓ */
+.index-table th {
+    width: 100px;
+    height: 40px;
+}
+
+.index-table th input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-size: 12px;
+  color: deepskyblue;    
+}
+
+/* ↓ signup.php, edit.php のstyle ↓*/
+.table th input {
+    width: 120px;
+}
+
+input::placeholder {
+    color: grey;
+    font-size: 8px;
+}
+
+.table th {
+    height: 30px;
+}
+
+.table .left {
+    width: 120px;
+}
+
+.table .right {
+    width: 250px;
+}
+
+.address {
+    height: 100px;
+}
+
+.address-right {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 90%;
+}
+
+.add-left {
+    text-align: left;
+}
+
+.add-left label {
+    display: inline-block;
+    margin: 2px 0 9px 0;
+}
+
+.add-right {
+    text-align: center;
+}
+
+.add-right select {
+    margin: 10px 0;
+    width: 90%;
+}
