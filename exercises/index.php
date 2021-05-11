@@ -64,72 +64,83 @@ $delete = "delete.php?id=";
     <title>Exercise</title>
 </head>
 <body>
-    <script src="scripts/main.js"></script>
-    <h1>
-        <a href=<?php echo $index ?> class="heading">会社一覧</a>
-    </h1>
-    <a href=<?php echo $signup ?> class="button">新規登録</a>
+    <!-- ナビゲーションバー -->
+    <nav>
+        <ul>
+            <li>
+                <a href="<?php echo $index ?>">会社一覧</a>
+            </li>
+        </ul>
+    </nav>
+    
+    <div class="index-container">
+        <a href=<?php echo $signup ?> class="button">新規登録</a>
+        
+        <!-- 新規登録・編集・削除の完了メッセージを表示 -->
+        <?php 
+        outputCompletionMessage($_SESSION); 
+        $_SESSION = [];
+        session_destroy();
+        ?>
 
-    <!-- 新規登録・編集・削除の完了メッセージを表示 -->
-    <?php 
-    outputCompletionMessage($_SESSION); 
-    $_SESSION = [];
-    session_destroy();
-    ?>
-
-    <!-- ここからテーブル -->
-    <div class="index-table" >
-        <table border="1">
-            <tr>
-                <th><a href=<?php echo $href ?>>ID</a></th>
-                <th>会社名</th>
-                <th>代表</th>
-                <th>Tel</th>
-                <th>住所</th>
-                <th>Mail</th>
-                <th>社員数</th>
-                <th>編集</th>
-                <th>削除</th>
-            </tr>
-            <?php foreach ($companies as $company): ?>
+        <!-- ここからテーブル -->
+        <div class="index-table" >
+            <table border="1">
                 <tr>
-                    <th>
-                        <?php echo h($company['id']) ?>
-                    </th>
-                    <th>
-                        <a href=<?php echo $employee_index. h($company['id']) ?>>
-                            <?php echo h($company['company_name']) ?>
-                        </a>
-                    </th>
-                    <th>
-                        <?php echo h($company['representative_name']) ?>
-                    </th>
-                    <th>
-                        <?php echo h($company['phone_number']) ?>
-                    </th>
-                    <th>
-                        <?php echo h($company['address']) ?>
-                    </th>
-                    <th>
-                        <?php echo h($company['mail_address']) ?>
-                    </th>
-                    <th>
-                        <?php echo h($company['cnt']) ?>
-                    </th>
-                    <th>
-                        <a href=<?php echo $edit. h($company['id']) ?>>編集</a>
-                    </th>
-                    <th>
-                        <form name="delete_form" action="delete.php" method="POST">
-                            <input type="hidden" name="id" 
-                            value="<?php echo h($company['id']) ?>">
-                            <input type="submit"
-                            onclick="return outputConfirmationPopup()" value="削除">
-                        </form>
-                    </th>
+                    <th><a href=<?php echo $href ?>>ID</a></th>
+                    <th>会社名</th>
+                    <th>代表</th>
+                    <th>Tel</th>
+                    <th>住所</th>
+                    <th>Mail</th>
+                    <th>社員数</th>
+                    <th>編集</th>
+                    <th>削除</th>
                 </tr>
-            <?php endforeach ?>    
-        </table>
+                <?php foreach ($companies as $company): ?>
+                    <tr>
+                        <th>
+                            <?php echo h($company['id']) ?>
+                        </th>
+                        <th>
+                            <a href=<?php echo $employee_index. h($company['id']) ?>>
+                                <?php echo h($company['company_name']) ?>
+                            </a>
+                        </th>
+                        <th>
+                            <?php echo h($company['representative_name']) ?>
+                        </th>
+                        <th>
+                            <?php echo h($company['phone_number']) ?>
+                        </th>
+                        <th>
+                            <?php echo h($company['address']) ?>
+                        </th>
+                        <th>
+                            <?php echo h($company['mail_address']) ?>
+                        </th>
+                        <th>
+                            <?php echo h($company['cnt']) ?>
+                        </th>
+                        <th>
+                            <a href=<?php echo $edit. h($company['id']) ?>>編集</a>
+                        </th>
+                        <th>
+                            <form name="delete_form" action="delete.php" method="POST">
+                                <input type="hidden" name="id" 
+                                value="<?php echo h($company['id']) ?>">
+                                <input type="submit"
+                                onclick="return outputConfirmationPopup()" value="削除">
+                            </form>
+                        </th>
+                    </tr>
+                <?php endforeach ?>    
+            </table>
+        </div>
     </div>
+        
+    <script src="scripts/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
+    <script>bubbly();</script>
 </body>
 </html>
