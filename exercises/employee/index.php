@@ -44,11 +44,11 @@ if ($_GET['order'] === 'desc') {
 
 
 //リンク
-$index = "index.php?company_id=".$company_id;
+$company_index = "../index.php";
+$employee_index = "index.php?company_id=".$company_id;
 $signup = "signup.php?company_id=".$company_id;
 $edit = "edit.php?company_id=".$company_id."&id=";
 $delete = "delete.php?company_id=".$company_id;
-
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -60,60 +60,70 @@ $delete = "delete.php?company_id=".$company_id;
     <title>Exercise</title>
 </head>
 <body>
-    <script src="../scripts/main.js"></script>
-    <h1>
-        <a href=<?php echo $index ?> class="heading">社員一覧</a>
-    </h1>
-    <a href=<?php echo $signup ?> class="button">新規登録</a>
+    
+    <!-- ナビゲーションバー -->
+    <nav>
+        <ul>
+            <li>
+                <a href="<?php echo $company_index ?>">会社一覧</a>
+            </li>
+            <li>
+                <a href="<?php echo $employee_index ?>">社員一覧</a>
+            </li>
+        </ul>
+    </nav>
+    
+    <div class="index-container">
+        <a href=<?php echo $signup ?> class="button">新規登録</a>
+        
+        <!-- 新規登録・編集・削除の完了メッセージを表示 -->
+        <?php 
+        outputCompletionMessage($_SESSION);
+        $_SESSION = [];
+        session_destroy();
+        ?>
 
-    <!-- 新規登録・編集・削除の完了メッセージを表示 -->
-    <?php 
-    outputCompletionMessage($_SESSION);
-    $_SESSION = [];
-    session_destroy();
-    ?>
-
-    <!-- ここからテーブル -->
-    <div class="index-table" >
-        <table border="1">
-            <tr>
-                <th>
-                    <a href=<?php echo $href ?>>ID</a>
-                </th>
-                <th>社員名</th>
-                <th>部署</th>
-                <th>Tel</th>
-                <th>住所</th>
-                <th>Mail</th>
-                <th>編集</th>
-                <th>削除</th>
-            </tr>
-            <?php foreach ($employees as $employee) : ?>
+        <!-- ここからテーブル -->
+        <div class="index-table" >
+            <table border="1">
                 <tr>
                     <th>
-                        <?php echo h($employee['id']) ?>
+                        <a href=<?php echo $href ?>>ID</a>
                     </th>
-                    <th>
-                        <?php echo h($employee['employee_name']) ?>
-                    </th>
-                    <th>
-                        <?php echo h($employee['division_name']) ?>
-                    </th>
-                    <th>
-                        <?php echo h($employee['phone_number']) ?>
-                    </th>
-                    <th>
-                        <?php echo h($employee['address']) ?>
-                    </th>
-                    <th>
-                        <?php echo h($employee['mail_address']) ?>
-                    </th>
-                    <th>
-                        <a href=<?php echo $edit. h($employee['id']) ?>>編集</a>
-                    </th>
-                    <th>
-                        <form name="delete_form" 
-                        action="<?php echo $delete ?>" method="POST">
+                    <th>社員名</th>
+                    <th>部署</th>
+                    <th>Tel</th>
+                    <th>住所</th>
+                    <th>Mail</th>
+                    <th>編集</th>
+                    <th>削除</th>
+                </tr>
+                <?php foreach ($employees as $employee) : ?>
+                    <tr>
+                        <th>
+                            <?php echo h($employee['id']) ?>
+                        </th>
+                        <th>
+                            <?php echo h($employee['employee_name']) ?>
+                        </th>
+                        <th>
+                            <?php echo h($employee['division_name']) ?>
+                        </th>
+                        <th>
+                            <?php echo h($employee['phone_number']) ?>
+                        </th>
+                        <th>
+                            <?php echo h($employee['address']) ?>
+                        </th>
+                        <th>
+                            <?php echo h($employee['mail_address']) ?>
+                        </th>
+                        <th>
+                            <a href=<?php echo $edit. h($employee['id']) ?>>編集</a>
+                        </th>
+                        <th>
+                            <form name="delete_form" 
+                            action="<?php echo $delete ?>" method="POST">
                             <input type="hidden" name="id" 
                             value="<?php echo h($employee['id']) ?>">
                             <input type="submit" 
@@ -121,8 +131,11 @@ $delete = "delete.php?company_id=".$company_id;
                         </form>
                     </th>
                 </tr>
-            <?php endforeach ?>
-        </table>
+                <?php endforeach ?>
+            </table>
+            
+            <script src="../scripts/main.js"></script>
+        </div>
     </div>
 </body>
 </html>
