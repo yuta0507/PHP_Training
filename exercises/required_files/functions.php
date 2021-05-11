@@ -46,23 +46,23 @@ function selectValue($db_table, $input_data, $column_name)
  * 
  * @return string
  * */
-function validateInputData($table, $column)
+function validateInputData($input_data, $column)
 {
     //未入力 チェック   
-    foreach ($column as $value) {
-        if ($table[$value] == '') {
-            $error['blank'] = true;
+    foreach ($column as $column_name) {
+        if ($input_data[$column_name] == '') {
+            $error['blank'] = 'true';
         }
     }
 
     //電話番号半角数字チェック
-    $phone_number = h($table['phone_number']);
+    $phone_number = h($input_data['phone_number']);
     if (!empty($phone_number) && isPhoneNumberValid($phone_number) === false) {
         $error['phone_number'] = 'wrong';
     }
 
     //郵便番号半角数字チェック
-    $postal_code = h($table['postal_code']);
+    $postal_code = h($input_data['postal_code']);
     if (!empty($postal_code) && isPostalCodeValid($postal_code) === false) {
         $error['postal_code'] = 'wrong';
     }
@@ -125,7 +125,7 @@ function isPostalCodeValid($value)
  * */
 function outputErrorMessage($error)
 {
-    if ($error['blank'] === true) {
+    if ($error['blank'] === 'true') {
         echo '<p class="error">*入力されていない箇所があります。再度入力してください</p>';
     }
     if ($error['phone_number'] === 'wrong') {
