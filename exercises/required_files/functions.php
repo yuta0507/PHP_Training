@@ -145,26 +145,30 @@ function outputErrorMessage($error)
  * */
 function outputCompletionMessage($value)
 {
+    define('COMPLETION_MSG_SIGNUP', '新規登録が完了しました');
+    define('COMPLETION_MSG_EDIT', '編集が完了しました');
+    define('COMPLETION_MSG_DELETE', '削除が完了しました');
+
     //Company
     if ($value['signup']['company'] === 'completed') {
-        echo '<p class="success">新規登録が完了しました</p>';
+        echo '<p class="success">'. COMPLETION_MSG_SIGNUP.'</p>';
     }
     if ($value['edit']['company'] === 'completed') {
-        echo '<p class="success">編集が完了しました</p>';
+        echo '<p class="success">'. COMPLETION_MSG_EDIT.'</p>';
     }
     if ($value['delete']['company'] === 'completed') {
-        echo '<p class="success">削除が完了しました</p>';
+        echo '<p class="success">'. COMPLETION_MSG_DELETE.'</p>';
     }
 
     //Employee
     if ($value['signup']['employee'] === 'completed') {
-        echo '<p class="success">新規登録が完了しました</p>';
+        echo '<p class="success">'. COMPLETION_MSG_SIGNUP.'</p>';
     }
     if ($value['edit']['employee'] === 'completed') {
-        echo '<p class="success">編集が完了しました</p>';
+        echo '<p class="success">'. COMPLETION_MSG_EDIT.'</p>';
     }
     if ($value['delete']['employee'] === 'completed') {
-        echo '<p class="success">削除が完了しました</p>';
+        echo '<p class="success">'. COMPLETION_MSG_DELETE.'</p>';
     }
 }
 

@@ -26,7 +26,7 @@ if (empty($id)) {
         'UPDATE employees SET modified=NOW(), deleted=NOW()
         WHERE id=? AND deleted IS NULL'
     );
-    $statement->bindParam(':deleted_id', $id, PDO::PARAM_INT);
+    $statement->bindParam(1, $id, PDO::PARAM_INT);
     $statement->execute([$id]);
 
     $_SESSION['delete']['employee'] = 'completed';

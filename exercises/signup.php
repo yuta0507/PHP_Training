@@ -80,7 +80,7 @@ $prf_code = h($_POST['prefectures_code']);
                     <th class="left">会社名</th>
                     <th class="right">
                         <input type="text" name="company_name" 
-                        maxlength="50" placeholder="〇〇株式会社" 
+                        maxlength="50" placeholder="〇〇株式会社"
                         value="<?php echo h($_POST['company_name']) ?>"/>
                     </th>
                 </tr>
