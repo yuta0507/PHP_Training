@@ -43,11 +43,14 @@ foreach ($companies as $company) {
     $i++;
 }
 
+$ids = array_column($table, 'id');
 $max_i = $i;
 
 if ($_GET['order'] === 'desc') {
+    array_multisort($ids, SORT_DESC, $table);
     $href = "_index.php";
 } else {
+    array_multisort($ids, SORT_ASC, $table);
     $href = "_index.php?order=desc";
 }
 ?>
@@ -71,23 +74,13 @@ if ($_GET['order'] === 'desc') {
                     <th><?php echo $value ?></th>
                 <?php endforeach ?>    
             </tr>
-            <?php if ($_GET['order'] === 'desc') : ?>
-                <?php for ($i = $max_i-1; $i >= 0; $i--): ?>
-                    <tr>
-                        <?php for ($j = 0; $j < $column_len; $j++) : ?>
-                            <th><?php echo $table[$i][$column[$j]] ?></th>
-                        <?php endfor ?>
-                    </tr>
-                <?php endfor ?>
-            <?php else : ?>
-                <?php for ($i = 0; $i < $max_i; $i++): ?>
-                    <tr>
-                        <?php for ($j = 0; $j < $column_len; $j++) : ?>
-                            <th><?php echo $table[$i][$column[$j]] ?></th>
-                        <?php endfor ?>
-                    </tr>
-                <?php endfor ?>
-            <?php endif ?>        
+            <?php for ($i = 0; $i < $max_i; $i++): ?>
+                <tr>
+                    <?php for ($j = 0; $j < $column_len; $j++) : ?>
+                        <th><?php echo $table[$i][$column[$j]] ?></th>
+                    <?php endfor ?>
+                </tr>
+            <?php endfor ?>
         </table>
     </div>
 </body>
