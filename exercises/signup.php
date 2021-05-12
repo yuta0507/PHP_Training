@@ -71,12 +71,15 @@ $prf_code = h($_POST['prefectures_code']);
     <link rel="stylesheet" href="styles/style.css">
     <title>SignUp</title>
 </head>
-<body>
+<body class="<?php echo $_COOKIE['mode'] ?>">
     <!-- ナビゲーションバー -->
     <nav>
         <ul>
             <li>
                 <a href="<?php echo $index ?>">会社一覧</a>
+            </li>
+            <li>
+                <a href="settings.php" class="setting">設定</a>
             </li>
         </ul>
     </nav>
@@ -198,5 +201,6 @@ $prf_code = h($_POST['prefectures_code']);
             <input type="submit" class="button-submit" value="登録">
         </form>
     </div>
+    <script src="scripts/main.js"></script>
 </body>
 </html> 

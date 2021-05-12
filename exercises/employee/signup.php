@@ -83,7 +83,7 @@ $employee_index = "index.php?company_id=".$company_id;
     <link rel="stylesheet" href="../styles/style.css">
     <title>SignUp</title>
 </head>
-<body>
+<body class="<?php echo $_COOKIE['mode'] ?>">
     <!-- ナビゲーションバー -->
     <nav>
         <ul>
@@ -92,6 +92,9 @@ $employee_index = "index.php?company_id=".$company_id;
             </li>
             <li>
                 <a href="<?php echo $employee_index ?>">社員一覧</a>
+            </li>
+            <li>
+                <a href="settings.php" class="setting">設定</a>
             </li>
         </ul>
     </nav>

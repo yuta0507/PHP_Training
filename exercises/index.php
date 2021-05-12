@@ -52,7 +52,6 @@ $signup = "signup.php";
 $employee_index = "employee/index.php?company_id=";
 $edit = "edit.php?id=";
 $delete = "delete.php?id=";
-
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -63,12 +62,15 @@ $delete = "delete.php?id=";
     <link rel="stylesheet" href="styles/style.css">
     <title>Exercise</title>
 </head>
-<body>
+<body class="<?php echo $_COOKIE['mode'] ?>">
     <!-- ナビゲーションバー -->
     <nav>
         <ul>
             <li>
                 <a href="<?php echo $index ?>">会社一覧</a>
+            </li>
+            <li>
+                <a href="settings.php" class="setting">設定</a>
             </li>
         </ul>
     </nav>
@@ -140,7 +142,7 @@ $delete = "delete.php?id=";
     </div>
         
     <script src="scripts/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
-    <script>bubbly();</script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
+    <script>bubbly();</script> -->
 </body>
 </html>

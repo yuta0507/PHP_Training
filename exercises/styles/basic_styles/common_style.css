@@ -1,0 +1,84 @@
+/* ↓ 共通のstyle ↓*/
+body{
+    margin: 0;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 0 0 20px;
+    overflow: hidden;
+    background-color: black;
+}
+
+nav li {
+    float: left;
+}
+
+nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+nav li a:hover {
+    background-color: #333;
+}
+
+.heading {
+    text-decoration: none;
+    color: black;
+}
+
+.error, .success {
+    color: red;
+    font-size: 12px;
+    margin: 0;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table th {
+    border: solid 1.5px black;
+    font-size: 12.5px;
+    font-weight: normal;
+}
+
+
+table a {
+    text-decoration: none;
+    color: deepskyblue;
+}
+
+.button {
+    display: inline-block;
+    border-radius: 10px;         
+    font-size: 12.5px;        
+    text-align: center;
+    text-decoration: none;      
+    cursor: pointer;
+    padding: 10px 24px;
+    margin: 20px 0;   
+    background: linear-gradient(to top, #88a1dd 0%, #d5e9ff 100%);     
+    color: black;        
+    border: 1.5px solid #9dbaff;  
+}
+
+.button-submit {
+    display: inline-block;
+    border-radius: 10px;         
+    font-size: 12.5px;        
+    text-align: center;
+    text-decoration: none;      
+    cursor: pointer;
+    width: 99px;
+    height: 41px;
+    margin: 20px 0;   
+    background: linear-gradient(to top, #88a1dd 0%, #d5e9ff 100%);     
+    color: black;        
+    border: 1.5px solid #9dbaff;
+}

@@ -1,0 +1,95 @@
+/* ↓ index.phpのstyle ↓ */
+.index-container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.index-table table {
+    width: 100%;
+}
+
+.index-table th {
+    width: 100px;
+    height: 48px;
+}
+
+.index-table th input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-size: 12.5px;
+  color: deepskyblue;    
+}
+
+/* ↓ signup.php, edit.php のstyle ↓*/
+.container {
+    text-align: center;
+    padding-top: 40px;
+}
+
+.table table {
+    margin: 0 auto;
+}
+
+.table th input {
+    width: 140px;
+}
+
+input::placeholder {
+    color: grey;
+    font-size: 8px;
+}
+
+.table th {
+    height: 40px;
+}
+
+.table .left {
+    width: 135px;
+}
+
+.table .right {
+    width: 265px;
+}
+
+.address {
+    height: 100px;
+}
+
+.address-right {
+    padding-top: 3px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 90%;
+}
+
+.add-left {
+    text-align: left;
+}
+
+.add-left label {
+    display: inline-block;
+    margin: 2px 0 9px 0;
+}
+
+.add-right {
+    text-align: center;
+}
+
+.add-right select {
+    margin: 10px 0;
+    width: 90%;
+}
+
+/* settings.php のstyle */
+.mode {
+    margin: 0 15px;
+}

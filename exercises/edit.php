@@ -78,12 +78,15 @@ $index = "index.php";
     <link rel="stylesheet" href="styles/style.css">
     <title>Edit</title>
 </head>
-<body>
+<body class="<?php echo $_COOKIE['mode'] ?>">
     <!-- ナビゲーションバー -->
     <nav>
         <ul>
             <li>
                 <a href="<?php echo $index ?>">会社一覧</a>
+            </li>
+            <li>
+                <a href="settings.php" class="setting">設定</a>
             </li>
         </ul>
     </nav>
