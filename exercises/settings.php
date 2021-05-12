@@ -28,7 +28,9 @@ if (!empty($_POST)) {
                 <a href="<?php echo $index ?>">会社一覧</a>
             </li>
             <li>
-                <a href="settings.php">設定</a>
+                <a href="settings.php">
+                    <img src="images/setting.png">
+                </a>
             </li>
         </ul>
     </nav>
