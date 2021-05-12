@@ -1,0 +1,55 @@
+/* ダークモードのスタイル */
+
+/* 全体 */
+.darkmode {
+    background-color: #22272e
+}
+.darkmode ul {
+    background-color: #333;;
+}
+
+.darkmode li a:hover {
+    background-color: #111;
+}
+
+.darkmode table {
+    background-color: #2b2b30;
+    color: #e0eaff;
+}
+
+.darkmode table th {
+    border: solid 1.5px #9c9c9c;
+}
+
+.darkmode .button {
+    background: linear-gradient(to top, #000000 0%, #5a5a5a 100%);
+    color: #ebe9ff;
+    border: 1.5px solid #656565;
+}
+
+.darkmode .button-submit {
+    background: linear-gradient(to top, #000000 0%, #5a5a5a 100%);
+    color: #ebe9ff;
+    border: 1.5px solid #656565;
+}
+
+/* signup.php edit.php */
+.darkmode input::placeholder {
+    color: #e0eaff;
+}
+
+.darkmode table input {
+    background-color: #4d4d4d;
+    color: #e0eaff;
+}
+
+.darkmode table select {
+    background-color: #4d4d4d;
+    color: #e0eaff;
+}
+
+
+/* settings.php のstyle */
+.darkmode .mode {
+    color: #e0eaff;
+} 
