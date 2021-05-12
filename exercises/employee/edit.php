@@ -96,10 +96,12 @@ $employee_index = "index.php?company_id=".$company_id;
                 <a href="<?php echo $company_index ?>">会社一覧</a>
             </li>
             <li>
-                <a href="<?php echo $employee_index ?>">社員一覧</a>
+                <a href="<?php echo $employee_index ?>" class="employee">社員一覧</a>
             </li>
             <li>
-                <a href="settings.php" class="setting">設定</a>
+                <a href="../settings.php" class="setting">
+                    <img src="../images/setting.png">
+                </a>
             </li>
         </ul>
     </nav>

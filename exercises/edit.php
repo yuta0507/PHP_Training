@@ -86,7 +86,9 @@ $index = "index.php";
                 <a href="<?php echo $index ?>">会社一覧</a>
             </li>
             <li>
-                <a href="settings.php" class="setting">設定</a>
+                <a href="settings.php" class="setting">
+                    <img src="images/setting.png">
+                </a>
             </li>
         </ul>
     </nav>
