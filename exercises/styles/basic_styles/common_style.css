@@ -29,6 +29,13 @@ nav li a:hover {
     background-color: #333;
 }
 
+nav .employee {
+    font-size: 12.5px;
+    padding-top: 16px;
+    padding-bottom: 13px;
+    height: 100%;
+}
+
 nav .setting {
     padding-top: 14px;
     padding-bottom: 14px;
@@ -40,12 +47,6 @@ nav img {
     height: 13px;
 }
 
-nav .employee {
-    font-size: 12.5px;
-    padding-top: 16px;
-    padding-bottom: 13px;
-    height: 100%;
-}
 
 .heading {
     text-decoration: none;
