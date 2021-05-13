@@ -4,11 +4,11 @@
 .darkmode {
     background-color: #22272e
 }
-.darkmode ul {
+.darkmode nav ul {
     background-color: #333;;
 }
 
-.darkmode li a:hover {
+.darkmode nav li a:hover {
     background-color: #111;
 }
 
@@ -37,6 +37,10 @@
 .darkmode .index-table th input {
     color: deepskyblue;
     background-color: #2b2b30;
+}
+
+.darkmode .paging span {
+    color: white;
 }
 
 

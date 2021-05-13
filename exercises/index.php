@@ -15,9 +15,22 @@ require_once'required_files/dbconnect.php';
 require_once'required_files/functions.php';
 session_start();
 
+//ページング
+$page = $_GET['page'];
+if ($page == '') {
+    $page = 1;
+}
+
+$counts = $db->query('SELECT COUNT(*) AS cnt from companies WHERE deleted IS NULL');
+$cnt = $counts->fetch();
+$max_page = ceil($cnt['cnt'] / 5);
+$page = min($page, $max_page);
+
+$start = ($page- 1) * 5;
+
 //データベース参照
 if ($_GET['order'] === 'desc') {
-    $companies = $db->query(
+    $companies = $db->prepare(
         'SELECT c.*, COUNT(e.id) AS cnt
         FROM companies c  
         LEFT OUTER JOIN employees e 
@@ -25,13 +38,15 @@ if ($_GET['order'] === 'desc') {
         WHERE c.deleted IS NULL
         AND e.deleted IS NULL 
         GROUP BY c.id
-        ORDER BY c.id DESC'
+        ORDER BY c.id DESC
+        LIMIT ?, 5'
     );
+    $companies->bindParam(1, $start, PDO::PARAM_INT);
     $companies->execute();
     
-    $href = "index.php";
+    $href = "index.php?page=" .$page;
 } else {
-    $companies = $db->query(
+    $companies = $db->prepare(
         'SELECT c.*, COUNT(e.id) AS cnt
         FROM companies c  
         LEFT OUTER JOIN employees e 
@@ -39,11 +54,13 @@ if ($_GET['order'] === 'desc') {
         WHERE c.deleted IS NULL
         AND e.deleted IS NULL 
         GROUP BY c.id
-        ORDER BY c.id ASC'
+        ORDER BY c.id ASC
+        LIMIT ?, 5'
     );
+    $companies->bindParam(1, $start, PDO::PARAM_INT);
     $companies->execute();
     
-    $href = "index.php?order=desc";
+    $href = "index.php?page=" .$page ."&order=desc";
 }
 
 //リンク
@@ -141,6 +158,60 @@ $delete = "delete.php?id=";
                 <?php endforeach ?>    
             </table>
         </div>
+        <ul class="paging">
+            <?php if ($page > 1) : ?>
+                <li>
+                    <a href="index.php?page=<?php 
+                    echo $page-1; if ($_GET['order'] === 'desc') {echo "&order=desc";} ?>">
+                        ≪
+                    </a>
+                </li>
+                <?php if ($page > 2) : ?>
+                    <li>
+                        <a href="index.php?page=1<?php if ($_GET['order'] === 'desc') {echo "&order=desc";} ?>">
+                            1
+                        </a>
+                    </li>
+                    <li>
+                        <span>...</span>
+                    </li>
+                <?php endif ?>
+                <li>
+                    <a href="index.php?page=<?php echo $page-1; if ($_GET['order'] === 'desc') {echo "&order=desc";} ?>">
+                        <?php echo $page-1 ?>
+                    </a>
+                </li>    
+            <?php endif ?>
+            <li>
+                <a href="index.php?page=<?php echo $page; if ($_GET['order'] === 'desc') {echo "&order=desc";} ?>"
+                class="current-page">
+                    <?php echo $page ?>
+                </a>
+            </li>
+            <?php if ($page < $max_page) : ?>
+                <li>
+                    <a href="index.php?page=<?php echo $page+1; if ($_GET['order'] === 'desc') {echo "&order=desc";} ?>">
+                        <?php echo $page+1 ?>
+                    </a>
+                </li>
+                <?php if ($page < $max_page - 2) : ?>
+                    <li>
+                        <span>...</span>
+                    </li>
+                    <li>
+                        <a href="index.php?page=<?php echo $max_page; if ($_GET['order'] === 'desc') {echo "&order=desc";} ?>">
+                            <?php echo $max_page ?>
+                        </a>
+                    </li>
+                <?php endif ?>
+                <li>
+                    <a href="index.php?page=<?php 
+                    echo $page+1; if ($_GET['order'] === 'desc') {echo "&order=desc";} ?>">
+                        ≫
+                    </a>
+                </li>
+            <?php endif ?>
+        </ul>
     </div>
         
     <script src="scripts/main.js"></script>
