@@ -92,4 +92,5 @@ input::placeholder {
 /* settings.php のstyle */
 .mode {
     margin: 0 15px;
+    cursor: pointer;
 }
