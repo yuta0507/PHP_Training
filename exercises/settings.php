@@ -28,7 +28,7 @@ if (!empty($_POST)) {
                 <a href="<?php echo $index ?>">会社一覧</a>
             </li>
             <li>
-                <a href="settings.php">
+                <a href="settings.php" class="setting">
                     <img src="images/setting.png">
                 </a>
             </li>
@@ -40,11 +40,21 @@ if (!empty($_POST)) {
             <div class="choices">
                 <label class="mode">
                     ダークモード
-                    <input type="radio" name="mode" value="dark-mode">
+                    <input type="radio" name="mode" value="dark-mode"
+                    <?php
+                    if ($_COOKIE['mode'] === 'darkmode') {
+                        echo "checked";
+                    }
+                    ?>>
                 </label>
                 <label class="mode">
                     通常モード
-                    <input type="radio" name="mode" value="normal-mode">
+                    <input type="radio" name="mode" value="normal-mode"
+                    <?php
+                    if ($_COOKIE['mode'] == '') {
+                        echo "checked";
+                    }
+                    ?>>
                 </label>
             </div>
             <br>
