@@ -103,3 +103,25 @@ table a {
     color: black;        
     border: 1.5px solid #9dbaff;
 }
+
+.paging {
+    list-style: none;
+    text-align: center;
+    padding-inline-start: 0;
+}
+
+.paging li {
+    display: inline;
+}
+
+.paging li a {
+    display: inline-block;
+    text-decoration: none;
+    color: deepskyblue;
+    margin: 0 5px;
+    font-size: 20px;
+}
+
+.paging .current-page {
+    text-decoration: underline;
+}
