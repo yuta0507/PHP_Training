@@ -33,6 +33,13 @@
     border: 1.5px solid #656565;
 }
 
+/* index.php */
+.darkmode .index-table th input {
+    color: deepskyblue;
+    background-color: #2b2b30;
+}
+
+
 /* signup.php edit.php */
 .darkmode input::placeholder {
     color: #e0eaff;

@@ -42,18 +42,14 @@ if (!empty($_POST)) {
                     ダークモード
                     <input type="radio" name="mode" value="dark-mode"
                     <?php
-                    if ($_COOKIE['mode'] === 'darkmode') {
-                        echo "checked";
-                    }
+                    if ($_COOKIE['mode'] === 'darkmode') {echo "checked";}
                     ?>>
                 </label>
                 <label class="mode">
                     通常モード
                     <input type="radio" name="mode" value="normal-mode"
                     <?php
-                    if ($_COOKIE['mode'] == '') {
-                        echo "checked";
-                    }
+                    if ($_COOKIE['mode'] == '') {echo "checked";}
                     ?>>
                 </label>
             </div>
