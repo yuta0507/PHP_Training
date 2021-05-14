@@ -181,9 +181,16 @@ $delete = "delete.php?id=";
                         </a>
                     </li>
                 <?php endif ?>
-                <?php if ($page > 3) : ?>
+                <?php if ($page > 3 && $max_page != 4) : ?>
                     <li>
                         <span>...</span>
+                    </li>
+                <?php endif ?>
+                <?php if ($page == $max_page && $max_page != 3) : ?>
+                    <li>
+                        <a href="<?php outputHref($index, $max_page-2, $_GET['order']); ?>">
+                            <?php echo $max_page-2; ?>
+                        </a>
                     </li>
                 <?php endif ?>
                 <li>
@@ -199,24 +206,31 @@ $delete = "delete.php?id=";
             </li>
             <?php if ($page < $max_page) : ?>
                 <li>
-                    <a href="<?php outputHref($index, $page+1, $_GET['order']) ?>">
+                    <a href="<?php outputHref($index, $page+1, $_GET['order']); ?>">
                         <?php echo $page+1 ?>
                     </a>
                 </li>
-                <?php if ($page < $max_page - 2) : ?>
+                <?php if ($page == 1 && $max_page != 3) : ?>
+                    <li>
+                        <a href="<?php outputHref($index, 3, $_GET['order']); ?>">
+                            3
+                        </a>
+                    </li>
+                <?php endif ?>
+                <?php if ($page < $max_page - 2 && $max_page != 4) : ?>
                     <li>
                         <span>...</span>
                     </li>
                 <?php endif ?>
                 <?php if ($page < $max_page - 1) : ?>
                     <li>
-                        <a href="<?php outputHref($index, $max_page, $_GET['order']) ?>">
-                            <?php echo $max_page ?>
+                        <a href="<?php outputHref($index, $max_page, $_GET['order']); ?>">
+                            <?php echo $max_page; ?>
                         </a>
                     </li>
                 <?php endif ?>    
                 <li>
-                    <a href="<?php outputHref($index, $page+1, $_GET['order']) ?>">
+                    <a href="<?php outputHref($index, $page+1, $_GET['order']); ?>">
                         ≫
                     </a>
                 </li>
