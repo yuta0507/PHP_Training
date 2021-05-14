@@ -15,6 +15,12 @@ require_once'required_files/dbconnect.php';
 require_once'required_files/functions.php';
 session_start();
 
+//表示件数
+$displayed_results = h($_COOKIE['displayed_results']);
+if ($_COOKIE['displayed_results'] == '') {
+    $displayed_results = 5;
+}
+
 //ページング
 $page = h($_GET['page']);
 if ($page == '') {
@@ -23,15 +29,11 @@ if ($page == '') {
 
 $counts = $db->query('SELECT COUNT(*) AS cnt from companies WHERE deleted IS NULL');
 $cnt = $counts->fetch();
-$max_page = ceil($cnt['cnt'] / 5);
+$max_page = ceil($cnt['cnt'] / $displayed_results);
 $page = min($page, $max_page);
 
-$start = ($page- 1) * 5;
+$start = ($page- 1) * $displayed_results;
 
-$displayed_results = h($_COOKIE['displayed_results']);
-if ($_COOKIE['displayed_results'] == '') {
-    $displayed_results = 5;
-}
 
 //データベース参照
 if ($_GET['order'] === 'desc') {
@@ -178,6 +180,8 @@ $delete = "delete.php?id=";
                             1
                         </a>
                     </li>
+                <?php endif ?>
+                <?php if ($page > 3) : ?>
                     <li>
                         <span>...</span>
                     </li>
@@ -203,12 +207,14 @@ $delete = "delete.php?id=";
                     <li>
                         <span>...</span>
                     </li>
+                <?php endif ?>
+                <?php if ($page < $max_page - 1) : ?>
                     <li>
                         <a href="<?php outputHref($index, $max_page, $_GET['order']) ?>">
                             <?php echo $max_page ?>
                         </a>
                     </li>
-                <?php endif ?>
+                <?php endif ?>    
                 <li>
                     <a href="<?php outputHref($index, $page+1, $_GET['order']) ?>">
                         ≫
