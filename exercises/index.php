@@ -16,7 +16,7 @@ require_once'required_files/functions.php';
 session_start();
 
 //ページング
-$page = $_GET['page'];
+$page = h($_GET['page']);
 if ($page == '') {
     $page = 1;
 }
@@ -27,6 +27,11 @@ $max_page = ceil($cnt['cnt'] / 5);
 $page = min($page, $max_page);
 
 $start = ($page- 1) * 5;
+
+$displayed_results = h($_COOKIE['displayed_results']);
+if ($_COOKIE['displayed_results'] == '') {
+    $displayed_results = 5;
+}
 
 //データベース参照
 if ($_GET['order'] === 'desc') {
@@ -39,9 +44,10 @@ if ($_GET['order'] === 'desc') {
         AND e.deleted IS NULL 
         GROUP BY c.id
         ORDER BY c.id DESC
-        LIMIT ?, 5'
+        LIMIT ?, ?'
     );
     $companies->bindParam(1, $start, PDO::PARAM_INT);
+    $companies->bindParam(2, $displayed_results, PDO::PARAM_INT);
     $companies->execute();
     
     $href = "index.php?page=" .$page;
@@ -55,9 +61,10 @@ if ($_GET['order'] === 'desc') {
         AND e.deleted IS NULL 
         GROUP BY c.id
         ORDER BY c.id ASC
-        LIMIT ?, 5'
+        LIMIT ?, ?'
     );
     $companies->bindParam(1, $start, PDO::PARAM_INT);
+    $companies->bindParam(2, $displayed_results, PDO::PARAM_INT);
     $companies->execute();
     
     $href = "index.php?page=" .$page ."&order=desc";

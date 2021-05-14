@@ -38,28 +38,35 @@ $page = min($page, $max_page);
 
 $start = ($page- 1) * 5;
 
+$displayed_results = h($_COOKIE['displayed_results']);
+if ($_COOKIE['displayed_results'] == '') {
+    $displayed_results = 5;
+}
+
 
 //データベース参照
 if ($_GET['order'] === 'desc') {
     $employees = $db->prepare(
         'SELECT * from employees 
-        WHERE company_id=? AND deleted IS NULL ORDER BY id DESC LIMIT ?, 5'
+        WHERE company_id=? AND deleted IS NULL ORDER BY id DESC LIMIT ?, ?'
     );
     $employees->bindParam(1, $company_id, PDO::PARAM_INT);
     $employees->bindParam(2, $start, PDO::PARAM_INT);
+    $employees->bindParam(3, $displayed_results, PDO::PARAM_INT);
     $employees->execute();
 
-    $href = "index.php?company_id=".$company_id;
+    $href = "index.php?company_id=" .$company_id .'&page=' .$page;
 } else {
     $employees = $db->prepare(
         'SELECT * from employees 
-        WHERE company_id=? AND deleted IS NULL ORDER BY id ASC LIMIT ?, 5'
+        WHERE company_id=? AND deleted IS NULL ORDER BY id ASC LIMIT ?, ?'
     );
     $employees->bindParam(1, $company_id, PDO::PARAM_INT);
     $employees->bindParam(2, $start, PDO::PARAM_INT);
+    $employees->bindParam(3, $displayed_results, PDO::PARAM_INT);
     $employees->execute();
 
-    $href = "index.php?company_id=".$company_id."&order=desc";
+    $href = "index.php?company_id=" .$company_id .'&page=' .$page ."&order=desc";
 }
 
 

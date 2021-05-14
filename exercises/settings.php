@@ -2,12 +2,23 @@
 $index = 'index.php';
 
 if (!empty($_POST)) {
+    if (!is_numeric($_POST['displayed-results'])) {
+        $error['displayed_results'] = 'not_numeric';
+    }
+}
+
+if (!empty($_POST) && empty($error)) {
     if ($_POST['mode'] === 'dark-mode') {
         setcookie('mode', 'darkmode', time()+3600*24*365*10);
     }
     if ($_POST['mode'] === 'normal-mode') {
         setcookie('mode', '', time()-1);
     }
+
+    if (is_numeric($_POST['displayed-results'])) {
+        setcookie('displayed_results', $_POST['displayed-results'], time()+3600*24*365*10);
+    }
+
     header('Location: settings.php');
 }
 ?>
@@ -37,7 +48,7 @@ if (!empty($_POST)) {
 
     <div class="container">
         <form action="" method="POST">
-            <div class="choices">
+            <div class="mode-choices">
                 <label class="mode">
                     ダークモード
                     <input type="radio" name="mode" value="dark-mode"
@@ -52,6 +63,15 @@ if (!empty($_POST)) {
                     if ($_COOKIE['mode'] == '') {echo "checked";}
                     ?>>
                 </label>
+            </div>
+            <br>
+            <div class="displayed-results">
+                <span>表示件数：</span>
+                <input type="number" name="displayed-results" min="1"
+                value="<?php echo $_COOKIE['displayed_results'] ?>">
+                <?php if ($error['displayed_results']) : ?>
+                    <p class="error">*表示件数は半角数字で入力してください。</p>
+                <?php endif ?>
             </div>
             <br>
             <input type="submit" class="button-submit" value="設定">

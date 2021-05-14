@@ -64,3 +64,12 @@
 .darkmode .mode {
     color: #e0eaff;
 } 
+
+.darkmode .displayed-results {
+    color: #e0eaff;
+}
+
+.darkmode .displayed-results input {
+    background-color: #4d4d4d;
+    color: #e0eaff;
+}
