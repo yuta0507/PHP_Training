@@ -41,13 +41,13 @@ if (empty($error) && !empty($_POST)) {
     );
     $statement->execute(
         [
-            h($_POST['company_name']),
-            h($_POST['representative_name']),
-            h($_POST['phone_number']),
-            h($_POST['postal_code']),
-            h($_POST['prefectures_code']),
-            h($_POST['address']),
-            h($_POST['mail_address'])
+            $_POST['company_name'],
+            $_POST['representative_name'],
+            $_POST['phone_number'],
+            $_POST['postal_code'],
+            $_POST['prefectures_code'],
+            $_POST['address'],
+            $_POST['mail_address']
         ]
     );
 

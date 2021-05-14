@@ -31,22 +31,22 @@ function randomPrefectureCode() {
 
 
 //繰り返し回数を決める
-$repeat = 10;
+echo '何件分のデータを作成しますか？：';
+$repeat = intval(trim(fgets(STDIN)));
 $sql = null;
-$sql_commands = null;
+$sqls = null;
 
 for ($i = 0; $i < $repeat; $i++) {
-    $sql = 
-    'INSERT INTO companies SET '.
-    'company_name=' ."'" .randomCompanyName() ."'".
-    ', representative_name=' ."'" .randomRepresentativeName() ."'".
-    ', phone_number=' ."'" .randomPhoneNumber() ."'".
-    ", postal_code='000-0000'" .
-    ', prefectures_code=' ."'" .randomPrefectureCode() ."'".
-    ", address='-'".
-    ", mail_address='test@test.com'".
-    ', created=NOW()'.
-    ', modified=NOW()' .';'. "\n";
+    $sql =  'INSERT INTO companies SET '.
+            'company_name=' ."'" .randomCompanyName() ."'".
+            ', representative_name=' ."'" .randomRepresentativeName() ."'".
+            ', phone_number=' ."'" .randomPhoneNumber() ."'".
+            ", postal_code='000-0000'" .
+            ', prefectures_code=' ."'" .randomPrefectureCode() ."'".
+            ", address='-'".
+            ", mail_address='test@test.com'".
+            ', created=NOW()'.
+            ', modified=NOW()' .';'. "\n";
     
     $sqls .= $sql;
 }

@@ -58,7 +58,7 @@ if (empty($error) && !empty($_POST)) {
             $_POST['prefectures_code'],
             $_POST['address'],
             $_POST['mail_address'],
-            $id
+            $_GET['id']
         ]
     );
     
