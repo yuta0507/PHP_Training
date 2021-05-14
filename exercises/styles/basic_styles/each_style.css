@@ -95,3 +95,8 @@ input::placeholder {
     margin: 0 15px;
     cursor: pointer;
 }
+
+.displayed-results input {
+    width: 100px;
+    margin: 0 10px;
+}
