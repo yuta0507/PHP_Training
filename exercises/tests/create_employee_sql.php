@@ -30,7 +30,8 @@ function randomPrefectureCode() {
 
 
 //company_idを決める
-$company_id = 14;
+echo 'company_idを指定してください：';
+$company_id = intval(trim(fgets(STDIN)));
 
 //繰り返し回数を決める
 echo '何件分のデータを作成しますか？：';

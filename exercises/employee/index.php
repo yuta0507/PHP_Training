@@ -23,21 +23,41 @@ if (empty($company_id)) {
     exit();
 }
 
+
+//ページング
+$page = $_GET['page'];
+if ($page == '') {
+    $page = 1;
+}
+
+$sql = 'SELECT COUNT(*) AS cnt FROM employees WHERE deleted IS NULL AND company_id=' .$company_id;
+$counts = $db->query($sql);
+$cnt = $counts->fetch();
+$max_page = ceil($cnt['cnt'] / 5);
+$page = min($page, $max_page);
+
+$start = ($page- 1) * 5;
+
+
 //データベース参照
 if ($_GET['order'] === 'desc') {
     $employees = $db->prepare(
         'SELECT * from employees 
-        WHERE company_id=? AND deleted IS NULL ORDER BY id DESC'
+        WHERE company_id=? AND deleted IS NULL ORDER BY id DESC LIMIT ?, 5'
     );
-    $employees->execute([$company_id]);
+    $employees->bindParam(1, $company_id, PDO::PARAM_INT);
+    $employees->bindParam(2, $start, PDO::PARAM_INT);
+    $employees->execute();
 
     $href = "index.php?company_id=".$company_id;
 } else {
     $employees = $db->prepare(
         'SELECT * from employees 
-        WHERE company_id=? AND deleted IS NULL ORDER BY id ASC'
+        WHERE company_id=? AND deleted IS NULL ORDER BY id ASC LIMIT ?, 5'
     );
-    $employees->execute([$company_id]);
+    $employees->bindParam(1, $company_id, PDO::PARAM_INT);
+    $employees->bindParam(2, $start, PDO::PARAM_INT);
+    $employees->execute();
 
     $href = "index.php?company_id=".$company_id."&order=desc";
 }
@@ -137,10 +157,61 @@ $delete = "delete.php?company_id=".$company_id;
                     </th>
                 </tr>
                 <?php endforeach ?>
-            </table>
-            
-            <script src="../scripts/main.js"></script>
+            </table>        
         </div>
+        <ul class="paging">
+            <?php if ($page > 1) : ?>
+                <li>
+                    <a href="<?php outputHref($employee_index, $page-1, $_GET['order']); ?>">
+                        ≪
+                    </a>
+                </li>
+                <?php if ($page > 2) : ?>
+                    <li>
+                        <a href="<?php outputHref($employee_index, 1, $_GET['order']); ?>">
+                            1
+                        </a>
+                    </li>
+                    <li>
+                        <span>...</span>
+                    </li>
+                <?php endif ?>
+                <li>
+                    <a href="<?php outputHref($employee_index, $page-1, $_GET['order']); ?>">
+                        <?php echo $page-1; ?>
+                    </a>
+                </li>
+            <?php endif ?>
+            <li>
+                <a href="<?php outputHref($employee_index, $page, $_GET['order']); ?>"　
+                class="current-page">
+                    <?php echo $page; ?>
+                </a>
+            </li>
+            <?php if ($page < $max_page) : ?>
+                <li>
+                    <a href="<?php outputHref($employee_index, $page+1, $_GET['order']); ?>">
+                        <?php echo $page+1; ?>
+                    </a>
+                </li>
+                <?php if ($page < $max_page - 2) : ?>
+                    <li>
+                        <span>...</span>
+                    </li>
+                    <li>
+                        <a href="<?php outputHref($employee_index, $max_page, $_GET['order']); ?>">
+                            <?php echo $max_page; ?>
+                        </a>
+                    </li>
+                <?php endif ?>
+                <li>
+                    <a href="<?php outputHref($employee_index, $page+1, $_GET['order']); ?>">
+                        ≫
+                    </a>
+                </li>
+            <?php endif ?>
+        </ul>
     </div>
+    <script src="../scripts/main.js"></script>
 </body>
 </html>
