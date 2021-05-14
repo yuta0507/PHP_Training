@@ -181,9 +181,16 @@ $delete = "delete.php?company_id=".$company_id;
                         </a>
                     </li>
                 <?php endif ?>
-                <?php if ($page > 3) : ?>
+                <?php if ($page > 3 && $max_page != 4) : ?>
                     <li>
                         <span>...</span>
+                    </li>
+                <?php endif ?>
+                <?php if ($page == $max_page && $max_page != 3) : ?>
+                    <li>
+                        <a href="<?php outputHref($employee_index, $max_page-2, $_GET['order']); ?>">
+                            <?php echo $max_page-2; ?>
+                        </a>
                     </li>
                 <?php endif ?>
                 <li>
@@ -204,7 +211,14 @@ $delete = "delete.php?company_id=".$company_id;
                         <?php echo $page+1; ?>
                     </a>
                 </li>
-                <?php if ($page < $max_page - 2) : ?>
+                <?php if ($page == 1 && $max_page != 3) : ?>
+                    <li>
+                        <a href="<?php outputHref($employee_index, 3, $_GET['order']); ?>">
+                            3
+                        </a>
+                    </li>
+                <?php endif ?>
+                <?php if ($page < $max_page - 2 && $max_page != 4) : ?>
                     <li>
                         <span>...</span>
                     </li>
