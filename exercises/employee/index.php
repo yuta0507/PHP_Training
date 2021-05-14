@@ -23,6 +23,11 @@ if (empty($company_id)) {
     exit();
 }
 
+//表示件数
+$displayed_results = h($_COOKIE['displayed_results']);
+if ($_COOKIE['displayed_results'] == '') {
+    $displayed_results = 5;
+}
 
 //ページング
 $page = $_GET['page'];
@@ -33,15 +38,11 @@ if ($page == '') {
 $sql = 'SELECT COUNT(*) AS cnt FROM employees WHERE deleted IS NULL AND company_id=' .$company_id;
 $counts = $db->query($sql);
 $cnt = $counts->fetch();
-$max_page = ceil($cnt['cnt'] / 5);
+$max_page = ceil($cnt['cnt'] / $displayed_results);
 $page = min($page, $max_page);
 
-$start = ($page- 1) * 5;
+$start = ($page- 1) * $displayed_results;
 
-$displayed_results = h($_COOKIE['displayed_results']);
-if ($_COOKIE['displayed_results'] == '') {
-    $displayed_results = 5;
-}
 
 
 //データベース参照
@@ -179,6 +180,8 @@ $delete = "delete.php?company_id=".$company_id;
                             1
                         </a>
                     </li>
+                <?php endif ?>
+                <?php if ($page > 3) : ?>
                     <li>
                         <span>...</span>
                     </li>
@@ -205,6 +208,8 @@ $delete = "delete.php?company_id=".$company_id;
                     <li>
                         <span>...</span>
                     </li>
+                <?php endif ?>
+                <?php if ($page < $max_page - 1) : ?>
                     <li>
                         <a href="<?php outputHref($employee_index, $max_page, $_GET['order']); ?>">
                             <?php echo $max_page; ?>
