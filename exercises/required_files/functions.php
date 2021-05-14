@@ -173,7 +173,7 @@ function outputCompletionMessage($value)
 }
 
 /**
- * Function setPrefecture.
+ * Function outputPrefecture.
  * 
  * @param string $value 文字列
  * 
@@ -196,5 +196,36 @@ function outputPrefecture($value)
 
     echo $prefectures[$value-1];
 }
+
+/**
+ * Function outputHref.
+ * 
+ * @param string $value 文字列
+ * 
+ * @return string
+ * */
+function outputHref($index, $page, $order) 
+{
+    $pattern = '/company_id/';
+    
+    //Company
+    if (preg_match($pattern, $index) === 0) {
+        echo $index .'?page=' .$page; 
+        if ($order === 'desc') {
+            echo "&order=desc";
+        }
+    }
+
+    //Employee
+    if (preg_match($pattern, $index) === 1) {
+        echo $index .'&page=' .$page; 
+        if ($order === 'desc') {
+            echo "&order=desc";
+        } 
+    }
+}
+
+
+
 
 ?>

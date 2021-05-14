@@ -161,14 +161,13 @@ $delete = "delete.php?id=";
         <ul class="paging">
             <?php if ($page > 1) : ?>
                 <li>
-                    <a href="index.php?page=<?php 
-                    echo $page-1; if ($_GET['order'] === 'desc') {echo "&order=desc";} ?>">
+                    <a href="<?php outputHref($index, $page-1, $_GET['order']); ?>">
                         ≪
                     </a>
                 </li>
                 <?php if ($page > 2) : ?>
                     <li>
-                        <a href="index.php?page=1<?php if ($_GET['order'] === 'desc') {echo "&order=desc";} ?>">
+                        <a href="<?php outputHref($index, 1, $_GET['order']); ?>">
                             1
                         </a>
                     </li>
@@ -177,20 +176,19 @@ $delete = "delete.php?id=";
                     </li>
                 <?php endif ?>
                 <li>
-                    <a href="index.php?page=<?php echo $page-1; if ($_GET['order'] === 'desc') {echo "&order=desc";} ?>">
-                        <?php echo $page-1 ?>
+                    <a href="<?php outputHref($index, $page-1, $_GET['order']); ?>">
+                        <?php echo $page-1; ?>
                     </a>
                 </li>    
             <?php endif ?>
             <li>
-                <a href="index.php?page=<?php echo $page; if ($_GET['order'] === 'desc') {echo "&order=desc";} ?>"
-                class="current-page">
-                    <?php echo $page ?>
+                <a href="<?php outputHref($index, $page, $_GET['order']); ?>" class="current-page">
+                    <?php echo $page; ?>
                 </a>
             </li>
             <?php if ($page < $max_page) : ?>
                 <li>
-                    <a href="index.php?page=<?php echo $page+1; if ($_GET['order'] === 'desc') {echo "&order=desc";} ?>">
+                    <a href="<?php outputHref($index, $page+1, $_GET['order']) ?>">
                         <?php echo $page+1 ?>
                     </a>
                 </li>
@@ -199,14 +197,13 @@ $delete = "delete.php?id=";
                         <span>...</span>
                     </li>
                     <li>
-                        <a href="index.php?page=<?php echo $max_page; if ($_GET['order'] === 'desc') {echo "&order=desc";} ?>">
+                        <a href="<?php outputHref($index, $max_page, $_GET['order']) ?>">
                             <?php echo $max_page ?>
                         </a>
                     </li>
                 <?php endif ?>
                 <li>
-                    <a href="index.php?page=<?php 
-                    echo $page+1; if ($_GET['order'] === 'desc') {echo "&order=desc";} ?>">
+                    <a href="<?php outputHref($index, $page+1, $_GET['order']) ?>">
                         ≫
                     </a>
                 </li>
