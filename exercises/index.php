@@ -30,7 +30,13 @@ if ($page == '') {
 $counts = $db->query('SELECT COUNT(*) AS cnt from companies WHERE deleted IS NULL');
 $cnt = $counts->fetch();
 $max_page = ceil($cnt['cnt'] / $displayed_results);
-$page = min($page, $max_page);
+
+if ($max_page == 0) {
+    $max_page = 1;
+    $page = 1;
+}  else {
+    $page = min($page, $max_page);
+}
 
 $start = ($page- 1) * $displayed_results;
 

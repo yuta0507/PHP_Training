@@ -35,11 +35,18 @@ if ($page == '') {
     $page = 1;
 }
 
+
 $sql = 'SELECT COUNT(*) AS cnt FROM employees WHERE deleted IS NULL AND company_id=' .$company_id;
 $counts = $db->query($sql);
 $cnt = $counts->fetch();
 $max_page = ceil($cnt['cnt'] / $displayed_results);
-$page = min($page, $max_page);
+
+if ($max_page == 0) {
+    $max_page = 1;
+    $page = 1;
+}  else {
+    $page = min($page, $max_page);
+}
 
 $start = ($page- 1) * $displayed_results;
 
