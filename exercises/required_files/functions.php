@@ -75,7 +75,7 @@ function validateInputData($input_data, $column, $input_file)
     }
     //拡張子チェック
     if (!empty($file_name)) {
-            $extension = substr($file_name, -3);
+            $extension = pathinfo($file_name, PATHINFO_EXTENSION);
             if ($extension != 'jpg' && $extension != 'jpeg' && $extension != 'png') {
             $error['image'] = 'type';
         }
