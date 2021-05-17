@@ -77,6 +77,7 @@ $employee_index = "index.php?company_id=".$company_id;
 $signup = "signup.php?company_id=".$company_id;
 $edit = "edit.php?company_id=".$company_id."&id=";
 $delete = "delete.php?company_id=".$company_id;
+$member_pics = "../images/member_pictures/"
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -137,6 +138,10 @@ $delete = "delete.php?company_id=".$company_id;
                             <?php echo h($employee['id']) ?>
                         </th>
                         <th>
+                            <?php if ($employee['picture'] !== null) : ?>
+                                <img class="icon" 
+                                src="<?php echo $member_pics .h($employee['picture']) ?>">
+                            <?php endif ?>
                             <?php echo h($employee['employee_name']) ?>
                         </th>
                         <th>

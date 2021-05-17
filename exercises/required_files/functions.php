@@ -46,25 +46,39 @@ function selectValue($db_table, $input_data, $column_name)
  * 
  * @return string
  * */
-function validateInputData($input_data, $column)
+function validateInputData($input_data, $column, $input_file)
 {
-    //未入力 チェック   
+    //未入力チェック   
     foreach ($column as $column_name) {
         if ($input_data[$column_name] == '') {
             $error['blank'] = 'true';
         }
     }
-
+    
     //電話番号半角数字チェック
     $phone_number = h($input_data['phone_number']);
     if (!empty($phone_number) && isPhoneNumberValid($phone_number) === false) {
         $error['phone_number'] = 'wrong';
     }
-
+    
     //郵便番号半角数字チェック
     $postal_code = h($input_data['postal_code']);
     if (!empty($postal_code) && isPostalCodeValid($postal_code) === false) {
         $error['postal_code'] = 'wrong';
+    }
+    
+    //アイコン画像チェック
+    $file_name = $input_file['image']['name'];
+    //未入力チェック
+    if ($file_name == '') {
+        $error['blank'] = 'true';
+    }
+    //拡張子チェック
+    if (!empty($file_name)) {
+            $extension = substr($file_name, -3);
+            if ($extension != 'jpg' && $extension != 'jpeg' && $extension != 'png') {
+            $error['image'] = 'type';
+        }
     }
     
     return $error;
@@ -133,6 +147,9 @@ function outputErrorMessage($error)
     }
     if ($error['postal_code'] === 'wrong') {
         echo '<p class="error">*郵便番号はハイフン付きの半角数字で入力してください</p>';
+    }
+    if ($error['image'] === 'type') {
+        echo '<p class="error">*画像は「.jpg」「.jpeg」または「.png」のものを指定してください</p>';
     }
 }
 
