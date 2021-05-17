@@ -14,6 +14,12 @@
     height: 48px;
 }
 
+.index-table th .icon {
+    width: 15px;
+    height: 15px;
+    vertical-align: middle;
+}
+
 .index-table th input {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -50,6 +56,11 @@ input::placeholder {
 
 .table th {
     height: 40px;
+}
+
+.table th .image {
+    font-size: 12.5px;
+    width: 220px;
 }
 
 .table .left {
@@ -89,6 +100,7 @@ input::placeholder {
     margin: 10px 0;
     width: 90%;
 }
+
 
 /* settings.php のstyle */
 .mode {
