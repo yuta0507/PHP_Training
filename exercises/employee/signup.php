@@ -30,11 +30,15 @@ $column = [
 
 //エラーチェック
 if (!empty($_POST)) {
-    $error = validateInputData($_POST, $column);
+    $error = validateInputData($_POST, $column, $_FILES);
 }
 
 //データベースに登録
-if (empty($error) && !empty($_POST)) {
+if (empty($error) && !empty($_POST) && !empty($_FILES)) {
+    //画像アップロード
+    $image = date('YmdHis') .$_FILES['image']['name'];
+    move_uploaded_file($_FILES['image']['tmp_name'], "../images/member_pictures/$image");
+
     $employees = $db->prepare(
         'INSERT INTO employees SET
         company_id=?,
@@ -45,6 +49,7 @@ if (empty($error) && !empty($_POST)) {
         prefectures_code=?,
         address=?,
         mail_address=?, 
+        picture=?,
         created=NOW(), 
         modified=NOW()'
     );
@@ -57,7 +62,8 @@ if (empty($error) && !empty($_POST)) {
             $_POST['postal_code'],
             $_POST['prefectures_code'],
             $_POST['address'],
-            $_POST['mail_address']
+            $_POST['mail_address'],
+            $image
         ]
     );
 
@@ -106,7 +112,7 @@ $employee_index = "index.php?company_id=".$company_id;
         <?php outputErrorMessage($error) ?>
 
         <!-- ここからテーブル -->
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
             <div class="table">
                 <table border="1">
                     <tr>
@@ -211,6 +217,12 @@ $employee_index = "index.php?company_id=".$company_id;
                             <input type="text" name="mail_address" 
                             maxlength="100" placeholder="mail@example.jp"
                             value="<?php echo h($_POST['mail_address']) ?>"/>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="left">アイコン</th>
+                        <th class="right">
+                            <input type="file" name="image" class="image" accept=".png, .jpg, .jpeg" >
                         </th>
                     </tr>
                 </table>
