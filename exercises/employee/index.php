@@ -36,7 +36,8 @@ if ($page == '') {
 }
 
 
-$sql = 'SELECT COUNT(*) AS cnt FROM employees WHERE deleted IS NULL AND company_id=' .$company_id;
+$sql = 'SELECT COUNT(*) AS cnt FROM employees 
+        WHERE deleted IS NULL AND company_id=' .$company_id;
 $counts = $db->query($sql);
 $cnt = $counts->fetch();
 $max_page = ceil($cnt['cnt'] / $displayed_results);
@@ -44,7 +45,7 @@ $max_page = ceil($cnt['cnt'] / $displayed_results);
 if ($max_page == 0) {
     $max_page = 1;
     $page = 1;
-}  else {
+} else {
     $page = min($page, $max_page);
 }
 
@@ -147,7 +148,8 @@ $member_pics = "../images/member_pictures/"
                         <th>
                             <?php if ($employee['picture'] !== null) : ?>
                                 <img class="icon" 
-                                src="<?php echo $member_pics .h($employee['picture']) ?>">
+                                src="<?php 
+                                echo $member_pics .h($employee['picture']) ?>">
                             <?php endif ?>
                             <?php echo h($employee['employee_name']) ?>
                         </th>
@@ -182,13 +184,15 @@ $member_pics = "../images/member_pictures/"
         <ul class="paging">
             <?php if ($page > 1) : ?>
                 <li>
-                    <a href="<?php outputHref($employee_index, $page-1, $_GET['order']); ?>">
+                    <a href="<?php 
+                    outputHref($employee_index, $page-1, $_GET['order']); ?>">
                         ≪
                     </a>
                 </li>
                 <?php if ($page > 2) : ?>
                     <li>
-                        <a href="<?php outputHref($employee_index, 1, $_GET['order']); ?>">
+                        <a href="<?php 
+                        outputHref($employee_index, 1, $_GET['order']); ?>">
                             1
                         </a>
                     </li>
@@ -200,32 +204,38 @@ $member_pics = "../images/member_pictures/"
                 <?php endif ?>
                 <?php if ($page == $max_page && $max_page != 3) : ?>
                     <li>
-                        <a href="<?php outputHref($employee_index, $max_page-2, $_GET['order']); ?>">
+                        <a href="<?php 
+                        outputHref($employee_index, $max_page-2, $_GET['order']); 
+                        ?>">
                             <?php echo $max_page-2; ?>
                         </a>
                     </li>
                 <?php endif ?>
                 <li>
-                    <a href="<?php outputHref($employee_index, $page-1, $_GET['order']); ?>">
+                    <a href="<?php 
+                    outputHref($employee_index, $page-1, $_GET['order']); ?>">
                         <?php echo $page-1; ?>
                     </a>
                 </li>
             <?php endif ?>
             <li>
-                <a href="<?php outputHref($employee_index, $page, $_GET['order']); ?>"　
+                <a href="<?php 
+                outputHref($employee_index, $page, $_GET['order']); ?>"　
                 class="current-page">
                     <?php echo $page; ?>
                 </a>
             </li>
             <?php if ($page < $max_page) : ?>
                 <li>
-                    <a href="<?php outputHref($employee_index, $page+1, $_GET['order']); ?>">
+                    <a href="<?php 
+                    outputHref($employee_index, $page+1, $_GET['order']); ?>">
                         <?php echo $page+1; ?>
                     </a>
                 </li>
                 <?php if ($page == 1 && $max_page != 3) : ?>
                     <li>
-                        <a href="<?php outputHref($employee_index, 3, $_GET['order']); ?>">
+                        <a href="<?php 
+                        outputHref($employee_index, 3, $_GET['order']); ?>">
                             3
                         </a>
                     </li>
@@ -237,13 +247,15 @@ $member_pics = "../images/member_pictures/"
                 <?php endif ?>
                 <?php if ($page < $max_page - 1) : ?>
                     <li>
-                        <a href="<?php outputHref($employee_index, $max_page, $_GET['order']); ?>">
+                        <a href="<?php 
+                        outputHref($employee_index, $max_page, $_GET['order']); ?>">
                             <?php echo $max_page; ?>
                         </a>
                     </li>
                 <?php endif ?>
                 <li>
-                    <a href="<?php outputHref($employee_index, $page+1, $_GET['order']); ?>">
+                    <a href="<?php
+                    outputHref($employee_index, $page+1, $_GET['order']); ?>">
                         ≫
                     </a>
                 </li>

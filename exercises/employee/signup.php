@@ -37,7 +37,9 @@ if (!empty($_POST)) {
 if (empty($error) && !empty($_POST) && !empty($_FILES)) {
     //画像アップロード
     $image = date('YmdHis') .$_FILES['image']['name'];
-    move_uploaded_file($_FILES['image']['tmp_name'], "../images/member_pictures/$image");
+    move_uploaded_file(
+        $_FILES['image']['tmp_name'], "../images/member_pictures/$image"
+    );
 
     $employees = $db->prepare(
         'INSERT INTO employees SET
@@ -153,7 +155,8 @@ $employee_index = "index.php?company_id=".$company_id;
                                     maxlength="8" placeholder="000-0000" 
                                     value="<?php echo h($_POST['postal_code']) ?>"/>
                                     <select name="prefectures_code" >
-                                        <option value="<?php echo $prf_code ?>" selected>
+                                        <option value="<?php echo $prf_code ?>" 
+                                        selected>
                                             <?php outputPrefecture($prf_code) ?>
                                         </option>
                                         <option value="1">北海道</option>
@@ -222,7 +225,8 @@ $employee_index = "index.php?company_id=".$company_id;
                     <tr>
                         <th class="left">アイコン</th>
                         <th class="right">
-                            <input type="file" name="image" class="image" accept=".png, .jpg, .jpeg" >
+                            <input type="file" name="image" class="image" 
+                            accept=".png, .jpg, .jpeg" >
                         </th>
                     </tr>
                 </table>
