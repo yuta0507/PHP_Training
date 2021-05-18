@@ -10,13 +10,18 @@
  * @license  MIT License
  * @link     http://192.168.2.62/exercises/employee/delete.php
  * */
+ini_set('display_errors', "On");
 
 require_once'../required_files/dbconnect.php';
 require_once'../required_files/functions.php';
 session_start();
 
-$company_id = h($_GET['company_id']);
-$id = h($_POST['id']);
+if (!empty($_GET['company_id'])) {
+    $company_id = h($_GET['company_id']);
+}
+if (!empty($_POST['id'])) {
+    $id = h($_POST['id']);
+}
 
 if (empty($id)) {
     header('Location: ../index.php');

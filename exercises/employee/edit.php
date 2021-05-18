@@ -10,6 +10,7 @@
  * @license  MIT License
  * @link     http://192.168.2.62/exercises/employee/edit.php
  * */
+ini_set('display_errors', "On");
 
 require_once'../required_files/dbconnect.php';
 require_once'../required_files/functions.php';
@@ -96,7 +97,11 @@ $employee_index = "index.php?company_id=".$company_id;
     <link rel="stylesheet" href="../styles/style.css">
     <title>Document</title>
 </head>
-<body class="<?php echo $_COOKIE['mode'] ?>">
+<body class="<?php 
+if (!empty($_COOKIE['mode'])) {
+    echo $_COOKIE['mode'];
+}  
+?>">
     <!-- ナビゲーションバー -->
     <nav>
         <ul>
@@ -116,7 +121,11 @@ $employee_index = "index.php?company_id=".$company_id;
     
     <div class="container">
         <!-- エラー表示 -->
-        <?php outputErrorMessage($error) ?>
+        <?php 
+        if (!empty($error)) {
+            outputErrorMessage($error);
+        }
+        ?>
 
         <!-- ここからテーブル -->
         <form action="" method="POST" enctype="multipart/form-data">
