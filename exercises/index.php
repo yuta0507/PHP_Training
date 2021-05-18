@@ -229,7 +229,7 @@ if (!empty($_COOKIE['mode'])) {
                 <?php endif ?>
                 <li>
                     <a href="<?php 
-                    if ($_GET['order']) {
+                    if (!empty($_GET['order'])) {
                         outputHref($index, $page-1, $_GET['order']); 
                     } else {
                         outputHref($index, $page-1, null); 
