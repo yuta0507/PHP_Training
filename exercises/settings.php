@@ -1,4 +1,16 @@
 <?php
+/** 
+ * 会社一覧 
+ * 
+ * PHP Version >= 7.2.24
+ * 
+ * @category Exercise
+ * @package  Settings
+ * @author   Yuta Kikkawa <kikkawa@ye-p.co.jp>
+ * @license  MIT License
+ * @link     http://192.168.2.62/exercises/settings.php
+ * */ 
+
 $index = 'index.php';
 
 if (!empty($_POST)) {
@@ -16,7 +28,9 @@ if (!empty($_POST) && empty($error)) {
     }
 
     if (is_numeric($_POST['displayed-results'])) {
-        setcookie('displayed_results', $_POST['displayed-results'], time()+3600*24*365*10);
+        setcookie(
+            'displayed_results', $_POST['displayed-results'], time()+3600*24*365*10
+        );
     }
 
     header('Location: settings.php');
@@ -53,14 +67,18 @@ if (!empty($_POST) && empty($error)) {
                     ダークモード
                     <input type="radio" name="mode" value="dark-mode"
                     <?php
-                    if ($_COOKIE['mode'] === 'darkmode') {echo "checked";}
+                    if ($_COOKIE['mode'] === 'darkmode') {
+                        echo "checked";
+                    }
                     ?>>
                 </label>
                 <label class="mode">
                     通常モード
                     <input type="radio" name="mode" value="normal-mode"
                     <?php
-                    if ($_COOKIE['mode'] == '') {echo "checked";}
+                    if ($_COOKIE['mode'] == '') {
+                        echo "checked";
+                    }
                     ?>>
                 </label>
             </div>

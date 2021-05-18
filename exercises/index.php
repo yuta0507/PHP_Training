@@ -34,7 +34,7 @@ $max_page = ceil($cnt['cnt'] / $displayed_results);
 if ($max_page == 0) {
     $max_page = 1;
     $page = 1;
-}  else {
+} else {
     $page = min($page, $max_page);
 }
 
@@ -162,11 +162,13 @@ $delete = "delete.php?id=";
                             <a href=<?php echo $edit. h($company['id']) ?>>編集</a>
                         </th>
                         <th>
-                            <form name="delete_form" action="delete.php" method="POST">
+                            <form name="delete_form" action="delete.php" 
+                            method="POST">
                                 <input type="hidden" name="id" 
                                 value="<?php echo h($company['id']) ?>">
                                 <input type="submit"
-                                onclick="return outputConfirmationPopup()" value="削除">
+                                onclick="return outputConfirmationPopup()" 
+                                value="削除">
                             </form>
                         </th>
                     </tr>
@@ -194,7 +196,8 @@ $delete = "delete.php?id=";
                 <?php endif ?>
                 <?php if ($page == $max_page && $max_page != 3) : ?>
                     <li>
-                        <a href="<?php outputHref($index, $max_page-2, $_GET['order']); ?>">
+                        <a href="<?php 
+                        outputHref($index, $max_page-2, $_GET['order']); ?>">
                             <?php echo $max_page-2; ?>
                         </a>
                     </li>
@@ -206,7 +209,8 @@ $delete = "delete.php?id=";
                 </li>    
             <?php endif ?>
             <li>
-                <a href="<?php outputHref($index, $page, $_GET['order']); ?>" class="current-page">
+                <a href="<?php outputHref($index, $page, $_GET['order']); ?>" 
+                class="current-page">
                     <?php echo $page; ?>
                 </a>
             </li>
@@ -230,7 +234,8 @@ $delete = "delete.php?id=";
                 <?php endif ?>
                 <?php if ($page < $max_page - 1) : ?>
                     <li>
-                        <a href="<?php outputHref($index, $max_page, $_GET['order']); ?>">
+                        <a href="<?php 
+                        outputHref($index, $max_page, $_GET['order']); ?>">
                             <?php echo $max_page; ?>
                         </a>
                     </li>
