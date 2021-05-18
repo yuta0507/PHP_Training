@@ -10,6 +10,7 @@
  * @license  MIT License
  * @link     http://192.168.2.62/exercises/required_files/dbconnect.php
  * */ 
+ini_set('display_errors', "On");
 
 try {
     $db = new PDO(

@@ -10,6 +10,8 @@
  * @license  MIT License
  * @link     http://192.168.2.62/exercises/required_files/function.php
  * */
+ini_set('display_errors', "On");
+
 
 /**
  * Function h.
@@ -70,7 +72,7 @@ function validateInputData($input_data, $column, $input_file)
     //アイコン画像チェック
     $file_name = $input_file['image']['name'];
     //未入力チェック
-    if ($file_name == '') {
+    if (empty($file_name)) {
         $error['blank'] = 'true';
     }
     //拡張子チェック
@@ -139,16 +141,16 @@ function isPostalCodeValid($value)
  * */
 function outputErrorMessage($error)
 {
-    if ($error['blank'] === 'true') {
+    if (!empty($error['blank']) && $error['blank'] === 'true') {
         echo '<p class="error">*入力されていない箇所があります。再度入力してください</p>';
     }
-    if ($error['phone_number'] === 'wrong') {
+    if (!empty($error['phone_number']) && $error['phone_number'] === 'wrong') {
         echo '<p class="error">*電話番号はハイフン付きの半角数字で入力してください</p>';
     }
-    if ($error['postal_code'] === 'wrong') {
+    if (!empty($error['postal_code']) && $error['postal_code'] === 'wrong') {
         echo '<p class="error">*郵便番号はハイフン付きの半角数字で入力してください</p>';
     }
-    if ($error['image'] === 'type') {
+    if (!empty($error['image']) && $error['image'] === 'type') {
         echo '<p class="error">*画像は「.jpg」「.jpeg」または「.png」のものを指定してください</p>';
     }
 }
@@ -167,25 +169,29 @@ function outputCompletionMessage($value)
     define('COMPLETION_MSG_DELETE', '削除が完了しました');
 
     //Company
-    if ($value['signup']['company'] === 'completed') {
-        echo '<p class="success">'. COMPLETION_MSG_SIGNUP.'</p>';
-    }
-    if ($value['edit']['company'] === 'completed') {
-        echo '<p class="success">'. COMPLETION_MSG_EDIT.'</p>';
-    }
-    if ($value['delete']['company'] === 'completed') {
-        echo '<p class="success">'. COMPLETION_MSG_DELETE.'</p>';
+    if (!empty($value)) {
+        if ($value['signup']['company'] === 'completed') {
+            echo '<p class="success">'. COMPLETION_MSG_SIGNUP.'</p>';
+        }
+        if ($value['edit']['company'] === 'completed') {
+            echo '<p class="success">'. COMPLETION_MSG_EDIT.'</p>';
+        }
+        if ($value['delete']['company'] === 'completed') {
+            echo '<p class="success">'. COMPLETION_MSG_DELETE.'</p>';
+        }
     }
 
     //Employee
-    if ($value['signup']['employee'] === 'completed') {
-        echo '<p class="success">'. COMPLETION_MSG_SIGNUP.'</p>';
-    }
-    if ($value['edit']['employee'] === 'completed') {
-        echo '<p class="success">'. COMPLETION_MSG_EDIT.'</p>';
-    }
-    if ($value['delete']['employee'] === 'completed') {
-        echo '<p class="success">'. COMPLETION_MSG_DELETE.'</p>';
+    if (!empty($value)) {
+        if ($value['signup']['employee'] === 'completed') {
+            echo '<p class="success">'. COMPLETION_MSG_SIGNUP.'</p>';
+        }
+        if ($value['edit']['employee'] === 'completed') {
+            echo '<p class="success">'. COMPLETION_MSG_EDIT.'</p>';
+        }
+        if ($value['delete']['employee'] === 'completed') {
+            echo '<p class="success">'. COMPLETION_MSG_DELETE.'</p>';
+        }
     }
 }
 

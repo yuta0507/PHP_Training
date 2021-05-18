@@ -10,6 +10,7 @@
  * @license  MIT License
  * @link     http://192.168.2.62/exercises/settings.php
  * */ 
+ini_set('display_errors', "On");
 
 $index = 'index.php';
 
@@ -45,7 +46,12 @@ if (!empty($_POST) && empty($error)) {
     <link rel="stylesheet" href="styles/style.css">
     <title>設定</title>
 </head>
-<body class="<?php echo $_COOKIE['mode'] ?>">
+<body class="<?php 
+if (!empty($_COOKIE['mode'])) {
+    echo $_COOKIE['mode'];
+}  
+?>">
+
     <!-- ナビゲーションバー -->
     <nav>
         <ul>
@@ -67,7 +73,7 @@ if (!empty($_POST) && empty($error)) {
                     ダークモード
                     <input type="radio" name="mode" value="dark-mode"
                     <?php
-                    if ($_COOKIE['mode'] === 'darkmode') {
+                    if (!empty($_COOKIE['mode']) && $_COOKIE['mode'] === 'darkmode') {
                         echo "checked";
                     }
                     ?>>
@@ -76,7 +82,7 @@ if (!empty($_POST) && empty($error)) {
                     通常モード
                     <input type="radio" name="mode" value="normal-mode"
                     <?php
-                    if ($_COOKIE['mode'] == '') {
+                    if (empty($_COOKIE['mode'])) {
                         echo "checked";
                     }
                     ?>>
@@ -87,7 +93,7 @@ if (!empty($_POST) && empty($error)) {
                 <span>表示件数：</span>
                 <input type="number" name="displayed-results" min="1"
                 value="<?php echo $_COOKIE['displayed_results'] ?>">
-                <?php if ($error['displayed_results']) : ?>
+                <?php if (!empty($error['displayed_results'])) : ?>
                     <p class="error">*表示件数は半角数字で入力してください。</p>
                 <?php endif ?>
             </div>

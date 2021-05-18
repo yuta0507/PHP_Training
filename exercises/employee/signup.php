@@ -10,6 +10,7 @@
  * @license  MIT License
  * @link     http://192.168.2.62/exercises/employee/signup.php
  * */ 
+ini_set('display_errors', "On");
 
 require_once'../required_files/dbconnect.php';
 require_once'../required_files/functions.php';
@@ -76,7 +77,9 @@ if (empty($error) && !empty($_POST) && !empty($_FILES)) {
 }
 
 //長いので簡略化
-$prf_code = h($_POST['prefectures_code']);
+if (!empty($_POST['prefectures_code'])) {
+    $prf_code = h($_POST['prefectures_code']);
+}
 
 //リンク
 $company_index = "../index.php";
@@ -91,7 +94,11 @@ $employee_index = "index.php?company_id=".$company_id;
     <link rel="stylesheet" href="../styles/style.css">
     <title>SignUp</title>
 </head>
-<body class="<?php echo $_COOKIE['mode'] ?>">
+<body class="<?php 
+if (!empty($_COOKIE['mode'])) {
+    echo $_COOKIE['mode'];
+}  
+?>">
     <!-- ナビゲーションバー -->
     <nav>
         <ul>
@@ -111,7 +118,11 @@ $employee_index = "index.php?company_id=".$company_id;
 
     <div class="container">
         <!-- エラー表示 -->
-        <?php outputErrorMessage($error) ?>
+        <?php 
+        if (!empty($error)) {
+            outputErrorMessage($error); 
+        }
+        ?>
 
         <!-- ここからテーブル -->
         <form action="" method="POST" enctype="multipart/form-data">
@@ -122,7 +133,11 @@ $employee_index = "index.php?company_id=".$company_id;
                         <th class="right">
                             <input type="text" name="employee_name" 
                             maxlength="20" placeholder="実習太郎"
-                            value="<?php echo h($_POST['employee_name']) ?>"/>
+                            value="<?php 
+                            if (!empty($_POST['employee_name'])) {
+                                echo h($_POST['employee_name']); 
+                            }
+                            ?>"/>
                         </th>
                     </tr>
                     <tr>
@@ -130,7 +145,11 @@ $employee_index = "index.php?company_id=".$company_id;
                         <th class="right">
                             <input type="text" name="division_name" 
                             maxlength="20" placeholder="システム部"
-                            value="<?php echo h($_POST['division_name']) ?>"/>
+                            value="<?php 
+                            if (!empty($_POST['division_name'])) {
+                                echo h($_POST['division_name']);
+                            }
+                            ?>"/>
                         </th>
                     </tr>
                     <tr>
@@ -138,7 +157,11 @@ $employee_index = "index.php?company_id=".$company_id;
                         <th class="right">
                             <input type="tel" name="phone_number" 
                             maxlength="13" placeholder="000-0000-0000"
-                            value="<?php echo h($_POST['phone_number']) ?>"/>
+                            value="<?php 
+                            if (!empty($_POST['phone_number'])) {
+                                echo h($_POST['phone_number']);
+                            }
+                            ?>"/>
                         </th>
                     </tr>
                     <tr class="address">
@@ -153,11 +176,23 @@ $employee_index = "index.php?company_id=".$company_id;
                                 <div class="add-right">
                                     <input type="text" name="postal_code" 
                                     maxlength="8" placeholder="000-0000" 
-                                    value="<?php echo h($_POST['postal_code']) ?>"/>
+                                    value="<?php 
+                                    if (!empty($_POST['postal_code'])) {
+                                        echo h($_POST['postal_code']); 
+                                    }
+                                    ?>"/>
                                     <select name="prefectures_code" >
-                                        <option value="<?php echo $prf_code ?>" 
+                                        <option value="<?php 
+                                        if (!empty($prf_code)) {
+                                            echo $prf_code;
+                                        }
+                                        ?>" 
                                         selected>
-                                            <?php outputPrefecture($prf_code) ?>
+                                            <?php 
+                                            if (!empty($prf_code)) {
+                                                outputPrefecture($prf_code);
+                                            }
+                                            ?>
                                         </option>
                                         <option value="1">北海道</option>
                                         <option value="2">青森県</option>
@@ -209,7 +244,11 @@ $employee_index = "index.php?company_id=".$company_id;
                                     </select>
                                     <input type="text" name="address" 
                                     maxlength="100" placeholder="〇〇市〇〇町xxx-xxx"
-                                    value="<?php echo h($_POST['address']) ?>"/>
+                                    value="<?php 
+                                    if (!empty($_POST['address'])) {
+                                        echo h($_POST['address']);
+                                    }
+                                    ?>"/>
                                 </div>
                             </div>
                         </th>
@@ -219,7 +258,11 @@ $employee_index = "index.php?company_id=".$company_id;
                         <th class="right">
                             <input type="text" name="mail_address" 
                             maxlength="100" placeholder="mail@example.jp"
-                            value="<?php echo h($_POST['mail_address']) ?>"/>
+                            value="<?php 
+                            if (!empty($_POST['mail_address'])) {
+                                echo h($_POST['mail_address']);
+                            }
+                            ?>"/>
                         </th>
                     </tr>
                     <tr>
