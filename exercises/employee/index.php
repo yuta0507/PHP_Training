@@ -10,6 +10,7 @@
  * @license  MIT License
  * @link     http://192.168.2.62/exercises/employee/index.php
  * */ 
+ini_set('display_errors', "On");
 
 require_once'../required_files/dbconnect.php';
 require_once'../required_files/functions.php';
@@ -30,8 +31,10 @@ if ($_COOKIE['displayed_results'] == '') {
 }
 
 //ページング
-$page = $_GET['page'];
-if ($page == '') {
+if (!empty($_GET['page'])) {
+    $page = h($_GET['page']);
+}
+if (empty($page)) {
     $page = 1;
 }
 
@@ -54,7 +57,7 @@ $start = ($page- 1) * $displayed_results;
 
 
 //データベース参照
-if ($_GET['order'] === 'desc') {
+if (!empty($_GET['order']) && $_GET['order'] === 'desc') {
     $employees = $db->prepare(
         'SELECT * from employees 
         WHERE company_id=? AND deleted IS NULL ORDER BY id DESC LIMIT ?, ?'
@@ -96,7 +99,11 @@ $member_pics = "../images/member_pictures/"
     <link rel="stylesheet" href="../styles/style.css">
     <title>Exercise</title>
 </head>
-<body class="<?php echo $_COOKIE['mode'] ?>">
+<body class="<?php 
+if (!empty($_COOKIE['mode'])) {
+    echo $_COOKIE['mode'];
+}  
+?>">
     
     <!-- ナビゲーションバー -->
     <nav>
@@ -185,14 +192,25 @@ $member_pics = "../images/member_pictures/"
             <?php if ($page > 1) : ?>
                 <li>
                     <a href="<?php 
-                    outputHref($employee_index, $page-1, $_GET['order']); ?>">
+                    if (!empty($_GET['order'])) {
+                        outputHref($employee_index, $page-1, $_GET['order']); 
+                    } else {
+                        outputHref($employee_index, $page-1, null);
+                    }  
+                    ?>">
+                        
                         ≪
                     </a>
                 </li>
                 <?php if ($page > 2) : ?>
                     <li>
                         <a href="<?php 
-                        outputHref($employee_index, 1, $_GET['order']); ?>">
+                        if (!empty($_GET['order'])) {
+                            outputHref($employee_index, 1, $_GET['order']); 
+                        } else {
+                            outputHref($employee_index, 1, null); 
+                        }
+                        ?>">
                             1
                         </a>
                     </li>
@@ -205,7 +223,11 @@ $member_pics = "../images/member_pictures/"
                 <?php if ($page == $max_page && $max_page != 3) : ?>
                     <li>
                         <a href="<?php 
-                        outputHref($employee_index, $max_page-2, $_GET['order']); 
+                        if (!empty($_GET['order'])) {
+                            outputHref($employee_index, $max_page-2, $_GET['order']); 
+                        } else {
+                            outputHref($employee_index, $max_page-2, null); 
+                        }
                         ?>">
                             <?php echo $max_page-2; ?>
                         </a>
@@ -213,14 +235,24 @@ $member_pics = "../images/member_pictures/"
                 <?php endif ?>
                 <li>
                     <a href="<?php 
-                    outputHref($employee_index, $page-1, $_GET['order']); ?>">
+                    if ($_GET['order']) {
+                        outputHref($employee_index, $page-1, $_GET['order']); 
+                    } else {
+                        outputHref($employee_index, $page-1, null); 
+                    }
+                    ?>">
                         <?php echo $page-1; ?>
                     </a>
-                </li>
+                </li>    
             <?php endif ?>
             <li>
                 <a href="<?php 
-                outputHref($employee_index, $page, $_GET['order']); ?>"　
+                if (!empty($_GET['order'])) {
+                    outputHref($employee_index, $page, $_GET['order']); 
+                } else {
+                    outputHref($employee_index, $page, null); 
+                }
+                ?>" 
                 class="current-page">
                     <?php echo $page; ?>
                 </a>
@@ -228,14 +260,24 @@ $member_pics = "../images/member_pictures/"
             <?php if ($page < $max_page) : ?>
                 <li>
                     <a href="<?php 
-                    outputHref($employee_index, $page+1, $_GET['order']); ?>">
-                        <?php echo $page+1; ?>
+                    if (!empty($_GET['order'])) {
+                        outputHref($employee_index, $page+1, $_GET['order']); 
+                    } else {
+                        outputHref($employee_index, $page+1, null); 
+                    }
+                    ?>">
+                        <?php echo $page+1 ?>
                     </a>
                 </li>
                 <?php if ($page == 1 && $max_page != 3) : ?>
                     <li>
                         <a href="<?php 
-                        outputHref($employee_index, 3, $_GET['order']); ?>">
+                        if (!empty($_GET['order'])) {
+                            outputHref($employee_index, 3, $_GET['order']); 
+                        } else {
+                            outputHref($employee_index, 3, null); 
+                        }
+                        ?>">
                             3
                         </a>
                     </li>
@@ -248,14 +290,24 @@ $member_pics = "../images/member_pictures/"
                 <?php if ($page < $max_page - 1) : ?>
                     <li>
                         <a href="<?php 
-                        outputHref($employee_index, $max_page, $_GET['order']); ?>">
+                        if (!empty($_GET['order'])) {
+                            outputHref($employee_index, $max_page, $_GET['order']); 
+                        } else {
+                            outputHref($employee_index, $max_page, null); 
+                        } 
+                        ?>">
                             <?php echo $max_page; ?>
                         </a>
                     </li>
-                <?php endif ?>
+                <?php endif ?>    
                 <li>
-                    <a href="<?php
-                    outputHref($employee_index, $page+1, $_GET['order']); ?>">
+                    <a href="<?php 
+                    if (!empty($_GET['order'])) {
+                        outputHref($employee_index, $page+1, $_GET['order']); 
+                    } else {
+                        outputHref($employee_index, $page+1, null); 
+                    } 
+                    ?>">
                         ≫
                     </a>
                 </li>

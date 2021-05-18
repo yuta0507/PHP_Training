@@ -10,6 +10,7 @@
  * @license  MIT License
  * @link     http://192.168.2.62/exercises/edit.php
  * */ 
+ini_set('display_errors', "On");
 
 require_once'required_files/dbconnect.php';
 require_once'required_files/functions.php';
@@ -22,7 +23,7 @@ $column = [
 
 //エラーチェック
 if (!empty($_POST)) {
-    $error = validateInputData($_POST, $column);
+    $error = validateInputData($_POST, $column, null);
 }
 
 //データベースに登録
@@ -78,7 +79,11 @@ $index = "index.php";
     <link rel="stylesheet" href="styles/style.css">
     <title>Edit</title>
 </head>
-<body class="<?php echo $_COOKIE['mode'] ?>">
+<body class="<?php 
+if (!empty($_COOKIE['mode'])) {
+    echo $_COOKIE['mode'];
+}  
+?>">
     <!-- ナビゲーションバー -->
     <nav>
         <ul>
@@ -95,7 +100,11 @@ $index = "index.php";
 
     <div class="container">
         <!-- エラー表示 -->
-        <?php outputErrorMessage($error) ?>
+        <?php 
+        if (!empty($error)) {
+            outputErrorMessage($error);
+        }
+        ?>
 
         <!-- ここからテーブル -->
         <form action="" method="POST">

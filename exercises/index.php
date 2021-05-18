@@ -10,6 +10,7 @@
  * @license  MIT License
  * @link     http://192.168.2.62/exercises/index.php
  * */ 
+ini_set('display_errors', "On");
 
 require_once'required_files/dbconnect.php';
 require_once'required_files/functions.php';
@@ -22,8 +23,10 @@ if ($_COOKIE['displayed_results'] == '') {
 }
 
 //ページング
-$page = h($_GET['page']);
-if ($page == '') {
+if (!empty($_GET['page'])) {
+    $page = h($_GET['page']);
+}
+if (empty($page)) {
     $page = 1;
 }
 
@@ -42,7 +45,7 @@ $start = ($page- 1) * $displayed_results;
 
 
 //データベース参照
-if ($_GET['order'] === 'desc') {
+if (!empty($_GET['order']) && $_GET['order'] === 'desc') {
     $companies = $db->prepare(
         'SELECT c.*, COUNT(e.id) AS cnt
         FROM companies c  
@@ -94,7 +97,11 @@ $delete = "delete.php?id=";
     <link rel="stylesheet" href="styles/style.css">
     <title>Exercise</title>
 </head>
-<body class="<?php echo $_COOKIE['mode'] ?>">
+<body class="<?php 
+if (!empty($_COOKIE['mode'])) {
+    echo $_COOKIE['mode'];
+}  
+?>">
     <!-- ナビゲーションバー -->
     <nav>
         <ul>
@@ -178,13 +185,26 @@ $delete = "delete.php?id=";
         <ul class="paging">
             <?php if ($page > 1) : ?>
                 <li>
-                    <a href="<?php outputHref($index, $page-1, $_GET['order']); ?>">
+                    <a href="<?php 
+                    if (!empty($_GET['order'])) {
+                        outputHref($index, $page-1, $_GET['order']); 
+                    } else {
+                        outputHref($index, $page-1, null);
+                    }  
+                    ?>">
+                        
                         ≪
                     </a>
                 </li>
                 <?php if ($page > 2) : ?>
                     <li>
-                        <a href="<?php outputHref($index, 1, $_GET['order']); ?>">
+                        <a href="<?php 
+                        if (!empty($_GET['order'])) {
+                            outputHref($index, 1, $_GET['order']); 
+                        } else {
+                            outputHref($index, 1, null); 
+                        }
+                        ?>">
                             1
                         </a>
                     </li>
@@ -197,32 +217,61 @@ $delete = "delete.php?id=";
                 <?php if ($page == $max_page && $max_page != 3) : ?>
                     <li>
                         <a href="<?php 
-                        outputHref($index, $max_page-2, $_GET['order']); ?>">
+                        if (!empty($_GET['order'])) {
+                            outputHref($index, $max_page-2, $_GET['order']); 
+                        } else {
+                            outputHref($index, $max_page-2, null); 
+                        }
+                        ?>">
                             <?php echo $max_page-2; ?>
                         </a>
                     </li>
                 <?php endif ?>
                 <li>
-                    <a href="<?php outputHref($index, $page-1, $_GET['order']); ?>">
+                    <a href="<?php 
+                    if ($_GET['order']) {
+                        outputHref($index, $page-1, $_GET['order']); 
+                    } else {
+                        outputHref($index, $page-1, null); 
+                    }
+                    ?>">
                         <?php echo $page-1; ?>
                     </a>
                 </li>    
             <?php endif ?>
             <li>
-                <a href="<?php outputHref($index, $page, $_GET['order']); ?>" 
+                <a href="<?php 
+                if (!empty($_GET['order'])) {
+                    outputHref($index, $page, $_GET['order']); 
+                } else {
+                    outputHref($index, $page, null); 
+                }
+                ?>" 
                 class="current-page">
                     <?php echo $page; ?>
                 </a>
             </li>
             <?php if ($page < $max_page) : ?>
                 <li>
-                    <a href="<?php outputHref($index, $page+1, $_GET['order']); ?>">
+                    <a href="<?php 
+                    if (!empty($_GET['order'])) {
+                        outputHref($index, $page+1, $_GET['order']); 
+                    } else {
+                        outputHref($index, $page+1, null); 
+                    }
+                    ?>">
                         <?php echo $page+1 ?>
                     </a>
                 </li>
                 <?php if ($page == 1 && $max_page != 3) : ?>
                     <li>
-                        <a href="<?php outputHref($index, 3, $_GET['order']); ?>">
+                        <a href="<?php 
+                        if (!empty($_GET['order'])) {
+                            outputHref($index, 3, $_GET['order']); 
+                        } else {
+                            outputHref($index, 3, null); 
+                        }
+                        ?>">
                             3
                         </a>
                     </li>
@@ -235,13 +284,24 @@ $delete = "delete.php?id=";
                 <?php if ($page < $max_page - 1) : ?>
                     <li>
                         <a href="<?php 
-                        outputHref($index, $max_page, $_GET['order']); ?>">
+                        if (!empty($_GET['order'])) {
+                            outputHref($index, $max_page, $_GET['order']); 
+                        } else {
+                            outputHref($index, $max_page, null); 
+                        } 
+                        ?>">
                             <?php echo $max_page; ?>
                         </a>
                     </li>
                 <?php endif ?>    
                 <li>
-                    <a href="<?php outputHref($index, $page+1, $_GET['order']); ?>">
+                    <a href="<?php 
+                    if (!empty($_GET['order'])) {
+                        outputHref($index, $page+1, $_GET['order']); 
+                    } else {
+                        outputHref($index, $page+1, null); 
+                    } 
+                    ?>">
                         ≫
                     </a>
                 </li>
