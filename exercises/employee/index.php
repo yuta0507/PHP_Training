@@ -220,7 +220,7 @@ if (!empty($_COOKIE['mode'])) {
                         <span>...</span>
                     </li>
                 <?php endif ?>
-                <?php if ($page == $max_page && $max_page != 3) : ?>
+                <?php if ($page == $max_page && $max_page != 3 && $max_page != 2) : ?>
                     <li>
                         <a href="<?php 
                         if (!empty($_GET['order'])) {
@@ -235,7 +235,7 @@ if (!empty($_COOKIE['mode'])) {
                 <?php endif ?>
                 <li>
                     <a href="<?php 
-                    if ($_GET['order']) {
+                    if (!empty($_GET['order'])) {
                         outputHref($employee_index, $page-1, $_GET['order']); 
                     } else {
                         outputHref($employee_index, $page-1, null); 
@@ -269,7 +269,7 @@ if (!empty($_COOKIE['mode'])) {
                         <?php echo $page+1 ?>
                     </a>
                 </li>
-                <?php if ($page == 1 && $max_page != 3) : ?>
+                <?php if ($page == 1 && $max_page != 3 && $max_page != 2) : ?>
                     <li>
                         <a href="<?php 
                         if (!empty($_GET['order'])) {
