@@ -43,7 +43,7 @@ function selectValue($db_table, $input_data, $column_name)
 }
 
 /**
- * Function isInputValid.
+ * Function validateInputData.
  * 
  * @param string $input_data 文字列
  * @param array  $column     文字列
@@ -61,28 +61,30 @@ function validateInputData($input_data, $column, $input_file)
     }
     
     //電話番号半角数字チェック
-    $phone_number = h($input_data['phone_number']);
+    $phone_number = $input_data['phone_number'];
     if (!empty($phone_number) && isPhoneNumberValid($phone_number) === false) {
         $error['phone_number'] = 'wrong';
     }
     
     //郵便番号半角数字チェック
-    $postal_code = h($input_data['postal_code']);
+    $postal_code = $input_data['postal_code'];
     if (!empty($postal_code) && isPostalCodeValid($postal_code) === false) {
         $error['postal_code'] = 'wrong';
     }
     
     //アイコン画像チェック
-    $file_name = $input_file['image']['name'];
-    //未入力チェック
-    if (empty($file_name)) {
-        $error['blank'] = 'true';
-    }
-    //拡張子チェック
-    if (!empty($file_name)) {
-        $extension = pathinfo($file_name, PATHINFO_EXTENSION);
-        if ($extension != 'jpg' && $extension != 'jpeg' && $extension != 'png') {
-            $error['image'] = 'type';
+    if ($input_file !== null) {
+        $file_name = $input_file['image']['name'];
+        //未入力チェック
+        if (empty($file_name)) {
+            $error['blank'] = 'true';
+        }
+        //拡張子チェック
+        if (!empty($file_name)) {
+            $extension = pathinfo($file_name, PATHINFO_EXTENSION);
+            if ($extension != 'jpg' && $extension != 'jpeg' && $extension != 'png') {
+                $error['image'] = 'type';
+            }
         }
     }
     
@@ -172,26 +174,34 @@ function outputCompletionMessage($value)
     define('COMPLETION_MSG_DELETE', '削除が完了しました');
 
     //Company
-    if (!empty($value)) {
+    if (!empty($value['signup']['company'])) {
         if ($value['signup']['company'] === 'completed') {
             echo '<p class="success">'. COMPLETION_MSG_SIGNUP.'</p>';
         }
+    }
+    if (!empty(['edit']['company'])) {
         if ($value['edit']['company'] === 'completed') {
             echo '<p class="success">'. COMPLETION_MSG_EDIT.'</p>';
         }
+    }
+    if (!empty($value['delete']['company'])) {
         if ($value['delete']['company'] === 'completed') {
             echo '<p class="success">'. COMPLETION_MSG_DELETE.'</p>';
         }
     }
 
     //Employee
-    if (!empty($value)) {
+    if (!empty($value['signup']['employee'])) {
         if ($value['signup']['employee'] === 'completed') {
             echo '<p class="success">'. COMPLETION_MSG_SIGNUP.'</p>';
         }
+    }
+    if (!empty($value['edit']['employee'])) {
         if ($value['edit']['employee'] === 'completed') {
             echo '<p class="success">'. COMPLETION_MSG_EDIT.'</p>';
         }
+    }
+    if (!empty($value['edit']['employee'])) {
         if ($value['delete']['employee'] === 'completed') {
             echo '<p class="success">'. COMPLETION_MSG_DELETE.'</p>';
         }
