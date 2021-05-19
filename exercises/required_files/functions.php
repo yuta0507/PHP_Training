@@ -28,8 +28,9 @@ function h($value)
 /**
  * Function selectValue.
  * 
- * @param string $value1 文字列
- * @param string $value2 文字列
+ * @param string $db_table    文字列
+ * @param string $input_data  文字列
+ * @param string $column_name 文字列
  * 
  * @return string
  * */
@@ -44,7 +45,9 @@ function selectValue($db_table, $input_data, $column_name)
 /**
  * Function isInputValid.
  * 
- * @param string $value 文字列
+ * @param string $input_data 文字列
+ * @param array  $column     文字列
+ * @param string $input_file 文字列
  * 
  * @return string
  * */
@@ -77,8 +80,8 @@ function validateInputData($input_data, $column, $input_file)
     }
     //拡張子チェック
     if (!empty($file_name)) {
-            $extension = pathinfo($file_name, PATHINFO_EXTENSION);
-            if ($extension != 'jpg' && $extension != 'jpeg' && $extension != 'png') {
+        $extension = pathinfo($file_name, PATHINFO_EXTENSION);
+        if ($extension != 'jpg' && $extension != 'jpeg' && $extension != 'png') {
             $error['image'] = 'type';
         }
     }
@@ -95,7 +98,7 @@ function validateInputData($input_data, $column, $input_file)
  * */
 function isPhoneNumberValid($value)
 {
-    $i=0;
+    $i = 0;
     $patterns = [
         "/^0(\d-\d{4}|\d{2}-\d{3}|\d{3}-\d{2}|\d{4}-\d)-\d{4}$/",
         "/^0([7-9])0-\d{4}-\d{4}$/",
@@ -223,7 +226,9 @@ function outputPrefecture($value)
 /**
  * Function outputHref.
  * 
- * @param string $value 文字列
+ * @param string $index 文字列
+ * @param string $page  文字列
+ * @param string $order 文字列
  * 
  * @return string
  * */
@@ -247,8 +252,4 @@ function outputHref($index, $page, $order)
         } 
     }
 }
-
-
-
-
 ?>
