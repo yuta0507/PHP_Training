@@ -100,13 +100,14 @@ function validateInputData($input_data, $column, $input_file)
  * */
 function isPhoneNumberValid($value)
 {
-    $i = 0;
+    //市外局番、携帯電話、フリーダイヤルのうち、どれか1つにマッチすればtrue
     $patterns = [
         "/^0(\d-\d{4}|\d{2}-\d{3}|\d{3}-\d{2}|\d{4}-\d)-\d{4}$/",
         "/^0([7-9])0-\d{4}-\d{4}$/",
         "/^0120-\d{3}-\d{3}$/"
     ];
-
+    
+    $i = 0;
     foreach ($patterns as $pattern) {
         if (preg_match($pattern, $value)) {
             $i++;
@@ -242,13 +243,16 @@ function outputPrefecture($value)
  * 
  * @return string
  * */
-function outputHref($index, $page, $order) 
+function outputHref($index, $page, $search, $order) 
 {
     $pattern = '/company_id/';
     
     //Company
     if (preg_match($pattern, $index) === 0) {
-        echo $index .'?page=' .$page; 
+        echo $index .'?page=' .$page;
+        if (!empty($search)) {
+            echo "&search=$search";
+        } 
         if ($order === 'desc') {
             echo "&order=desc";
         }
