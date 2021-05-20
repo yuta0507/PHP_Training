@@ -41,8 +41,7 @@ $cnt = $counts->fetch();
 //現在のページと最大ページを設定
 if (!empty($_GET['page'])) {
     $page = h($_GET['page']);
-}
-if (empty($page)) {
+} else {
     $page = 1;
 }
 $max_page = ceil($cnt['cnt'] / $displayed_results);

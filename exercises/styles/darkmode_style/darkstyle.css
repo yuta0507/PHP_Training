@@ -43,6 +43,15 @@
     color: white;
 }
 
+.darkmode .search {
+    color: #ebe9ff;
+}
+
+.darkmode .search input {
+    background-color: #4d4d4d;
+    color: #ebe9ff;
+}
+
 
 /* signup.php edit.php */
 .darkmode input::placeholder {
