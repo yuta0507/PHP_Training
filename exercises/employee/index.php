@@ -239,7 +239,7 @@ if (!empty($_COOKIE['mode'])) {
             <?php if ($page < $max_page) : ?>
                 <li>
                     <a href="<?php
-                    outputHref($employee_index, $page+2, null, $order);
+                    outputHref($employee_index, $page+1, null, $order);
                     ?>">
                         <?php echo $page+1 ?>
                     </a>
