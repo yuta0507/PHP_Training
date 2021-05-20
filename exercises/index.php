@@ -230,7 +230,7 @@ if (!empty($_COOKIE['mode'])) {
                         <span>...</span>
                     </li>
                 <?php endif ?>
-                <?php if ($page == $max_page && $max_page != 3 && $max_page != 2) : ?>
+                <?php if ($page == $max_page && $max_page != 3 && $max_page != 2) :?>
                     <li>
                         <a href="<?php
                         outputHref($index, $max_page-2, $search, $order);  
