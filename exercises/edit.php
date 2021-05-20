@@ -20,10 +20,11 @@ $column = [
     'company_name', 'representative_name', 'phone_number',
     'postal_code', 'prefectures_code', 'address', 'mail_address'
 ];
+$column_length = [50, 20, 13, 8, 2, 100, 100];
 
 //エラーチェック
 if (!empty($_POST)) {
-    $error = validateInputData($_POST, $column, null);
+    $error = validateInputData($_POST, $column, $column_length, null);
 }
 
 //データベースに登録

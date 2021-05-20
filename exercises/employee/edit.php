@@ -29,10 +29,11 @@ $column = [
     'employee_name', 'division_name', 'phone_number',
     'postal_code', 'prefectures_code', 'address', 'mail_address'
 ];
+$column_length = [20, 20, 13, 8, 2, 100, 100];
 
 //エラーチェック
 if (!empty($_POST)) {
-    $error = validateInputData($_POST, $column, $_FILES);
+    $error = validateInputData($_POST, $column, $column_length, $_FILES);
 }
 
 

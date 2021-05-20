@@ -51,7 +51,7 @@ function selectValue($db_table, $input_data, $column_name)
  * 
  * @return string
  * */
-function validateInputData($input_data, $column, $input_file)
+function validateInputData($input_data, $column, $column_length, $input_file)
 {
     //未入力チェック   
     foreach ($column as $column_name) {
@@ -72,6 +72,22 @@ function validateInputData($input_data, $column, $input_file)
         $error['postal_code'] = 'wrong';
     }
     
+    //文字数制限チェック
+    $i = 0;
+    foreach ($column as $column_name) {
+        if (mb_strlen($input_data[$column_name]) > $column_length[$i]) {
+            $error[$column_name] = 'length';
+        }
+        $i++;
+    }
+    
+    //都道府県コードチェック
+    if (!empty($input_data['prefectures_code'])) {
+        if ($input_data['prefectures_code'] < 1 || 47 < $input_data['prefectures_code']) {
+            $error['prefectures_code'] = 'false';
+        }
+    }
+
     //アイコン画像チェック
     if ($input_file !== null) {
         $file_name = $input_file['image']['name'];
@@ -150,11 +166,38 @@ function outputErrorMessage($error)
     if (!empty($error['blank']) && $error['blank'] === 'true') {
         echo '<p class="error">*入力されていない箇所があります。再度入力してください</p>';
     }
+    if (!empty($error['company_name']) && $error['comapny_name'] === 'length') {
+        echo '<p class="error">*会社名は50字以内で入力してください</p>';
+    }
+    if (!empty($error['employee_name']) && $error['employee_name'] === 'length') {
+        echo '<p class="error">*社員名は20字以内で入力してください</p>';
+    }
+    if (!empty($error['representative_name']) && $error['representative_name'] === 'length') {
+        echo '<p class="error">*代表名は20字以内で入力してください</p>';
+    }
+    if (!empty($error['division_name']) && $error['division_name'] === 'length') {
+        echo '<p class="error">*部署名は20字以内で入力してください</p>';
+    }
     if (!empty($error['phone_number']) && $error['phone_number'] === 'wrong') {
         echo '<p class="error">*電話番号はハイフン付きの半角数字で入力してください</p>';
     }
+    if (!empty($error['phone_number']) && $error['phone_number'] === 'length') {
+        echo '<p class="error">*電話番号は13字以内で入力してください</p>';
+    }
     if (!empty($error['postal_code']) && $error['postal_code'] === 'wrong') {
         echo '<p class="error">*郵便番号はハイフン付きの半角数字で入力してください</p>';
+    }
+    if (!empty($error['postal_code']) && $error['postal_code'] === 'length') {
+        echo '<p class="error">*郵便番号は8字で入力してください</p>';
+    }
+    if (!empty($error['prefectures_code']) && $error['prefectures_code'] === 'false') {
+        echo '<p class="error">*不整合な都道府県データが検出されました</p>';
+    }
+    if (!empty($error['address']) && $error['address'] === 'length') {
+        echo '<p class="error">*住所は100字以内で入力してください</p>';
+    }
+    if (!empty($error['mail_address']) && $error['mail_address'] === 'length') {
+        echo '<p class="error">*メールアドレスは100字以内で入力してください</p>';
     }
     if (!empty($error['image']) && $error['image'] === 'type') {
         echo '<p class="error">*画像は「.jpg」「.jpeg」または「.png」のものを指定してください</p>';
@@ -218,20 +261,22 @@ function outputCompletionMessage($value)
  * */
 function outputPrefecture($value)
 {
-    $prefectures = [
-        "北海道", "青森県", "岩手県", "宮城県", "秋田県", 
-        "山形県", "福島県", "茨城県", "栃木県", "群馬県", 
-        "埼玉県", "千葉県", "東京都", "神奈川県", "新潟県", 
-        "富山県", "石川県", "福井県", "山梨県", "長野県", 
-        "岐阜県", "静岡県", "愛知県", "三重県", "滋賀県", 
-        "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県",
-        "鳥取県", "島根県", "岡山県", "広島県", "山口県", 
-        "徳島県", "香川県", "愛媛県", "高知県", "福岡県", 
-        "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", 
-        "鹿児島県", "沖縄県"
-    ];
-
-    echo $prefectures[$value-1];
+    if (1 <= $value && $value <= 47 ) {
+        $prefectures = [
+            "北海道", "青森県", "岩手県", "宮城県", "秋田県", 
+            "山形県", "福島県", "茨城県", "栃木県", "群馬県", 
+            "埼玉県", "千葉県", "東京都", "神奈川県", "新潟県", 
+            "富山県", "石川県", "福井県", "山梨県", "長野県", 
+            "岐阜県", "静岡県", "愛知県", "三重県", "滋賀県", 
+            "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県",
+            "鳥取県", "島根県", "岡山県", "広島県", "山口県", 
+            "徳島県", "香川県", "愛媛県", "高知県", "福岡県", 
+            "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", 
+            "鹿児島県", "沖縄県"
+        ];
+    
+        echo $prefectures[$value-1];
+    }
 }
 
 /**
