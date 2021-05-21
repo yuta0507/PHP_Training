@@ -83,7 +83,8 @@ function validateInputData($input_data, $column, $column_length, $input_file)
     
     //都道府県コードチェック
     if (!empty($input_data['prefectures_code'])) {
-        if ($input_data['prefectures_code'] < 1 || 47 < $input_data['prefectures_code']) {
+        $prf_code = $input_data['prefectures_code']; 
+        if ($prf_code < 1 || 47 < $prf_code) {
             $error['prefectures_code'] = 'false';
         }
     }
@@ -159,7 +160,7 @@ function isPostalCodeValid($value)
  * 
  * @param string $error 文字列
  * 
- * @return string
+ * @return null
  * */
 function outputErrorMessage($error)
 {
@@ -172,8 +173,10 @@ function outputErrorMessage($error)
     if (!empty($error['employee_name']) && $error['employee_name'] === 'length') {
         echo '<p class="error">*社員名は20字以内で入力してください</p>';
     }
-    if (!empty($error['representative_name']) && $error['representative_name'] === 'length') {
-        echo '<p class="error">*代表名は20字以内で入力してください</p>';
+    if (!empty($error['representative_name'])) {
+        if ($error['representative_name'] === 'length') {
+            echo '<p class="error">*代表名は20字以内で入力してください</p>';
+        }
     }
     if (!empty($error['division_name']) && $error['division_name'] === 'length') {
         echo '<p class="error">*部署名は20字以内で入力してください</p>';
@@ -190,8 +193,10 @@ function outputErrorMessage($error)
     if (!empty($error['postal_code']) && $error['postal_code'] === 'length') {
         echo '<p class="error">*郵便番号は8字で入力してください</p>';
     }
-    if (!empty($error['prefectures_code']) && $error['prefectures_code'] === 'false') {
-        echo '<p class="error">*不整合な都道府県データが検出されました</p>';
+    if (!empty($error['prefectures_code'])) {
+        if ($error['prefectures_code'] === 'false') {
+            echo '<p class="error">*不整合な都道府県データが検出されました</p>';
+        }
     }
     if (!empty($error['address']) && $error['address'] === 'length') {
         echo '<p class="error">*住所は100字以内で入力してください</p>';
@@ -209,7 +214,7 @@ function outputErrorMessage($error)
  * 
  * @param string $value 文字列
  * 
- * @return string
+ * @return null
  * */
 function outputCompletionMessage($value)
 {
@@ -245,7 +250,7 @@ function outputCompletionMessage($value)
             echo '<p class="success">'. COMPLETION_MSG_EDIT.'</p>';
         }
     }
-    if (!empty($value['edit']['employee'])) {
+    if (!empty($value['delete']['employee'])) {
         if ($value['delete']['employee'] === 'completed') {
             echo '<p class="success">'. COMPLETION_MSG_DELETE.'</p>';
         }
@@ -257,7 +262,7 @@ function outputCompletionMessage($value)
  * 
  * @param string $value 文字列
  * 
- * @return string
+ * @return null
  * */
 function outputPrefecture($value)
 {

@@ -26,11 +26,6 @@ if (empty($_GET['company_id'])) {
     $company_id = h($_GET['company_id']);
 }
 
-//表示件数を設定
-$displayed_results = h($_COOKIE['displayed_results']);
-if ($_COOKIE['displayed_results'] == '') {
-    $displayed_results = 5;
-}
 
 //データベース参照し、該当データの数を数える
 $sql = 'SELECT COUNT(*) AS cnt FROM employees 
@@ -39,6 +34,12 @@ $counts = $db->query($sql);
 $cnt = $counts->fetch();
 
 //ページング
+//表示件数を設定
+$displayed_results = h($_COOKIE['displayed_results']);
+if ($_COOKIE['displayed_results'] == '') {
+    $displayed_results = 5;
+}
+
 //現在のページと最大ページを設定
 if (!empty($_GET['page'])) {
     $page = h($_GET['page']);

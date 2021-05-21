@@ -21,6 +21,7 @@ if (!empty($_POST['id'])) {
 }
 
 if (empty($id)) {
+    //直接URLが叩かれた場合、index.phpに遷移
     header('Location: index.php');
     exit();
 } else {
@@ -30,7 +31,7 @@ if (empty($id)) {
         WHERE id=? AND deleted IS NULL'
     );
     $statement->bindParam(1, $id, PDO::PARAM_INT);
-    $statement->execute([$id]);
+    $statement->execute();
 
     $_SESSION['delete']['company'] = 'completed';
     header('Location: index.php');

@@ -103,7 +103,8 @@ if (!empty($_COOKIE['mode'])) {
                 <?php endif ?>
             </div>
             <br>
-            <input type="submit" class="button-setting" value="設定">
+            <a class="back" href="<?php echo $index ?>">≪会社一覧へ</a>
+            <input type="submit" class="button-submit" value="設定">
         </form>
     </div>
 </body>

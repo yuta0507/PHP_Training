@@ -58,76 +58,98 @@ function getHref($index, $page, $search, $order)
  * @param string $search   文字列
  * @param string $order    文字列
  * 
- * @return string
+ * @return null
  * */
 function outputPaging($url, $page, $max_page, $search, $order) {
     echo '<ul class="paging">';
     if ($page > 1) {
-        echo '<li>';
-        echo '<a href="' .getHref($url, $page-1, $search, $order) .'">';
-        echo '≪';
-        echo '</a>';
-        echo '</li>';
+        print(
+            '<li>'.
+            '<a href="' .getHref($url, $page-1, $search, $order) .'">'.
+            '≪'.
+            '</a>'.
+            '</li>'
+        );
         if ($page > 2) {
-            echo '<li>';
-            echo '<a href="' .getHref($url, 1, $search, $order) .'">';
-            echo 1;
-            echo '</a>';
-            echo '</li>';
+            print(
+                '<li>'.
+                '<a href="' .getHref($url, 1, $search, $order) .'">'.
+                1 .
+                '</a>'.
+                '</li>'
+            );
         }
         if ($page > 3 && $max_page != 4) {
-            echo '<li>';
-            echo '<span>...</span>';
-            echo '</li>';
+            print(
+                '<li>'.
+                '<span>...</span>'.
+                '</li>'
+            );
         }
         if ($page == $max_page && $max_page != 3 && $max_page != 2) {
-            echo '<li>';
-            echo '<a href="' .getHref($url, $max_page-2, $search, $order) .'">';
-            echo $max_page-2;
-            echo '</a>';
-            echo '</li>';
+            print(
+                '<li>'.
+                '<a href="'.getHref($url, $max_page-2, $search, $order).'">'.
+                ($max_page-2).
+                '</a>'.
+                '</li>'
+            );
         }
-        echo '<li>';
-        echo '<a href="' .getHref($url, $page-1, $search, $order) .'">';
-        echo $page-1;
-        echo '</a>';
-        echo '</li>';
+        print(
+            '<li>'.
+            '<a href="'.getHref($url, $page-1, $search, $order).'">'.
+            ($page-1).
+            '</a>'.
+            '</li>'
+        );
     }
-    echo '<li>';
-    echo '<a href="' .getHref($url, $page, $search, $order) .'" class="current-page">';
-    echo $page;
-    echo '</a>';
-    echo '</li>';
+    print(
+        '<li>'.
+        '<a href="'.getHref($url, $page, $search, $order).'" class="current-page">'.
+        $page.
+        '</a>'.
+        '</li>'
+    );
     if ($page < $max_page) {
-        echo '<li>';
-        echo '<a href="' .getHref($url, $page+1, $search, $order) .'">';
-        echo $page+1;
-        echo '</a>';
-        echo '</li>';
+        print(
+            '<li>'.
+            '<a href="'.getHref($url, $page+1, $search, $order).'">'.
+            ($page+1).
+            '</a>'.
+            '</li>'
+        );
         if ($page == 1 && $max_page != 3 && $max_page != 2) {
-            echo '<li>';
-            echo '<a href="' .getHref($url, 3, $search, $order) .'">';
-            echo 3;
-            echo '</a>';
-            echo '</li>';
+            print(
+                '<li>'.
+                '<a href="'.getHref($url, 3, $search, $order).'">'.
+                3 .
+                '</a>'.
+                '</li>'
+            );
         }
         if ($page < $max_page-2 && $max_page != 4) {
-            echo '<li>';
-            echo '<span>...</span>';
-            echo '</li>';
+            print(
+                '<li>'.
+                '<span>...</span>'.
+                '</li>'
+            );
         }
         if ($page < $max_page-1) {
-            echo '<li>';
-            echo '<a href="' .getHref($url, $max_page, $search, $order) .'">';
-            echo $max_page;
-            echo '</a>';
-            echo '</li>';
+            print(
+                '<li>'.
+                '<a href="'.getHref($url, $max_page, $search, $order).'">'.
+                $max_page.
+                '</a>'.
+                '</li>'
+            );
         }
-        echo '<li>';
-        echo '<a href="' .getHref($url, $page+1, $search, $order) .'">';
-        echo '≫';
-        echo '</a>';
-        echo '</li>';
+        print(
+            '<li>'.
+            '<a href="'.getHref($url, $page+1, $search, $order).'">'.
+            '≫'.
+            '</a>'.
+            '</li>'
+        );
     }
 
     echo '</ul>';
