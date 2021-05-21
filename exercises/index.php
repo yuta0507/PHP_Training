@@ -17,12 +17,6 @@ require_once'required_files/functions.php';
 require_once'required_files/paging.php';
 session_start();
 
-//表示件数を設定
-$displayed_results = h($_COOKIE['displayed_results']);
-if (empty($_COOKIE['displayed_results'])) {
-    $displayed_results = 5;
-}
-
 //検索があった場合、SQLにLIKE文を追加するための処理
 if (!empty($_GET['search'])) {
     $search = h($_GET['search']);
@@ -39,6 +33,12 @@ $counts = $db->query(
 $cnt = $counts->fetch();
 
 //ページング
+//表示件数を設定
+$displayed_results = h($_COOKIE['displayed_results']);
+if (empty($_COOKIE['displayed_results'])) {
+    $displayed_results = 5;
+}
+
 //現在のページと最大ページを設定
 if (!empty($_GET['page'])) {
     $page = h($_GET['page']);

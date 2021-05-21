@@ -32,10 +32,10 @@ if (empty($id)) {
         WHERE id=? AND deleted IS NULL'
     );
     $statement->bindParam(1, $id, PDO::PARAM_INT);
-    $statement->execute([$id]);
+    $statement->execute();
 
     $_SESSION['delete']['employee'] = 'completed';
-    $url = "index.php?company_id=".$company_id;
+    $url = 'index.php?company_id='.$company_id;
     header('Location:'.$url);
     exit();
 }
