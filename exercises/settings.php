@@ -76,8 +76,10 @@ if (!empty($_COOKIE['mode'])) {
                     ダークモード
                     <input type="radio" name="mode" value="dark-mode"
                     <?php
-                    if (!empty($_COOKIE['mode']) && $_COOKIE['mode'] === 'darkmode') {
-                        echo "checked";
+                    if (!empty($_COOKIE['mode'])) {
+                        if ($_COOKIE['mode'] === 'darkmode') {
+                            echo "checked";
+                        }
                     }
                     ?>>
                 </label>
