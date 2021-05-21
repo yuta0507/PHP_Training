@@ -103,6 +103,10 @@ function validateInputData($input_data, $column, $column_length, $input_file)
                 $error['image'] = 'type';
             }
         }
+        //長さチェック
+        if (mb_strlen($file_name) > 241) {
+            $error['image'] = 'length';
+        }
     }
     
     return $error;
@@ -204,6 +208,9 @@ function outputErrorMessage($error)
     if (!empty($error['mail_address']) && $error['mail_address'] === 'length') {
         echo '<p class="error">*メールアドレスは100字以内で入力してください</p>';
     }
+    if (!empty($error['image']) && $error['image'] === 'length') {
+        echo '<p class="error">*画像のファイル名は241字以内に設定してください</p>';
+    }
     if (!empty($error['image']) && $error['image'] === 'type') {
         echo '<p class="error">*画像は「.jpg」「.jpeg」または「.png」のものを指定してください</p>';
     }
@@ -228,7 +235,7 @@ function outputCompletionMessage($value)
             echo '<p class="success">'. COMPLETION_MSG_SIGNUP.'</p>';
         }
     }
-    if (!empty(['edit']['company'])) {
+    if (!empty($value['edit']['company'])) {
         if ($value['edit']['company'] === 'completed') {
             echo '<p class="success">'. COMPLETION_MSG_EDIT.'</p>';
         }

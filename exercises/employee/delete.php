@@ -25,6 +25,7 @@ if (!empty($_POST['id'])) {
 
 if (empty($id)) {
     header('Location: ../index.php');
+    exit();
 } else {
     //削除記録がないときのみ実行
     $statement = $db->prepare(
