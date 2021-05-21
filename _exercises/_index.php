@@ -45,7 +45,7 @@ foreach ($companies as $company) {
 
 $max_i = $i;
 
-if ($_GET['order'] === 'desc') {
+if (!empty($_GET['order']) && $_GET['order'] === 'desc') {
     $href = "_index.php";
 } else {
     $href = "_index.php?order=desc";
@@ -71,7 +71,7 @@ if ($_GET['order'] === 'desc') {
                     <th><?php echo $value ?></th>
                 <?php endforeach ?>    
             </tr>
-            <?php if ($_GET['order'] === 'desc') : ?>
+            <?php if (!empty($_GET['order']) && $_GET['order'] === 'desc') : ?>
                 <?php for ($i = $max_i-1; $i >= 0; $i--): ?>
                     <tr>
                         <?php for ($j = 0; $j < $column_len; $j++) : ?>
