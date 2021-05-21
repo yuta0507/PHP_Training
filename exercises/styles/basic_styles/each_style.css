@@ -45,6 +45,10 @@
     font-size: 12.5px;
 }
 
+.search .search-button {
+    cursor: pointer;
+}
+
 /* ↓ signup.php, edit.php のstyle ↓*/
 .container {
     text-align: center;

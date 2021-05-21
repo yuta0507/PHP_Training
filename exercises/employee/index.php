@@ -14,6 +14,7 @@ ini_set('display_errors', "On");
 
 require_once'../required_files/dbconnect.php';
 require_once'../required_files/functions.php';
+require_once'../required_files/paging.php';
 session_start();
 
 
@@ -41,8 +42,7 @@ $cnt = $counts->fetch();
 //現在のページと最大ページを設定
 if (!empty($_GET['page'])) {
     $page = h($_GET['page']);
-}
-if (empty($page)) {
+} else {
     $page = 1;
 }
 $max_page = ceil($cnt['cnt'] / $displayed_results);
@@ -188,95 +188,8 @@ if (!empty($_COOKIE['mode'])) {
                 <?php endforeach ?>
             </table>        
         </div>
-        <ul class="paging">
-            <?php if ($page > 1) : ?>
-                <li>
-                    <a href="<?php
-                    outputHref($employee_index, $page-1, null, $order);
-                    ?>">
-                        
-                        ≪
-                    </a>
-                </li>
-                <?php if ($page > 2) : ?>
-                    <li>
-                        <a href="<?php
-                        outputHref($employee_index, 1, null, $order);
-                        ?>">
-                            1
-                        </a>
-                    </li>
-                <?php endif ?>
-                <?php if ($page > 3 && $max_page != 4) : ?>
-                    <li>
-                        <span>...</span>
-                    </li>
-                <?php endif ?>
-                <?php if ($page == $max_page && $max_page != 3 && $max_page != 2) : ?>
-                    <li>
-                        <a href="<?php
-                        outputHref($employee_index, $max_page-2, null, $order);
-                        ?>">
-                            <?php echo $max_page-2; ?>
-                        </a>
-                    </li>
-                <?php endif ?>
-                <li>
-                    <a href="<?php
-                    outputHref($employee_index, $page-1, null, $order);
-                    ?>">
-                        <?php echo $page-1; ?>
-                    </a>
-                </li>    
-            <?php endif ?>
-            <li>
-                <a href="<?php
-                outputHref($employee_index, $page, null, $order);
-                ?>" 
-                class="current-page">
-                    <?php echo $page; ?>
-                </a>
-            </li>
-            <?php if ($page < $max_page) : ?>
-                <li>
-                    <a href="<?php
-                    outputHref($employee_index, $page+2, null, $order);
-                    ?>">
-                        <?php echo $page+1 ?>
-                    </a>
-                </li>
-                <?php if ($page == 1 && $max_page != 3 && $max_page != 2) : ?>
-                    <li>
-                        <a href="<?php
-                        outputHref($employee_index, 3, null, $order);
-                        ?>">
-                            3
-                        </a>
-                    </li>
-                <?php endif ?>
-                <?php if ($page < $max_page - 2 && $max_page != 4) : ?>
-                    <li>
-                        <span>...</span>
-                    </li>
-                <?php endif ?>
-                <?php if ($page < $max_page - 1) : ?>
-                    <li>
-                        <a href="<?php
-                        outputHref($employee_index, $max_page, null, $order);
-                        ?>">
-                            <?php echo $max_page; ?>
-                        </a>
-                    </li>
-                <?php endif ?>    
-                <li>
-                    <a href="<?php 
-                    outputHref($employee_index, $page+1, null, $order);
-                    ?>">
-                        ≫
-                    </a>
-                </li>
-            <?php endif ?>
-        </ul>
+        <!-- ページング -->
+        <?php outputPaging($employee_index, $page, $max_page, null, $order); ?>
     </div>
     <script src="../scripts/main.js"></script>
 </body>

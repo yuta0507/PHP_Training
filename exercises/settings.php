@@ -14,6 +14,7 @@ ini_set('display_errors', "On");
 
 $index = 'index.php';
 
+//もし表示件数に数字以外の文字が入ってきた場合のエラーチェック
 if (!empty($_POST)) {
     if (!is_numeric($_POST['displayed-results'])) {
         $error['displayed_results'] = 'not_numeric';
@@ -21,6 +22,7 @@ if (!empty($_POST)) {
 }
 
 if (!empty($_POST) && empty($error)) {
+    //画面表示モード設定
     if ($_POST['mode'] === 'dark-mode') {
         setcookie('mode', 'darkmode', time()+3600*24*365*10);
     }
@@ -28,6 +30,7 @@ if (!empty($_POST) && empty($error)) {
         setcookie('mode', '', time()-1);
     }
 
+    //表示件数設定
     if (is_numeric($_POST['displayed-results'])) {
         setcookie(
             'displayed_results', $_POST['displayed-results'], time()+3600*24*365*10
