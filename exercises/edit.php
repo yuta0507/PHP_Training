@@ -252,6 +252,7 @@ if (!empty($_COOKIE['mode'])) {
                     </tr>
                 </table>
             </div>
+            <a class="back" href="<?php echo $index ?>">≪会社一覧へ</a>
             <input type="submit" class="button-submit" value="登録">
         </form>
     </div>
