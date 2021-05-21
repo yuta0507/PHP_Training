@@ -5,13 +5,12 @@
  * PHP Version >= 7.2.24
  * 
  * @category Exercise
- * @package  Function
+ * @package  Functions
  * @author   Yuta Kikkawa <kikkawa@ye-p.co.jp>
  * @license  MIT License
- * @link     http://192.168.2.62/exercises/required_files/function.php
+ * @link     http://192.168.2.62/exercises/required_files/functions.php
  * */
 ini_set('display_errors', "On");
-
 
 /**
  * Function h.
@@ -45,11 +44,12 @@ function selectValue($db_table, $input_data, $column_name)
 /**
  * Function validateInputData.
  * 
- * @param string $input_data 文字列
- * @param array  $column     文字列
- * @param string $input_file 文字列
+ * @param string $input_data    文字列
+ * @param array  $column        配列
+ * @param array  $column_length 配列
+ * @param string $input_file    文字列
  * 
- * @return string
+ * @return array
  * */
 function validateInputData($input_data, $column, $column_length, $input_file)
 {
@@ -276,39 +276,6 @@ function outputPrefecture($value)
         ];
     
         echo $prefectures[$value-1];
-    }
-}
-
-/**
- * Function outputHref.
- * 
- * @param string $index 文字列
- * @param string $page  文字列
- * @param string $order 文字列
- * 
- * @return string
- * */
-function outputHref($index, $page, $search, $order) 
-{
-    $pattern = '/company_id/';
-    
-    //Company
-    if (preg_match($pattern, $index) === 0) {
-        echo $index .'?page=' .$page;
-        if (!empty($search)) {
-            echo "&search=$search";
-        } 
-        if ($order === 'desc') {
-            echo "&order=desc";
-        }
-    }
-
-    //Employee
-    if (preg_match($pattern, $index) === 1) {
-        echo $index .'&page=' .$page; 
-        if ($order === 'desc') {
-            echo "&order=desc";
-        } 
     }
 }
 ?>
