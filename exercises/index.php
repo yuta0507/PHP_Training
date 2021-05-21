@@ -14,6 +14,7 @@ ini_set('display_errors', "On");
 
 require_once'required_files/dbconnect.php';
 require_once'required_files/functions.php';
+require_once'required_files/paging.php';
 session_start();
 
 //表示件数を設定
@@ -206,95 +207,8 @@ if (!empty($_COOKIE['mode'])) {
                 <?php endforeach ?>    
             </table>
         </div>
-        <ul class="paging">
-            <?php if ($page > 1) : ?>
-                <li>
-                    <a href="<?php 
-                    outputHref($index, $page-1, $search, $order);  
-                    ?>">
-                        
-                        ≪
-                    </a>
-                </li>
-                <?php if ($page > 2) : ?>
-                    <li>
-                        <a href="<?php
-                        outputHref($index, 1, $search, $order);  
-                        ?>">
-                            1
-                        </a>
-                    </li>
-                <?php endif ?>
-                <?php if ($page > 3 && $max_page != 4) : ?>
-                    <li>
-                        <span>...</span>
-                    </li>
-                <?php endif ?>
-                <?php if ($page == $max_page && $max_page != 3 && $max_page != 2) :?>
-                    <li>
-                        <a href="<?php
-                        outputHref($index, $max_page-2, $search, $order);  
-                        ?>">
-                            <?php echo $max_page-2; ?>
-                        </a>
-                    </li>
-                <?php endif ?>
-                <li>
-                    <a href="<?php
-                    outputHref($index, $page-1, $search, $order);  
-                    ?>">
-                        <?php echo $page-1; ?>
-                    </a>
-                </li>    
-            <?php endif ?>
-            <li>
-                <a href="<?php
-                outputHref($index, $page, $search, $order);
-                ?>" 
-                class="current-page">
-                    <?php echo $page; ?>
-                </a>
-            </li>
-            <?php if ($page < $max_page) : ?>
-                <li>
-                    <a href="<?php
-                    outputHref($index, $page+1, $search, $order);  
-                    ?>">
-                        <?php echo $page+1 ?>
-                    </a>
-                </li>
-                <?php if ($page == 1 && $max_page != 3 && $max_page != 2) : ?>
-                    <li>
-                        <a href="<?php
-                        outputHref($index, 3, $search, $order);  
-                        ?>">
-                            3
-                        </a>
-                    </li>
-                <?php endif ?>
-                <?php if ($page < $max_page - 2 && $max_page != 4) : ?>
-                    <li>
-                        <span>...</span>
-                    </li>
-                <?php endif ?>
-                <?php if ($page < $max_page - 1) : ?>
-                    <li>
-                        <a href="<?php
-                        outputHref($index, $max_page, $search, $order);  
-                        ?>">
-                            <?php echo $max_page; ?>
-                        </a>
-                    </li>
-                <?php endif ?>    
-                <li>
-                    <a href="<?php
-                    outputHref($index, $page+1, $search, $order);  
-                    ?>">
-                        ≫
-                    </a>
-                </li>
-            <?php endif ?>
-        </ul>
+        <!-- ページング -->
+        <?php outputPaging($index, $page, $max_page, $search, $order); ?>
     </div>
         
     <script src="scripts/main.js"></script>
