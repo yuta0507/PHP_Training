@@ -98,10 +98,33 @@ table a {
     cursor: pointer;
     width: 99px;
     height: 41px;
-    margin: 20px 0;   
+    margin: 20px 10px 0 0;   
     background: linear-gradient(to top, #88a1dd 0%, #d5e9ff 100%);     
     color: black;        
     border: 1.5px solid #9dbaff;
+}
+
+.button-setting {
+    display: inline-block;
+    border-radius: 10px;         
+    font-size: 12.5px;        
+    text-align: center;
+    text-decoration: none;      
+    cursor: pointer;
+    width: 99px;
+    height: 41px;
+    margin-top: 20px;   
+    background: linear-gradient(to top, #88a1dd 0%, #d5e9ff 100%);     
+    color: black;        
+    border: 1.5px solid #9dbaff;
+}
+
+
+.back {
+    text-decoration: none;
+    color: deepskyblue;
+    position: relative;
+    margin-right: 30px;
 }
 
 .paging {

@@ -33,7 +33,9 @@ if (!empty($_GET['search'])) {
 }
 
 //データベース参照し、該当データの数を数える
-$counts = $db->query("SELECT COUNT(*) AS cnt from companies WHERE deleted IS NULL $like_sql");
+$counts = $db->query(
+    "SELECT COUNT(*) AS cnt from companies WHERE deleted IS NULL $like_sql"
+);
 $cnt = $counts->fetch();
 
 //ページング
