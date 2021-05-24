@@ -10,8 +10,6 @@
  * @license  MIT License
  * @link     http://192.168.2.62/exercises/employee/index.php
  * */ 
-ini_set('display_errors', "On");
-
 require_once'../required_files/dbconnect.php';
 require_once'../required_files/functions.php';
 require_once'../required_files/paging.php';

@@ -10,7 +10,6 @@
  * @license  MIT License
  * @link     http://192.168.2.62/exercises/required_files/paging.php
  * */
-ini_set('display_errors', "On");
 
 /**
  * Function outputHref.
