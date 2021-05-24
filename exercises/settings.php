@@ -14,10 +14,14 @@ ini_set('display_errors', "On");
 
 $index = 'index.php';
 
-//もし表示件数に数字以外の文字が入ってきた場合のエラーチェック
 if (!empty($_POST)) {
+    //もし表示件数に数字以外の文字が入ってきた場合のエラーチェック
     if (!is_numeric($_POST['displayed-results'])) {
         $error['displayed_results'] = 'not_numeric';
+    }
+    //もし表示件数に1未満の数字が入ってきた場合のエラーチェック
+    if ($_POST['displayed-results'] < 1) {
+        $error['displayed_results'] = 'number';
     }
 }
 
@@ -99,7 +103,7 @@ if (!empty($_COOKIE['mode'])) {
                 <input type="number" name="displayed-results" min="1"
                 value="<?php echo $_COOKIE['displayed_results'] ?>">
                 <?php if (!empty($error['displayed_results'])) : ?>
-                    <p class="error">*表示件数は半角数字で入力してください。</p>
+                    <p class="error">*表示件数は1以上の半角数字で入力してください。</p>
                 <?php endif ?>
             </div>
             <br>
