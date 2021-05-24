@@ -112,7 +112,7 @@ function randomKeyword()
 /**
  * Function randomAddress.
  * 
- * @return string
+ * @return array
  * */
 function randomAddress() 
 {
